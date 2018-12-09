@@ -1,0 +1,35 @@
+<!DOCTYPE tiles-definitions PUBLIC
+  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+  <tiles-definitions>
+  
+  	<definition name="common" template="/WEB-INF/views/layout/empty.jsp">
+  		<put-attribute name="title" value=""/>
+  		<put-attribute name="header" value=""/>
+  		<put-attribute name="menu" value=""/>
+  		<put-attribute name="footer" value=""/>
+  	</definition>
+  	
+  	<definition name="common/*" extends="common">
+  		<put-attribute name="body" value="/WEB-INF/views/common/{1}.jsp"></put-attribute>
+  	</definition>
+  	
+  	
+  	<definition name="base" template="/WEB-INF/views/layout/template.jsp">
+  		<put-attribute name="header" value="/WEB-INF/views/layout/header.jsp"/>
+  		<put-attribute name="leftside" value="/WEB-INF/views/layout/leftside.jsp"/>
+  		<put-attribute name="rightside" value="/WEB-INF/views/layout/rightside.jsp"/>
+  		<put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp"/>
+  	</definition>
+  	
+  	<definition name="*" extends="base">
+  		<put-attribute name="body" value="/WEB-INF/views/{1}.jsp"></put-attribute>
+  	</definition>
+  	
+  	<definition name="*/*" extends="base">
+  		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp"></put-attribute>
+  	</definition>
+  	
+  
+  </tiles-definitions>  
