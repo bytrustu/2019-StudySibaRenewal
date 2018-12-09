@@ -25,7 +25,8 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.studysiba.controller" />
-	
+	<context:component-scan base-package="com.studysiba.service" />
+	<context:component-scan base-package="com.studysiba.dao" />
 	
 	<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<beans:property name="definitions">

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.studysiba.mapper.MemberMapper">
+  
+  <insert id="insertTest">
+  	<selectKey keyProperty="no" order="BEFORE" resultType="long">
+  		select max(no+1) from test
+  	</selectKey>
+  	insert into test(no,text) values( #{no},#{text})
+  </insert>
+  
+  
+  
+  
+  
+  </mapper>
