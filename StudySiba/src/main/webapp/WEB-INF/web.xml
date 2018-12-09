@@ -43,5 +43,16 @@
 		<filter-name>encoding</filter-name>
 		<servlet-name>appServlet</servlet-name>
 	</filter-mapping>
+	
+	
+	<error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/views/common/error404.jsp</location>
+    </error-page>
+    
+    <error-page>
+        <error-code>500</error-code>
+        <location>/WEB-INF/views/common/error500.jsp</location>
+    </error-page>
 
 </web-app>
