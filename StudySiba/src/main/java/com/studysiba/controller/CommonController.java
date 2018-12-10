@@ -15,23 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class CommonController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(CommonController.class);
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		 logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		return "home";
-	}
 	
-	@RequestMapping(value="/member/test", method=RequestMethod.GET)
-	public String test() {
-		return "member/test";
+	@RequestMapping(value="/", method=RequestMethod.GET)
+	public String main() {
+		logger.info("move main");
+		return "/common/main";
 	}
 	
 }

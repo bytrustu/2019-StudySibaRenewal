@@ -1,0 +1,597 @@
+.warp {
+    margin: 0;
+    padding: 0;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+.layout-topheader {
+    height: 5%;
+}
+
+.layout-menu {
+    position: absolute;
+    top: 7%;
+    background-color: transparent;
+}
+
+.menu-title {
+    margin-left: 4%;
+}
+
+.menu-pre {
+    color: #9a9da0;
+    font-weight: bold;
+}
+
+.menu-last {
+    color: #F07171;
+    font-weight: bold;
+}
+
+.menu-icon {
+    font-size: 1.5rem;
+    color: #9a9da0;
+}
+
+.menu-dropicon {
+    color: #9a9da0;
+    text-decoration: none;
+}
+
+.menu-infobtn {
+    position: absolute;
+    right: 3%;
+}
+
+ul.navbar-nav > li.nav-item {
+    margin: 4% 10% 5% 10%;
+}
+
+.menu-dropmenu {
+    position: absolute;
+    left: -225%;
+}
+
+.content_top {
+    background-image: url("/images/main/content_backgorund.jpg");
+    background-size: cover;
+    min-height: 50%;
+    z-index: 100;
+}
+
+.content_text {
+    z-index: 200;
+    float: left;
+}
+
+.context_pretext {
+    position: absolute;
+    color: white;
+    font-size: 1.4rem;
+    top: 30%;
+    left: 33%;
+}
+
+.context_lasttext {
+    position: absolute;
+    color: white;
+    font-size: 2.5rem;
+    font-weight: bold;
+    top: 32%;
+    left: 30.5%;
+}
+
+.content_main {
+    position: absolute;
+    width: auto;
+    left: 44%;
+    top: 15%;
+    z-index: 200;
+}
+
+.content_mainimage {
+    width: 100%
+}
+
+.content_bottom {
+    display: inline-block;
+    height: 45%;
+    width: 100%;
+    background-color: #f4f5f7;
+}
+
+.content_container {
+    float: left;
+    width: 16%;
+    min-height: 70%;
+    border: 1px solid #b3b3b3;
+    background-color: white;
+    border-radius: 15px;
+    margin-top: 3%;
+    margin-left: 4%;
+}
+
+.content_first {
+    margin-left: 13%;
+}
+
+.content_titletext {
+    background-color: #3c578e;
+    padding: 8%;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+    text-align: center;
+}
+
+.content_icon {
+    margin-right: 4%;
+}
+
+.content_toptext {
+    font-weight: bold;
+    color: white;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.content_textmiddle {
+    color: #F07171;
+    font-size: 1.3rem;
+}
+
+.content_info {
+    height: 40%;
+    border-bottom: 1px solid #b3b3b3;
+    position: relative;
+}
+
+.content_infotext {
+    position: absolute;
+    left: 10%;
+    top: 25%;
+    color: black;
+    font-weight: bold;
+}
+
+.content_body {}
+
+.content_connectbody {
+    overflow-y: scroll;
+    height: 50%;
+}
+
+.content_rank {
+    background-color: white;
+    margin: 4.5% 5% 0% 10%;
+    height: 11%;
+    position: relative;
+    cursor: pointer;
+}
+
+.content_ranknum {
+    z-index: 100;
+    width: 15%;
+    height: 80%;
+    position: absolute;
+    left: 0;
+}
+
+.content_like {
+    position: absolute;
+    left: 25%;
+    top: 35%;
+    width: 7%;
+}
+
+.content_liketext {
+    position: absolute;
+    left: 33%;
+    top: 26%;
+    color: #c03a2b;
+    font-weight: bold;
+}
+
+.content_boardtitle {
+    position: absolute;
+    left: 45%;
+    top: 26%;
+    font-weight: bold;
+}
+
+.content_rankimage {
+    width: 21%;
+    z-index: 1;
+    position: absolute;
+}
+
+.content_connect {
+    margin: 4.5% 5% 0% 10%;
+}
+
+.content_user {
+    width: 20%;
+}
+
+.content_connecticon {
+    width: 10%;
+    float: right;
+    margin-right: 2%;
+    margin-top: 5%;
+    cursor: pointer;
+}
+
+.content_connect > span {
+    margin-left: 8%;
+    margin-right: 8%;
+    font-weight: bold;
+}
+
+.content_loginbtn {
+    position: absolute;
+    left: 10%;
+    top: 53%;
+    width: 80%;
+    height: 30%;
+    border: 1px solid white;
+    border-radius: 10px;
+    background-color: #3c578e;
+}
+
+.content_loginbtn:hover {
+    background-color: #5678bf;
+    border: 1px solid white;
+}
+
+.content_textbtn {
+    margin-top: 3.5%;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.content_login {
+    position: relative;
+    background-color: white;
+    height: 30%;
+    border-bottom-left-radius: 14px;
+    border-bottom-right-radius: 14px;
+}
+
+.content_logintext {
+    position: absolute;
+    width: 100%;
+    top: 20%;
+}
+
+.content_pretext {
+    font-weight: bold;
+    color: black;
+    margin-left: 19%;
+    cursor: pointer;
+}
+
+.content_middletext {
+    font-weight: bold;
+    color: black;
+    margin-left: 4%;
+    margin-right: 4%;
+}
+
+.content_lasttext {
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+}
+
+.content_socials {
+    position: absolute;
+    left: 16%;
+    top: 50%;
+}
+
+.content_socialicon {
+    width: 15%;
+    margin-left: 4%;
+    cursor: pointer;
+}
+
+.content_marginfix {
+    margin-top: 0;
+    cursor: pointer;
+}
+
+.content_point {
+    margin-left: 13%;
+}
+
+.content_point > img {
+    display: inline-block;
+}
+
+.content_point > p {
+    display: inline-block;
+    font-weight: bold;
+    margin: 0;
+    margin-bottom: 0.8%;
+}
+
+.content_allview {
+    position: absolute;
+    right: 11.5%;
+    top: 99.5%;
+}
+
+.content_allview > .btn {
+    font-weight: bold;
+}
+
+.content_meettitle {
+    height: 38%;
+    background-image: url("/images/main/test3.jpg");
+    background-size: cover;
+}
+
+.content_date {
+    border-radius: 15px;
+    width: 30%;
+    height: 60%;
+    background-color: white;
+}
+
+.content_month {
+    margin: 0;
+    padding-top: 8%;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.content_day {
+    margin: 0;
+    font-weight: bold;
+    color: #ff1a1a;
+    font-size: 1.5rem;
+}
+
+.content_meetbody {
+    position: relative;
+    height: 28%;
+}
+
+.content_meetinfo {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    height: 50%;
+}
+
+.content_meetsubject {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 5% 0 5% 5%
+}
+
+.content_meetinfo > img {
+    width: 15%;
+    margin: 2.5% 2.5% 0 5%;
+}
+
+.content_meetinfo span {
+    font-size: 0.8rem;
+    color: #3a393c;
+    font-weight: bold;
+}
+
+.content_groupleader {
+    position: absolute;
+    left: 26%;
+    top: 18%;
+}
+
+.content_groupname {
+    position: absolute;
+    left: 26%;
+    top: 50%;
+}
+
+.clear-fix {
+    clear: both
+}
+
+.layout-footer {
+    background-color: #343434;
+    min-height: 18%;
+    position: relative;
+}
+
+.footer_left {
+    height: 15%;
+    width: 15%;
+    float: left;
+}
+
+.footer_center {
+    height: 15%;
+    width: 60%;
+    float: left;
+}
+
+.footer_right {
+    height: 15%;
+    width: 25%;
+    float: left;
+}
+
+.footer_logo {
+    position: absolute;
+    left: 8%;
+    top: 25%;
+}
+
+.footer_name {
+    position: absolute;
+    left: 7%;
+    top: 70%;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: white;
+}
+
+.footer_line {
+    position: absolute;
+    top: 10%;
+    left: 14%;
+    height: 80%
+}
+
+.footer_center {
+    padding-top: 1.8%;
+    padding-left: 5%;
+}
+
+.footer_center > p {
+    margin: 0;
+    font-weight: bold;
+    color: white;
+    margin-top: 0.9%;
+}
+
+.footer-icons {
+    color: white;
+    font-size: 5rem;
+    margin-top: 10%;
+    margin-left: 8%;
+    cursor: pointer;
+}
+
+.test1 {
+    background-image: url("/images/main/test1.jpg");
+    background-size: cover;
+}
+
+.test2 {
+    background-image: url("/images/main/test2.jpg");
+    background-size: cover;
+}
+
+.test3 {
+    background-image: url("/images/main/test3.jpg");
+    background-size: cover;
+}
+
+.test4 {
+    background-image: url("/images/main/test4.jpg");
+    background-size: cover;
+}
+
+
+/*
+**     모달 창 CSS
+*/
+
+
+/*
+**    회원 로그인 모달
+*/
+
+.loginmodal_warp {
+    top: -10%;
+}
+
+.loginmodal_body {
+    text-align: center;
+}
+
+.loginmodal_image {
+    padding: 5% 0;
+    width: 40%;
+}
+
+.loginmodal_title {
+    font-weight: bold;
+    font-size: 1.7rem;
+    padding: 2% 0;
+}
+
+.loginmodal_loginid,
+.loginmodal_loginpass {
+    width: 90%;
+    padding: 1.5% 3%;
+    border-radius: 10px;
+    border: 1px solid #b7b7b7;
+    font-size: 1rem;
+    margin-bottom: 4%;
+}
+
+.loginmodal_loginbtn {
+    width: 90%;
+    padding: 3%;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 5%;
+    background-color: #3c578e;
+}
+
+
+/*
+**    회원 가입 모달
+*/
+
+.joinmodal_warp {
+    /*position: relative;*/
+}
+
+.joinmodal_body {
+    text-align: center;
+}
+
+.joinmodal_choose {
+    position: absolute;
+    top: 41px;
+    left: 280px;
+    cursor: pointer;
+}
+
+.joinmodal_image {
+    width: 40%;
+    padding: 5% 0;
+}
+
+.joinmodal_title {
+    padding: 2% 0;
+    font-weight: bold;
+    font-size: 1.7rem;
+}
+
+.joinmodal_joinid,
+.joinmodal_joinpass {
+    width: 70%;
+    padding: 1.5% 3%;
+    border: 1px solid #b7b7b7;
+    border-radius: 5px;
+    margin-bottom: 3%;
+    font-size: 1rem;
+}
+
+.joinmodal_joinbtn {
+    width: 70%;
+    padding: 3%;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 5%;
+}
+
+.validation_false {
+    font-size: 18px;
+    height: 40px;
+    width: 80px;
+    color: white;
+    font-weight: bold;
+}
+
+.validation_final{
+    height: 58px;
+    width: 80px;
+    color: white;
+    font-size: 1.2rem;
+    margin-top: -5%;
+    font-weight: bold;
+}
