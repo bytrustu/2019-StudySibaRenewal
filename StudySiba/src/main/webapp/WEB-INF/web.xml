@@ -45,10 +45,10 @@
 	</filter-mapping>
 	
 	
-	<error-page>
+	<!-- <error-page>
         <error-code>404</error-code>
         <location>/WEB-INF/views/common/error404.jsp</location>
-    </error-page>
+    </error-page> -->
     
     <error-page>
         <error-code>500</error-code>

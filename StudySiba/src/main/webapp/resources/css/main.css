@@ -1,12 +1,26 @@
+/*
+**      전체영역
+*/
+
 .warp {
     margin: 0;
     padding: 0;
     font-family: 'Nanum Gothic', sans-serif;
 }
 
+
+/*
+**      최상단 흰여백
+*/
+
 .layout-topheader {
     height: 5%;
 }
+
+
+/*
+**      상단 메뉴바
+*/
 
 .layout-menu {
     position: absolute;
@@ -52,6 +66,11 @@ ul.navbar-nav > li.nav-item {
     left: -225%;
 }
 
+
+/*
+**      중앙 배경 및 그림부분
+*/
+
 .content_top {
     background-image: url("/images/main/content_backgorund.jpg");
     background-size: cover;
@@ -92,6 +111,11 @@ ul.navbar-nav > li.nav-item {
 .content_mainimage {
     width: 100%
 }
+
+
+/*
+**      중앙 하단 정보부분 뷰
+*/
 
 .content_bottom {
     display: inline-block;
@@ -248,6 +272,12 @@ ul.navbar-nav > li.nav-item {
     font-weight: bold;
 }
 
+
+/*
+**      로그인 및 회원가입 부분
+*/
+
+
 .content_login {
     position: relative;
     background-color: white;
@@ -294,10 +324,24 @@ ul.navbar-nav > li.nav-item {
     cursor: pointer;
 }
 
+.content_modalsocialwarp{
+	margin-bottom: 3%;
+}
+
+.content_modalsocial {
+	margin: 0;
+}
+
 .content_marginfix {
     margin-top: 0;
     cursor: pointer;
 }
+
+
+
+/*
+**     스터디 정보 부분
+*/
 
 .content_point {
     margin-left: 13%;
@@ -392,9 +436,35 @@ ul.navbar-nav > li.nav-item {
     top: 50%;
 }
 
+
+.test1 {
+    background-image: url("/images/main/test1.jpg");
+    background-size: cover;
+}
+
+.test2 {
+    background-image: url("/images/main/test2.jpg");
+    background-size: cover;
+}
+
+.test3 {
+    background-image: url("/images/main/test3.jpg");
+    background-size: cover;
+}
+
+.test4 {
+    background-image: url("/images/main/test4.jpg");
+    background-size: cover;
+}
+
 .clear-fix {
     clear: both
 }
+
+
+/*
+**      푸터 영역
+*/
 
 .layout-footer {
     background-color: #343434;
@@ -443,8 +513,8 @@ ul.navbar-nav > li.nav-item {
 }
 
 .footer_center {
-    padding-top: 1.8%;
-    padding-left: 5%;
+    padding-top: 6%;
+    padding-left: 23%;
 }
 
 .footer_center > p {
@@ -462,34 +532,38 @@ ul.navbar-nav > li.nav-item {
     cursor: pointer;
 }
 
-.test1 {
-    background-image: url("/images/main/test1.jpg");
-    background-size: cover;
-}
-
-.test2 {
-    background-image: url("/images/main/test2.jpg");
-    background-size: cover;
-}
-
-.test3 {
-    background-image: url("/images/main/test3.jpg");
-    background-size: cover;
-}
-
-.test4 {
-    background-image: url("/images/main/test4.jpg");
-    background-size: cover;
-}
-
 
 /*
-**     모달 창 CSS
+**    소셜로그인
 */
 
+.social_warp{
+    position: absolute;
+    background-image: url("/images/main/social-back.jpg");
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.sociallogin_warp{
+    margin: 8% 37%;
+    width: 26%;
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 2%;
+    background-color: white;
+}
+
+.social_choose {
+    position: absolute;
+    top: 22%;
+    left: 51%;
+    cursor: pointer;
+}
+
 
 /*
-**    회원 로그인 모달
+**    모달창 : 회원 로그인
 */
 
 .loginmodal_warp {
@@ -532,7 +606,7 @@ ul.navbar-nav > li.nav-item {
 
 
 /*
-**    회원 가입 모달
+**    모달창 : 회원 가입
 */
 
 .joinmodal_warp {
@@ -587,11 +661,12 @@ ul.navbar-nav > li.nav-item {
     font-weight: bold;
 }
 
-.validation_final{
+.validation_final {
     height: 58px;
     width: 80px;
     color: white;
     font-size: 1.2rem;
     margin-top: -5%;
+    padding-top: 3%;
     font-weight: bold;
 }

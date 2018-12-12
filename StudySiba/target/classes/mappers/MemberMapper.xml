@@ -12,8 +12,12 @@
   	insert into test(no,text) values( #{no},#{text})
   </insert>
   
-  
-  
-  
+  <insert id="socialJoin">
+  	<selectKey keyProperty="no" order="BEFORE" resultType="long">
+  		select coalesce(max(no+1),1) as no from member
+  	</selectKey>
+  	insert into member
+  	values ( #{no}, #{type}, 'normal', #{id}, #{sId}, '', #{nick}, #{eMail}, #{proFile}, now(), now() )
+  </insert>
   
   </mapper>

@@ -8,24 +8,50 @@
 		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
-	
-	
-		<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-			<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-			<property name="url" value="jdbc:mysql://localhost:3306/studysiba"></property>
-			<property name="username" value="bytrustu"></property>
-			<property name="password" value="dydwns89"></property>
-		</bean>
-		
-		<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-			<property name="dataSource" ref="dataSource"></property>
-			<!-- <property name="configLocation" value="classpath:/mybatis-config.xml"></property>
-			 --><property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"></property>
-		</bean>
-		
-		<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
-			<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory">
-			</constructor-arg>
-		</bean>
-		
+
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/studysiba"></property>
+		<property name="username" value="bytrustu"></property>
+		<property name="password" value="dydwns89"></property>
+	</bean>
+
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- <property name="configLocation" value="classpath:/mybatis-config.xml"></property> -->
+		<property name="mapperLocations"
+			value="classpath:mappers/**/*Mapper.xml"></property>
+	</bean>
+
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate"
+		destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory"
+			ref="sqlSessionFactory">
+		</constructor-arg>
+	</bean>
+
+
+	<!-- Google 소셜 로그인 연결 설정 -->
+	<bean id="googleConnectionFactory"
+		class="org.springframework.social.google.connect.GoogleConnectionFactory">
+		<constructor-arg
+			value="532305841689-aqcb5shljcd349rabgu3m6nn3ihvsfu0.apps.googleusercontent.com" />
+		<constructor-arg value="wTpvr4H-LnE5gAMrcWS47LTO" />
+	</bean>
+
+	<bean id="googleOAuth2Parameters"
+		class="org.springframework.social.oauth2.OAuth2Parameters">
+		<property name="scope"
+			value="https://www.googleapis.com/auth/plus.login"></property>
+		<property name="redirectUri"
+			value="http://localhost:8282/login/googleSignInCallback" />
+
+	</bean>
+
+
 </beans>

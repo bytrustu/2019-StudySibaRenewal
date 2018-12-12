@@ -1,0 +1,361 @@
+-- MEMBER
+CREATE TABLE `MEMBER` (
+	`NO`      int(10)     NOT NULL, -- NO
+	`TYPE`    varchar(20) NULL,     -- TYPE
+	`AUTH`    varchar(20) NULL,     -- AUTH
+	`ID`      varchar(50) NOT NULL, -- ID
+	`SID`     varchar(50) NULL,     -- SID
+	`PASS`    varchar(50) NULL,     -- PASS
+	`NICK`    varchar(20) NULL,     -- NICK
+	`EMAIL`   varchar(50) NULL,     -- EMAIL
+	`PROFILE` varchar(50) NULL,     -- PROFILE
+	`CDATE`   TIMESTAMP   NULL,     -- CDATE
+	`MDATE`   TIMESTAMP   NULL      -- MDATE
+);
+
+-- MEMBER
+ALTER TABLE `MEMBER`
+	ADD CONSTRAINT `PK_MEMBER` -- MEMBER 기본키
+		PRIMARY KEY (
+			`ID` -- ID
+		);
+
+-- VISIT
+CREATE TABLE `VISIT` (
+	`NO`    int(10)     NULL,     -- NO
+	`ID`    varchar(50) NOT NULL, -- ID
+	`VDATE` TIMESTAMP   NULL      -- VDATE
+);
+
+-- FRIEND
+CREATE TABLE `FRIEND` (
+	`NO`      int(10)     NULL,     -- NO
+	`ID`      varchar(50) NOT NULL, -- ID
+	`FID`     varchar(50) NULL,     -- FID
+	`REQUEST` int(5)      NULL      -- REQUEST
+);
+
+-- MESSAGE
+CREATE TABLE `MESSAGE` (
+	`NO`      int(10)      NULL,     -- NO
+	`ID`      varchar(50)  NOT NULL, -- ID
+	`TYPE`    varchar(20)  NULL,     -- TYPE
+	`FID`     varchar(50)  NULL,     -- FID
+	`CONTENT` varchar(500) NULL,     -- CONTENT
+	`READ`    int(5)       NULL,     -- READ
+	`mdate`   TIMESTAMP    NULL      -- MDATE
+);
+
+-- UPLOAD
+CREATE TABLE `UPLOAD` (
+	`NO`      int(10)      NOT NULL, -- NO
+	`UNO`     int(10)      NOT NULL, -- UNO
+	`TYPE`    varchar(20)  NULL,     -- TYPE
+	`CONTENT` varchar(200) NULL,     -- CONTENT
+	`UUID`    varchar(50)  NULL,     -- UUID
+	`UFILE`   varchar(50)  NULL,     -- UFILE
+	`UDATE`   TIMESTAMP    NULL      -- UPDATE
+);
+
+-- BOARD
+CREATE TABLE `BOARD` (
+	`NO`        int(10)       NOT NULL, -- NO
+	`TYPE`      varchar(20)   NULL,     -- TYPE
+	`ID`        varchar(50)   NOT NULL, -- ID
+	`TITLE`     varchar(100)  NULL,     -- TITLE
+	`CONTENT`   varchar(2048) NULL,     -- CONTENT
+	`GNO`       int(5)        NULL,     -- GNO
+	`STEP`      int(5)        NULL,     -- STEP
+	`INDENT`    int(5)        NULL,     -- INDENET
+	`COUNT`     int(10)       NULL,     -- COUNT
+	`AVAILABLE` int(5)        NULL,     -- AVAILABLE
+	`BDATE`     TIMESTAMP     NULL      -- BDATE
+);
+
+-- BOARD
+ALTER TABLE `BOARD`
+	ADD CONSTRAINT `PK_BOARD` -- BOARD 기본키
+		PRIMARY KEY (
+			`NO` -- NO
+		);
+
+-- LIKE
+CREATE TABLE `LIKE` (
+	`NO`    int(10)     NULL,     -- NO
+	`FNO`   int(10)     NOT NULL, -- FNO
+	`TYPE`  varchar(20) NULL,     -- TYPE
+	`ID`    varchar(50) NULL,     -- ID
+	`LDATE` TIMESTAMP   NULL      -- LDATE
+);
+
+-- COMMENT
+CREATE TABLE `COMMENT` (
+	`NO`        int(10)      NOT NULL, -- NO
+	`FNO`       int(10)      NOT NULL, -- FNO
+	`TYPE`      varchar(20)  NULL,     -- TYPE
+	`PREID`     varchar(50)  NULL,     -- PREID
+	`NICK`      varchar(20)  NULL,     -- NICK
+	`CONTENT`   varchar(500) NULL,     -- CONTENT
+	`GNO`       int(5)       NULL,     -- GNO
+	`STEP`      int(5)       NULL,     -- STEP
+	`INDENT`    int(5)       NULL,     -- INDENT
+	`AVAILABLE` int(5)       NULL,     -- AVAILABLE
+	`CDATE`     TIMESTAMP    NULL      -- CDATE
+);
+
+-- STUDYBOARD
+CREATE TABLE `STUDYBOARD` (
+	`NO`        int(10)      NOT NULL, -- NO
+	`ID`        varchar(50)  NOT NULL, -- ID
+	`GNAME`     varchar(20)  NULL,     -- GNAME
+	`DIVIDE`    varchar(30)  NULL,     -- DIVIDE
+	`TITLE`     varchar(100) NULL,     -- TITLE
+	`CONTENT`   varchar(500) NULL,     -- CONTENT
+	`LAT`       varchar(30)  NULL,     -- LAT
+	`LNG`       varchar(30)  NULL,     -- LNG
+	`AREA`      varchar(30)  NULL,     -- AREA
+	`ADDRESS`   varchar(200) NULL,     -- ADDRESS
+	`TOPER`     varchar(30)  NULL,     -- TOPER
+	`FROMPER`   varchar(30)  NULL,     -- FROMPER
+	`TIME`      varchar(100) NULL,     -- TIME
+	`PERSON`    int(5)       NULL,     -- PERSON
+	`AVAILABLE` int(5)       NULL,     -- AVAILABLE
+	`RDATE`     TIMESTAMP    NULL,     -- RDATE
+	`SDATE`     TIMESTAMP    NULL      -- SDATE
+);
+
+-- STUDYBOARD
+ALTER TABLE `STUDYBOARD`
+	ADD CONSTRAINT `PK_STUDYBOARD` -- STUDYBOARD 기본키
+		PRIMARY KEY (
+			`NO` -- NO
+		);
+
+-- GROUP
+CREATE TABLE `GROUP` (
+	`NO`    int(10)     NULL,     -- NO
+	`GNO`   int(10)     NOT NULL, -- GNO
+	`ID`    varchar(50) NULL,     -- ID
+	`GNAME` varchar(20) NULL,     -- GNAME
+	`GDATE` TIMESTAMP   NULL      -- GDATE
+);
+
+-- GROUP
+ALTER TABLE `GROUP`
+	ADD CONSTRAINT `PK_GROUP` -- GROUP 기본키
+		PRIMARY KEY (
+			`GNO` -- GNO
+		);
+
+-- GROUPMEMBER
+CREATE TABLE `GROUPMEMBER` (
+	`NO`    int(10)     NULL, -- NO
+	`GNO`   int(10)     NULL, -- GNO
+	`ID`    varchar(50) NULL, -- ID
+	`GDATE` TIMESTAMP   NULL  -- GDATE
+);
+
+-- GROUPMESSAGE
+CREATE TABLE `GROUPMESSAGE` (
+	`no`      int(10)      NULL, -- NO
+	`GNO`     int(10)      NULL, -- GNO
+	`ID`      varchar(50)  NULL, -- ID
+	`CONTENT` varchar(500) NULL, -- CONTENT
+	`GDATE`   TIMESTAMP    NULL  -- GDATE
+);
+
+-- DATALOG
+CREATE TABLE `DATALOG` (
+	`NO`    int(10)      NULL, -- NO
+	`DNO`   int(10)      NULL, -- DNO
+	`TYPE`  varchar(30)  NULL, -- TYPE
+	`ID`    varchar(50)  NULL, -- ID
+	`TITLE` varchar(100) NULL, -- TITLE
+	`DDATE` TIMESTAMP    NULL  -- DDATE
+);
+
+-- VISIT
+ALTER TABLE `VISIT`
+	ADD CONSTRAINT `FK_MEMBER_TO_VISIT` -- MEMBER -> VISIT
+		FOREIGN KEY (
+			`ID` -- ID
+		)
+		REFERENCES `MEMBER` ( -- MEMBER
+			`ID` -- ID
+		)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE;
+
+-- FRIEND
+ALTER TABLE `FRIEND`
+	ADD CONSTRAINT `FK_MEMBER_TO_FRIEND` -- MEMBER -> FRIEND
+		FOREIGN KEY (
+			`ID` -- ID
+		)
+		REFERENCES `MEMBER` ( -- MEMBER
+			`ID` -- ID
+		)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE;
+
+-- MESSAGE
+ALTER TABLE `MESSAGE`
+	ADD CONSTRAINT `FK_MEMBER_TO_MESSAGE` -- MEMBER -> MESSAGE
+		FOREIGN KEY (
+			`ID` -- ID
+		)
+		REFERENCES `MEMBER` ( -- MEMBER
+			`ID` -- ID
+		)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE;
+
+-- UPLOAD
+ALTER TABLE `UPLOAD`
+	ADD CONSTRAINT `FK_STUDYBOARD_TO_UPLOAD` -- STUDYBOARD -> UPLOAD
+		FOREIGN KEY (
+			`UNO` -- UNO
+		)
+		REFERENCES `STUDYBOARD` ( -- STUDYBOARD
+			`NO` -- NO
+		)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE;
+
+-- UPLOAD
+ALTER TABLE `UPLOAD`
+	ADD CONSTRAINT `FK_BOARD_TO_UPLOAD` -- BOARD -> UPLOAD
+		FOREIGN KEY (
+			`UNO` -- UNO
+		)
+		REFERENCES `BOARD` ( -- BOARD
+			`NO` -- NO
+		)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE;
+
+-- UPLOAD
+ALTER TABLE `UPLOAD`
+	ADD CONSTRAINT `FK_GROUP_TO_UPLOAD` -- GROUP -> UPLOAD
+		FOREIGN KEY (
+			`UNO` -- UNO
+		)
+		REFERENCES `GROUP` ( -- GROUP
+			`GNO` -- GNO
+		)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE;
+
+-- BOARD
+ALTER TABLE `BOARD`
+	ADD CONSTRAINT `FK_MEMBER_TO_BOARD` -- MEMBER -> BOARD
+		FOREIGN KEY (
+			`ID` -- ID
+		)
+		REFERENCES `MEMBER` ( -- MEMBER
+			`ID` -- ID
+		)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE;
+
+-- LIKE
+ALTER TABLE `LIKE`
+	ADD CONSTRAINT `FK_BOARD_TO_LIKE` -- BOARD -> LIKE
+		FOREIGN KEY (
+			`FNO` -- FNO
+		)
+		REFERENCES `BOARD` ( -- BOARD
+			`NO` -- NO
+		)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE;
+
+-- COMMENT
+ALTER TABLE `COMMENT`
+	ADD CONSTRAINT `FK_BOARD_TO_COMMENT` -- BOARD -> COMMENT
+		FOREIGN KEY (
+			`FNO` -- FNO
+		)
+		REFERENCES `BOARD` ( -- BOARD
+			`NO` -- NO
+		)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE;
+
+-- STUDYBOARD
+ALTER TABLE `STUDYBOARD`
+	ADD CONSTRAINT `FK_MEMBER_TO_STUDYBOARD` -- MEMBER -> STUDYBOARD
+		FOREIGN KEY (
+			`ID` -- ID
+		)
+		REFERENCES `MEMBER` ( -- MEMBER
+			`ID` -- ID
+		)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE;
+
+-- GROUP
+ALTER TABLE `GROUP`
+	ADD CONSTRAINT `FK_STUDYBOARD_TO_GROUP` -- STUDYBOARD -> GROUP
+		FOREIGN KEY (
+			`GNO` -- GNO
+		)
+		REFERENCES `STUDYBOARD` ( -- STUDYBOARD
+			`NO` -- NO
+		)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE;
+
+-- GROUPMEMBER
+ALTER TABLE `GROUPMEMBER`
+	ADD CONSTRAINT `FK_GROUP_TO_GROUPMEMBER` -- GROUP -> GROUPMEMBER
+		FOREIGN KEY (
+			`GNO` -- GNO
+		)
+		REFERENCES `GROUP` ( -- GROUP
+			`GNO` -- GNO
+		)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE;
+
+-- GROUPMESSAGE
+ALTER TABLE `GROUPMESSAGE`
+	ADD CONSTRAINT `FK_GROUP_TO_GROUPMESSAGE` -- GROUP -> GROUPMESSAGE
+		FOREIGN KEY (
+			`GNO` -- GNO
+		)
+		REFERENCES `GROUP` ( -- GROUP
+			`GNO` -- GNO
+		)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE;
+
+-- DATALOG
+ALTER TABLE `DATALOG`
+	ADD CONSTRAINT `FK_BOARD_TO_DATALOG` -- BOARD -> DATALOG
+		FOREIGN KEY (
+			`DNO` -- DNO
+		)
+		REFERENCES `BOARD` ( -- BOARD
+			`NO` -- NO
+		);
+
+-- DATALOG
+ALTER TABLE `DATALOG`
+	ADD CONSTRAINT `FK_STUDYBOARD_TO_DATALOG` -- STUDYBOARD -> DATALOG
+		FOREIGN KEY (
+			`DNO` -- DNO
+		)
+		REFERENCES `STUDYBOARD` ( -- STUDYBOARD
+			`NO` -- NO
+		);
+
+-- DATALOG
+ALTER TABLE `DATALOG`
+	ADD CONSTRAINT `FK_MEMBER_TO_DATALOG` -- MEMBER -> DATALOG
+		FOREIGN KEY (
+			`ID` -- ID
+		)
+		REFERENCES `MEMBER` ( -- MEMBER
+			`ID` -- ID
+		);
