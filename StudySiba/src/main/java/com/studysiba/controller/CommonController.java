@@ -36,12 +36,6 @@ public class CommonController {
 	
 	
 	@RequestMapping(value="/", method=RequestMethod.GET)
-	public String test1() {
-		return "common/test";
-	}
-	
-	
-	@RequestMapping(value="/a", method=RequestMethod.GET)
 	public String main(Model model, HttpSession session) throws UnsupportedEncodingException {
 		logger.info("move main");
 		
