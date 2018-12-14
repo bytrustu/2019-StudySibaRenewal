@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import java.security.SecureRandom;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
@@ -49,7 +50,6 @@ public class CommonController {
 		String google_url = oauthOperations.buildAuthenticateUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
 		model.addAttribute("google_url", google_url);
 		
-			
 		// 네이버 로그인 API 주소값
 		String clientId = "zNHid8dBGPt5XXNtGjyU";//애플리케이션 클라이언트 아이디값";
 	    String redirectURI = URLEncoder.encode("http://127.0.0.1:8282/", "UTF-8");

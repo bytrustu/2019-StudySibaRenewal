@@ -185,7 +185,6 @@ public class LoginController {
         }
 		return "redirect:"+path;
 	}
-
 }
 
 

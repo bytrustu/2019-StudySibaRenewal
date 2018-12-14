@@ -29,6 +29,26 @@ public class MemberServiceImpl implements MemberService {
 	public int socialJoin(MemberVO memberVO) {
 		return memberDAO.socialJoin(memberVO);
 	}
+
+	@Override
+	public String valueCheckId(String value) {
+		return memberDAO.valueCheckId(value);
+	}
+
+	@Override
+	public String valueCheckNick(String value) {
+		return memberDAO.valueCheckNick(value);
+	}
+
+	@Override
+	public String valueCheckEmail(String value) {
+		return memberDAO.valueCheckEmail(value);
+	}
+
+	@Override
+	public String valueCheckPass(String id) {
+		return memberDAO.valueCheckPass(id);
+	}
 	
 	
 	

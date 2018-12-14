@@ -327,7 +327,6 @@ ul.navbar-nav > li.nav-item {
 .content_modalsocialwarp{
 	margin-bottom: 3%;
 }
-
 .content_modalsocial {
 	margin: 0;
 }
@@ -533,33 +532,7 @@ ul.navbar-nav > li.nav-item {
 }
 
 
-/*
-**    소셜로그인
-*/
 
-.social_warp{
-    position: absolute;
-    background-image: url("/images/main/social-back.jpg");
-    background-size: cover;
-    width: 100%;
-    height: 100%;
-}
-
-.sociallogin_warp{
-    margin: 8% 37%;
-    width: 26%;
-    border: 1px solid black;
-    border-radius: 15px;
-    padding: 2%;
-    background-color: white;
-}
-
-.social_choose {
-    position: absolute;
-    top: 22%;
-    left: 51%;
-    cursor: pointer;
-}
 
 
 /*
@@ -606,6 +579,35 @@ ul.navbar-nav > li.nav-item {
 
 
 /*
+**    소셜로그인
+*/
+
+.social_warp{
+    position: absolute;
+    background-image: url("/images/main/social-back.jpg");
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.sociallogin_warp{
+    margin: 8% 37%;
+    width: 26%;
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 2%;
+    background-color: white;
+}
+
+.social_choose {
+    position: absolute;
+    top: 22%;
+    left: 51%;
+    cursor: pointer;
+}
+
+
+/*
 **    모달창 : 회원 가입
 */
 
@@ -636,13 +638,19 @@ ul.navbar-nav > li.nav-item {
 }
 
 .joinmodal_joinid,
-.joinmodal_joinpass {
+.joinmodal_joinpass,
+.joinmodal_joinnick,
+.joinmodal_joinemail {
     width: 70%;
     padding: 1.5% 3%;
     border: 1px solid #b7b7b7;
     border-radius: 5px;
     margin-bottom: 3%;
     font-size: 1rem;
+}
+
+.joinmodal_joinpass-fix{
+	margin-left: -18%;
 }
 
 .joinmodal_joinbtn {
@@ -654,7 +662,8 @@ ul.navbar-nav > li.nav-item {
 }
 
 .validation_false {
-    font-size: 18px;
+    font-size: 12px;
+    padding-top: 2.5%;
     height: 40px;
     width: 80px;
     color: white;
@@ -662,11 +671,15 @@ ul.navbar-nav > li.nav-item {
 }
 
 .validation_final {
-    height: 58px;
+    height: 55px;
     width: 80px;
     color: white;
     font-size: 1.2rem;
     margin-top: -5%;
     padding-top: 3%;
     font-weight: bold;
+}
+
+.validation_readonly {
+    background-color: #e6e6e6;
 }

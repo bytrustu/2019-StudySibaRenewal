@@ -17,7 +17,24 @@
   		select coalesce(max(no+1),1) as no from member
   	</selectKey>
   	insert into member
-  	values ( #{no}, #{type}, 'normal', #{id}, #{sId}, '', #{nick}, #{eMail}, #{proFile}, now(), now() )
+  	values ( #{no}, #{type}, #{auth}, #{id}, #{sId}, #{pass}, #{nick}, #{eMail}, #{proFile}, now(), now() )
   </insert>
+  
+  <select id="valueCheckId" resultType="String">
+  	select id from member where id = #{value}
+  </select>
+  
+  <select id="valueCheckNick" resultType="String">
+  	select nick from member where nick = #{value}
+  </select>
+  
+  <select id="valueCheckEmail" resultType="String">
+  	select eMail from member where eMail = #{value}
+  </select>
+  
+  <select id="valueCheckPass" resultType="String">
+  	select pass from member where id =#{id}
+  </select>
+ 
   
   </mapper>

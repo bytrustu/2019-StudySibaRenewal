@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>스터디시바 : 온라인 스터디 그룹</title>
@@ -17,15 +18,15 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@7.32.2/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="/css/main.css">
-    
-    <!--	소셜 세션	--> 
+
+    <!--	소셜 세션	-->
     <c:if test="${sessionScope.socialInfo ne null }">
-    	<c:remove var="socialInfo" scope="session" />
+        <c:remove var="socialInfo" scope="session" />
     </c:if>
-    <!--	메세지 세션	--> 
+    <!--	메세지 세션	-->
     <c:if test="${sessionScope.message ne null}">
         <script>
-        sessionMessage();
+            sessionMessage();
     	function sessionMessage(){
     		var message = "${sessionScope.message}";
     		if ( message != '' ) {
@@ -33,23 +34,21 @@
     		}
     	}
         </script>
-    	<c:remove var="message" scope="session" />
+        <c:remove var="message" scope="session" />
     </c:if>
-    
+
 </head>
 
 <body>
 
-
     <div class="warp">
 
         <div class="layout-topheader">
-<a href="http://developers.kakao.com/logout">로그아웃</a>
         </div>
 
         <nav class="navbar navbar-expand-sm navbar-dark fixed-top layout-menu">
             <!-- Brand -->
-            <a class="navbar-brand menu-title" href="#">
+            <a class="navbar-brand menu-title" href="/">
                 <span class="menu-pre">스터디</span><span class="menu-last">시바</span>
             </a>
             <!-- Links -->
@@ -66,7 +65,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">
-                        <i class="fa fa-envelope menu-icon"></i>
+                        <i class="fa fa-envelope menu-icon" data="message"></i>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -217,7 +216,7 @@
                         <div class="content_socials">
                             <a href="${google_url }"><img class="content_socialicon" data="google" src="images/main/google.png"></a>
                             <img class="content_socialicon" data="facebook" src="images/main/facebook.png">
-                            <a href="${naver_url	 }"><img class="content_socialicon" data="naver" src="images/main/naver.png"></a>
+                            <a href="#"><img class="content_socialicon" data="naver" src="images/main/naver.png"></a>
                             <img class="content_socialicon" data="kakao" src="images/main/kakao.png">
                         </div>
                     </div>
@@ -322,11 +321,11 @@
         </div>
 
 
-	<!-- 소셜 데이터 폼 -->
-    <form id="socialForm" method="POST" action="<c:url value='/login/facebookSignInCallback'/>">
-    	<input type="hidden" name="sId">
-    	<input type="hidden" name="eMail">
-    </form>
+        <!-- 소셜 데이터 폼 -->
+        <form id="socialForm" method="POST" action="<c:url value='/login/facebookSignInCallback'/>">
+            <input type="hidden" name="sId">
+            <input type="hidden" name="eMail">
+        </form>
 
 
         <div class="clear-fix"></div>
@@ -351,7 +350,7 @@
 
 
 
-<!--
+    <!--
                 [   모달 창 영역   ]
 -->
 
@@ -363,16 +362,16 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <img class="rounded-circle loginmodal_image" src="/images/main/siba_login.gif">
                     <p class="loginmodal_title">들어와..시바</p>
-                    <form>
-                        <input class="loginmodal_loginid" type="text" placeholder="아이디 입력">
-                        <input class="loginmodal_loginpass" type="password" placeholder="비밀번호 입력">
-                        <button class="btn btn-primary loginmodal_loginbtn">로그인</button>
+                    <form method="POST" action="/member/login" id="loginForm">
+                        <input class="loginmodal_loginid" type="text" name="id" placeholder="아이디 입력">
+                        <input class="loginmodal_loginpass" type="password" name="pass" placeholder="비밀번호 입력">
+                        <button class="btn btn-primary loginmodal_loginbtn" type="submit">로그인</button>
                         <div class="content_modalsocialwarp">
                             <a href="${google_url }"><img class="content_socialicon content_modalsocial" data="google" src="images/main/google.png"></a>
                             <img class="content_socialicon" data="facebook" src="images/main/facebook.png">
-                            <a href="${naver_url	 }"><img class="content_socialicon" data="naver" src="images/main/naver.png"></a>
+                            <a href="#"><img class="content_socialicon" data="naver" src="images/main/naver.png"></a>
                             <img class="content_socialicon" data="kakao" src="images/main/kakao.png">
-                    	</div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -388,36 +387,35 @@
                     <img class="joinmodal_choose" src="/images/main/rotate.png">
                     <img class="rounded-circle joinmodal_image" name="proFile" src="">
                     <p class="joinmodal_title">올꺼지..시바</p>
-                    <form>
-                         <div>
-                            <input class="joinmodal_joinid" type="text" placeholder="아이디 입력">
-                            <div class="btn btn-warning validation_false">미입력</div>
+                    <form id="joinForm" method="POST" action="<c:url value='/member/join' />">
+                    	<input type="hidden" name="proFile">
+                        <div>
+                            <input class="joinmodal_joinid social_input" type="text" name="id" id="socialJoinId" placeholder="아이디 입력">
+                            <div class="btn btn-warning validation_false" id="idChecker" data="false">미입력</div>
                         </div>
                         <div>
-                            <input class="joinmodal_joinpass" type="password" placeholder="비밀번호 입력">
-                            <div class="btn btn-warning validation_false">미입력</div>
+                            <input class="joinmodal_joinpass social_input validation_readonly" type="password" name="pass" id="socialJoinPass" placeholder="비밀번호 입력" readonly="readonly">
+                            <div class="btn btn-warning validation_false" id="passChecker" data="false">미입력</div>
                         </div>
                         <div>
-                            <input class="joinmodal_joinpass" type="password" placeholder="비밀번호 확인">
-                            <div class="btn btn-warning validation_false">미입력</div>
+                            <input class="joinmodal_joinid social_input validation_readonly" type="text" name="nick" id="socialJoinNick" placeholder="닉네임 입력" readonly="readonly">
+                            <div class="btn btn-warning validation_false" id="nickChecker" data="false">미입력</div>
                         </div>
                         <div>
-                            <input class="joinmodal_joinid" type="text" placeholder="닉네임 입력">
-                            <div class="btn btn-warning validation_false">미입력</div>
+                            <input class="joinmodal_joinid social_input validation_readonly" type="email" name="eMail" id="socialJoinEmail" placeholder="EXAMPLE@GMAIL.COM" readonly="readonly">
+                            <div class="btn btn-warning validation_false" id="eMailChecker" data="false">미입력</div>
                         </div>
                         <div>
-                            <input class="joinmodal_joinid" type="text" placeholder="EXAMPLE@GMAIL.COM">
-                            <div class="btn btn-warning validation_false">미입력</div>
+                            <button class="btn btn-danger joinmodal_joinbtn" type="button">회원가입</button>
+                            <div class="btn btn-danger validation_final" data="false">불가</div>
                         </div>
-                        <div>
-                            <button class="btn btn-danger joinmodal_joinbtn">회원가입</button>
-                            <div class="btn btn-warning validation_final">불가</div>
-                        </div>
+                        <input type="hidden" id="joinType" value="normal">
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    
+
 </body>
+
 </html>

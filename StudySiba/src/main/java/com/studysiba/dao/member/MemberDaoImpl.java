@@ -30,6 +30,26 @@ public class MemberDaoImpl implements MemberDAO {
 	public int socialJoin(MemberVO memberVO) {
 		return sqlSession.insert("socialJoin", memberVO);
 	}
+
+	@Override
+	public String valueCheckId(String value) {
+		return sqlSession.selectOne("valueCheckId", value);
+	}
+
+	@Override
+	public String valueCheckNick(String value) {
+		return sqlSession.selectOne("valueCheckNick", value);
+	}
+
+	@Override
+	public String valueCheckEmail(String value) {
+		return sqlSession.selectOne("valueCheckEmail", value);
+	}
+
+	@Override
+	public String valueCheckPass(String id) {
+		return sqlSession.selectOne("valueCheckPass", id);
+	}
 	
 	
 	
