@@ -6,18 +6,19 @@
     <meta charset="UTF-8">
     <title>스터디시바 : 온라인 스터디 그룹</title>
 
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@7.32.2/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="/css/messenger.css">
+    <link rel="stylesheet" href="/css/main.css">
+
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.32.2/dist/sweetalert2.min.js"></script>
     <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
     <script src="/js/sociallogin.js"></script>
     <script src="/js/main.js"></script>
-
-    <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@7.32.2/dist/sweetalert2.min.css">
-    <link rel="stylesheet" href="/css/main.css">
 
     <!--	소셜 세션	-->
     <c:if test="${sessionScope.socialInfo ne null }">
@@ -48,24 +49,24 @@
 
         <nav class="navbar navbar-expand-sm navbar-dark fixed-top layout-menu">
             <!-- Brand -->
-            <a class="navbar-brand menu-title" href="/">
+            <a class="navbar-brand menu-title" href='<c:url value="/"/>'>
                 <span class="menu-pre">스터디</span><span class="menu-last">시바</span>
             </a>
             <!-- Links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href='<c:url value="/"/>'>
                         <i class="fa fa-home menu-icon"></i>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">
-                        <i class="fa fa-edit menu-icon"></i>
+                        <i class="fa fa-envelope menu-icon modal_open" data=messageModal></i>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">
-                        <i class="fa fa-envelope menu-icon" data="message"></i>
+                        <i class="fa fa-edit menu-icon"></i>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -86,8 +87,17 @@
                         <i class="fa fa-cog fa-spin fa-fw menu-icon"></i>
                     </a>
                     <div class="dropdown-menu menu-dropmenu">
-                        <a class="dropdown-item modal_open" data="loginModal" href="#">로그인</a>
-                        <a class="dropdown-item modal_open" data="joinModal" href="#">회원가입</a>
+                        <c:choose>
+                            <c:when test="${sessionScope.userSession eq null }">
+                                <a class="dropdown-item modal_open" data="loginModal" href="#">로그인</a>
+                                <a class="dropdown-item modal_open" data="joinModal" href="#">회원가입</a>
+                            </c:when>
+                            <c:otherwise>
+                                <a class="dropdown-item modal_open" data="modifyModal" href="#">정보수정</a>
+                                <a class="dropdown-item modal_open" data="secessionModal" href="#">회원탈퇴</a>
+                                <a class="dropdown-item modal_open" data="logoutModal" href="<c:url value='/member/logout'/>">로그아웃</a>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </li>
             </ul>
@@ -194,33 +204,82 @@
                             <img class="content_connecticon" src="/images/main/mail.png">
                         </div>
 
-
                     </div>
                 </div>
 
-                <div class="content_container">
-                    <div class="content_info">
-                        <div class="content_infotext">
-                            <p>스터디에 참가하려면 ?</p>
+                <c:choose>
+                    <c:when test="${sessionScope.userSession eq null }">
+                        <div class="content_container">
+                            <div class="content_info">
+                                <div class="content_infotext">
+                                    <p>스터디에 참가하려면 ?</p>
+                                </div>
+                                <div class="btn btn-primary content_loginbtn modal_open" data="loginModal">
+                                    <span class="content_textbtn">스터디시바 로그인</span>
+                                </div>
+                            </div>
+                            <div class="content_login">
+                                <div class="content_logintext">
+                                    <span class="content_pretext modal_open" data="joinModal">회원가입</span>
+                                    <span class="content_middletext">｜</span>
+                                    <span class="content_lasttext">비밀번호찾기</span>
+                                </div>
+                                <div class="content_socials">
+                                    <a href="${google_url }"><img class="content_socialicon" data="google" src="images/main/google.png"></a>
+                                    <img class="content_socialicon" data="facebook" src="/images/main/facebook.png">
+                                    <a href="#"><img class="content_socialicon" data="naver" src="/images/main/naver.png"></a>
+                                    <img class="content_socialicon" data="kakao" src="/images/main/kakao.png">
+                                </div>
+                            </div>
                         </div>
-                        <div class="btn btn-primary content_loginbtn modal_open" data="loginModal">
-                            <span class="content_textbtn">스터디시바 로그인</span>
+                    </c:when>
+
+                    <c:when test="${sessionScope.userSession ne null }">
+
+                        <div class="content_container">
+                            <div class="logininfo_top">
+                                <div class="logininfo_profile">
+                                    <img src="/images/profile/kakao/kakao-1.png">
+                                    <span>가나다라마</span>
+                                    <span>님</span>
+                                </div>
+                                <div class="logininfo_connect">
+                                    <span>최종접속시간 : </span>
+                                    <span>${sessionScope.userSession.cDate}</span>
+                                </div>
+                            </div>
+                            <div class="logininfo_middle">
+                                <div class="logininfo_details">
+                                    <img src="/images/main/login_visit.png">
+                                    <span>출석수</span>
+                                    <span>333</span>
+                                    <span>회</span>
+                                </div>
+                                <div class="logininfo_details">
+                                    <img src="/images/main/login_boardwrite.png">
+                                    <span>게시글 작성수</span>
+                                    <span>52</span>
+                                    <span>회</span>
+                                </div>
+                                <div class="logininfo_details">
+                                    <img src="/images/main/login_commentwrite.png">
+                                    <span>댓글 작성수</span>
+                                    <span>128</span>
+                                    <span>회</span>
+                                </div>
+                            </div>
+                            <div class="logininfo_bottom">
+                                <div class="logininfo_mywrite">
+                                    <a href="#">내가 쓴 글</a>
+                                </div>
+                                <div class="logininfo_myinfo">
+                                    <a class="modal_open" data="modifyModal" href="#">정보 수정</a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="content_login">
-                        <div class="content_logintext">
-                            <span class="content_pretext modal_open" data="joinModal">회원가입</span>
-                            <span class="content_middletext">｜</span>
-                            <span class="content_lasttext">비밀번호찾기</span>
-                        </div>
-                        <div class="content_socials">
-                            <a href="${google_url }"><img class="content_socialicon" data="google" src="images/main/google.png"></a>
-                            <img class="content_socialicon" data="facebook" src="images/main/facebook.png">
-                            <a href="#"><img class="content_socialicon" data="naver" src="images/main/naver.png"></a>
-                            <img class="content_socialicon" data="kakao" src="images/main/kakao.png">
-                        </div>
-                    </div>
-                </div>
+
+                    </c:when>
+                </c:choose>
 
             </div>
 
@@ -337,6 +396,7 @@
                 <img class="footer_line" src="/images/main/footer-line.png">
             </div>
             <div class="footer_center">
+                <p>본 웹사이트는 개인 프로젝트용 데모 사이트 입니다.</p>
                 <p>Copyright © 2018 by bytrustu. Some Rights Reserved.</p>
             </div>
             <div class="footer_right">
@@ -356,8 +416,8 @@
 
     <!-- 로그인 모달 -->
     <div class="modal fade loginmodal_warp" id="loginModal">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
+        <div class="modal-dialog modal-dialog-centered modal-margin">
+            <div class="modal-content loginmodal_resize">
                 <div class="modal-body loginmodal_body">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <img class="rounded-circle loginmodal_image" src="/images/main/siba_login.gif">
@@ -380,15 +440,15 @@
 
     <!-- 회원가입 모달 -->
     <div class="modal fade joinmodal_warp" id="joinModal">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
+        <div class="modal-dialog modal-dialog-centered modal-margin">
+            <div class="modal-content loginmodal_resize">
                 <div class="modal-body joinmodal_body">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <img class="joinmodal_choose" src="/images/main/rotate.png">
                     <img class="rounded-circle joinmodal_image" name="proFile" src="">
                     <p class="joinmodal_title">올꺼지..시바</p>
                     <form id="joinForm" method="POST" action="<c:url value='/member/join' />">
-                    	<input type="hidden" name="proFile">
+                        <input type="hidden" name="proFile">
                         <div>
                             <input class="joinmodal_joinid social_input" type="text" name="id" id="socialJoinId" placeholder="아이디 입력">
                             <div class="btn btn-warning validation_false" id="idChecker" data="false">미입력</div>
@@ -415,6 +475,205 @@
             </div>
         </div>
     </div>
+
+    <!-- 정보수정 모달 -->
+    <div class="modal fade modifymodal_warp" id="modifyModal">
+        <div class="modal-dialog modal-dialog-centered modifymodal_retop">
+            <div class="modal-content modifymodal_resize">
+                <div class="modal-body loginmodal_body">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <img class="rounded-circle loginmodal_image" id="profileImage" src="images/main/siba_login.gif">
+                    <p class="modifymodal_title">사진을 원안으로 넣어 주세요</p>
+                    <form method="POST" id="nickForm" action="<c:url value='/member/changeNick'/>">
+                        <input type="hidden" name="id" value="${sessionScope.userSession.id }">
+                        <input type="hidden" name="type" value="nick">
+                        <input class="modifymodal_nick" type="text" name="nick" maxlength="12" placeholder="닉네임 입력">
+                        <button class="btn btn-primary modifymodal_modifybtn" type="button">변경</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+	<!-- 메신저 모달 -->
+        <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+            <div class="modal-dialog" id="message_modal_layout">
+                <div class="modal-content" style="background-color: transparent; border: 1px solid transparent">
+                    <div class="modal-body">
+                        <div id="message_container">
+                            <div style="width: 520px">
+                                <!-- 메세지 목록 부분 -->
+                                <div class="card mr-2 float-left" style="width: 125px;">
+                                    <div class="card-header bg-custom text-white" id="message_listtitle">
+                                        <span>목록</span>
+                                    </div>
+                                    <div class="card-body" id="message_list">
+                                        
+                                           
+                                           <div class="ml-2 mb-3 message_profile">
+                                            <div id="message_id">junes</div>
+                                            <img class="rounded-circle message_listimage" id="junes" src="/images/profile/kakao/kakao-22.png" draggable="true" ondragstart="drag(this, event)">
+                                            <div class="background_red" id="message_state"></div>
+                                            <div id="message_readcount"><span id="message_readtext">0</span></div>
+                                            <div class="message_nickname">
+                                                <span>junes</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="ml-2 mb-3 message_profile">
+                                            <div id="message_id">junes</div>
+                                            <img class="rounded-circle message_listimage" id="junes" src="/images/profile/kakao/kakao-23.png" draggable="true" ondragstart="drag(this, event)">
+                                            <div class="background_red" id="message_state"></div>
+                                            <div id="message_readcount"><span id="message_readtext">0</span></div>
+                                            <div class="message_nickname">
+                                                <span>junes</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="ml-2 mb-3 message_profile">
+                                            <div id="message_id">junes</div>
+                                            <img class="rounded-circle message_listimage" id="junes" src="/images/profile/kakao/kakao-24.png" draggable="true" ondragstart="drag(this, event)">
+                                            <div class="background_red" id="message_state"></div>
+                                            <div id="message_readcount"><span id="message_readtext">0</span></div>
+                                            <div class="message_nickname">
+                                                <span>junes</span>
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                    </div>
+
+                                    <div class="card-footer" id="memberList_footer" ondragover="return false;" ondragenter="return false;" ondrop="drop(this, event);">
+                                        <div class="message_waste"></div>
+                                    </div>
+                                </div>
+                                <!-- 메세지함 부분 -->
+                                <div class="card">
+                                    <div class="card-header bg-custom text-white" id="message_title">
+                                        <span id="message_title_text">메세지시바</span>
+                                        <img src="/images/main/friendship.png" class="modal_open" data="friendModal">
+                                        <img src="/images/main/find-my-friend.png" class="modal_open" data="searchModal">
+                                    </div>
+                                    <div class="card-body" id="message_body">
+                                        <div class="message_commentwarp">
+                                            <div class="message_imgwarp">
+                                                <img class="rounded-circle" id="message_img" src="/images/profile/kakao/kakao-10.png">
+                                            </div>
+                                            <div class="message_commentbox_other">
+                                                <div class="message_nick">
+                                                    <p>ADMIN</p>
+                                                </div>
+                                                <div class="clear-fix"></div>
+                                                <div class="message_baloon">
+                                                    <p>dddddd</p>
+                                                </div>
+                                                <div class="message_date">
+                                                    <p>2018년 01월 28일 10시 28분</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clear-fix message_padding"></div>
+
+                                        <div class="message_commentwarp">
+                                            <div class="message_imgwarp">
+                                                <img class="rounded-circle" id="message_img" src="/images/profile/kakao/kakao-10.png">
+                                            </div>
+                                            <div class="message_commentbox_other">
+                                                <div class="message_nick">
+                                                    <p>ADMIN</p>
+                                                </div>
+                                                <div class="clear-fix"></div>
+                                                <div class="message_baloon">
+                                                    <p>안녕하세요.</p>
+                                                </div>
+                                                <div class="message_date">
+                                                    <p>2018년 01월 28일 10시 28분</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clear-fix message_padding"></div>
+
+                                        <div class="message_commentwarp">
+                                            <div class="message_imgwarp_me">
+                                                <img class="rounded-circle" id="message_img" src="/images/profile/kakao/kakao-12.png">
+                                            </div>
+                                            <div class="message_commentbox_me">
+                                                <div class="message_nick_me ">
+                                                    <p>복실복실</p>
+                                                </div>
+                                                <div class="clear-fix"></div>
+                                                <div class="message_baloon_me">
+                                                    <p>dddddd</p>
+                                                </div>
+                                                <div class="message_date_me">
+                                                    <p>2018년 01월 28일 10시 28분</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="card-footer" id="message_footer">
+                                        <input type="text float-left" id="message_input">
+                                        <button class="btn btn-danger" id="message_btn">전송</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+	<!-- 닉네임 검색 모달 -->
+    <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content col-sm-8">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal" style="font-weight: bold;">닉네임 검색</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>닉네임</label> <input type="text" name="searchText" id="searchText" class="form-control" maxlength="15">
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" id="message_search" data-dismiss="modal" aria-label="Close">검색</button>
+                        <button class="btn btn-default" data-dismiss="modal" aria-label="Close">취소</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<!-- 친구신청 모달 -->
+    <div class="modal fade" id="friendModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content col-sm-8">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal" style="font-weight: bold;">친구 추가</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>닉네임</label> <input type="text" name="searchText" id="friend_text" class="form-control" maxlength="15">
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger friend_apply" id="message_friend" data-dismiss="modal" aria-label="Close">신청</button>
+                        <button class="btn btn-default" data-dismiss="modal" aria-label="Close">취소</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 
 </body>
 

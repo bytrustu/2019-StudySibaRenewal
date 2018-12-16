@@ -1,8 +1,6 @@
 package com.studysiba.controller;
 
 import java.util.HashMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,29 +26,43 @@ public class MemberController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
-	@RequestMapping(value = "text", method = RequestMethod.GET)
+	@RequestMapping(value = "test", method = RequestMethod.GET)
 	public String test() {
 		return "member/test";
 	}
-	
+
 	// 회원로그인 처리
-	@RequestMapping(value="login", method=RequestMethod.POST)
-	public String login(MemberVO memberVO, HttpSession session) {
-		
+	@RequestMapping(value = "login", method = RequestMethod.POST)
+	public String login(MemberVO memberVO, Model model, HttpSession session) {
+
 		String id = memberVO.getId();
 		String pass = memberVO.getPass();
-		
-		if ( memberVO == null || id.equals("") || pass.equals("") ) {
+
+		if (memberVO == null || id.equals("") || pass.equals("")) {
 			session.setAttribute("message", "로그인 실패 했습니다.");
 		} else {
-			if ( id.equals( memberService.valueCheckId(id) ) ) {
-				if ( pass.equals( memberService.valueCheckPass(id) ) ) {
-					session.setAttribute( "message", id+ "님, 로그인 되었습니다.");
+			if (id.equals(memberService.valueCheckId(id))) {
+				if (memberService.valueCheckPass(id, pass)) {
+					// 로그인 성공 시
+					memberVO = memberService.getUserInfomation(memberVO);
+					// 세션 등록
+					HashMap<String, String> userSession = memberService.setUserSession(memberVO);
+					session.setAttribute("userSession", userSession);
+					session.setAttribute("message", id + "님, 로그인 되었습니다.");
+					memberService.insertVisitLog(memberVO);
+
+					// 메인 페이지 뷰
+					HashMap<String, Object> view = new HashMap<String, Object>();
+
+					// 유저 정보
+					HashMap<String, Object> userWarp = new HashMap<String, Object>();
+					view.put("userWarp", userWarp);
+					model.addAttribute("view", view);
 				} else {
-					session.setAttribute( "message", "비밀번호가 일치하지 않습니다.");
+					session.setAttribute("message", "비밀번호가 일치하지 않습니다.");
 				}
 			} else {
-				session.setAttribute( "message", "아이디가 존재하지 않습니다.");
+				session.setAttribute("message", "아이디가 존재하지 않습니다.");
 			}
 		}
 		return "redirect:/";
@@ -60,7 +73,7 @@ public class MemberController {
 	public String join(MemberVO memberVO, HttpSession session) {
 		logger.info("페이지 이동 : /member/join");
 
-		// 소셜 가입 경우
+		// 소셜 가입의 경우
 		if (session.getAttribute("socialInfo") != null) {
 
 			@SuppressWarnings("unchecked")
@@ -75,8 +88,8 @@ public class MemberController {
 			memberVO.setAuth("normal");
 			memberVO.setsId(sId);
 			memberVO.setPass("");
-		
-		// 일반 가입 경우
+
+			// 일반 가입의 경우
 		} else {
 			memberVO.setAuth("normal");
 			memberVO.setType("normal");
@@ -84,9 +97,12 @@ public class MemberController {
 		}
 		int joinResult = memberService.socialJoin(memberVO);
 		if (joinResult == 1) {
+			// 로그인 방문 기록
+			// 소셜 세션 삭제 및 로그인 세션 등록
 			session.removeAttribute("socialInfo");
-			session.setAttribute("userId", memberVO.getId());
-			session.setAttribute("userNick", memberVO.getNick());
+			HashMap<String, String> userSession = memberService.setUserSession(memberVO);
+			session.setAttribute("userSession", userSession);
+			memberService.insertVisitLog(memberVO);
 			session.setAttribute("message", "환영합니다. 회원가입에 성공 했습니다.");
 		}
 		return "redirect:/";
@@ -96,62 +112,33 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping(value = "validationCheck", method = RequestMethod.POST)
 	public String validationCheck(@RequestParam HashMap<String, String> map) {
-		logger.info("type : " + map.get("type") + " , " + "value : " + map.get("value"));
-
 		String type = map.get("type");
 		String value = map.get("value");
-		String checkVal;
 		String result = null;
-
-		String exp = "^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$";
-		boolean isCheck = false;
-
-		if (type.equals("id")) {
-			result = checkResult(type, value, 3);
-		} else if (type.equals("nick")) {
-			result = checkResult(type, value, 0);
-		} else if (type.equals("eMail")) {
-			Pattern p = Pattern.compile(exp);
-			Matcher m = p.matcher(value);
-			isCheck = m.matches();
-
-			if (!isCheck) {
-				result = "false";
-			} else if (isCheck) {
-				checkVal = memberService.valueCheckEmail(value);
-				result = changeResult(value, checkVal);
-			}
-
-		}
+		result = memberService.returnResult(type, value);
 		return result;
 	}
 
-	public String checkResult(String type, String value, int index) {
-		String result = null;
-		if (value == null || value.length() <= index) {
-			result = "false";
-		} else if (value.length() > index) {
-			String checkVal = null;
-			if (type.equals("id")) {
-				checkVal = memberService.valueCheckId(value);
-			} else if (type.equals("nick")) {
-				checkVal = memberService.valueCheckNick(value);
-			} else if (type.equals("eMail")) {
-				checkVal = memberService.valueCheckEmail(value);
-			}
-			result = changeResult(value, checkVal);
-		}
-		return result;
+	@RequestMapping(value = "logout", method = RequestMethod.GET)
+	public String logout(HttpSession session) {
+		session.removeAttribute("userSession");
+		session.setAttribute("message", "로그아웃 되었습니다.");
+		return "redirect:/";
 	}
 
-	public static String changeResult(String value, String checkVal) {
+	@ResponseBody
+	@RequestMapping(value = "checkNick", method = RequestMethod.POST)
+	public String checkNick(@RequestParam("nick") String nick) {
 		String result = null;
-		if (value.equals(checkVal)) {
-			result = "true";
-		} else if (!value.equals(checkVal)) {
-			result = "false";
-		}
+		result = memberService.checkNick(nick);
 		return result;
+	}
+	
+	@RequestMapping(value = "changeNick", method = RequestMethod.POST)
+	public String changeNick(MemberVO memberVO, HttpSession session) {
+		memberService.updateUserInfo(memberVO);
+		session.setAttribute("message", "닉네임이 변경 되었습니다.");
+		return "redirect:/";
 	}
 
 }

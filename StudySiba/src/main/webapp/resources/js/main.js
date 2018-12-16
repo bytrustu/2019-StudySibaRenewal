@@ -1,12 +1,28 @@
 $(document).ready(function () {
+	//상단 아이콘 HOVER 색상 반응
     iconDecoration();
+    //푸터 아이콘 클릭 처리
     footerIconClick();
+    //모달창 보이기
     modalShow();
+    //회원가입 이미지 변경 버튼 클릭시
     chooseBtn();
+    //회원가입 이미지 변경 로직
     chooseProfile();
+    //소셜 로그인 버튼 클릭
     socialLogin();
+    //회원가입 처리
     joinFunction();
+    // 입력값 validation 체크
     inputValueCheck();
+    // 모달종료시 액션
+    closeJoinModal();
+    // 닉네임변경
+    nickCheck();
+    // 드래그앤드롭 이미지
+    drageImage();
+    // 툴팁 뷰
+    $('[data-toggle="tooltip"]').tooltip();   
 });
 
 //selector 캐싱
@@ -41,14 +57,14 @@ function iconDecoration() {
     $c('.menu-icon, .menu-dropicon, .menu-pre').hover(
         function () {
             $(this).css('color', 'white');
-            if ($(this).attr('data') == 'message') {
+            if ($(this).attr('data') == 'messageModal') {
                 $(this).removeClass('fa fa-envelope');
                 $(this).addClass('fas fa-envelope-open');
             }
         },
         function () {
             $(this).css('color', '#9a9da0');
-            if ($(this).attr('data') == 'message') {
+            if ($(this).attr('data') == 'messageModal') {
                 $(this).removeClass('fas fa-envelope-open');
                 $(this).addClass('fa fa-envelope');
             }
@@ -73,15 +89,32 @@ function footerIconClick() {
 
 //모달창 보이기
 function modalShow() {
+	$('body, nav, .modal').addClass('modal-nopadding');
+	$('body, .modal').addClass('modal-nooverflow');
+	$(".joinmodal_choose").css({"top": "-50%", "left": "290%"});
     $c('.modal_open').on('click', function () {
         var value = $(this).attr('data');
         $('#' + value).modal('show');
-        if (value == 'joinModal') {
-        	console.log(value);
+        if ( value == 'joinModal' ) {
         	$('.joinmodal_joinid').focus();
             swing();
+        } else if ( value == 'modifyModal' ) {
+        	$('.modifymodal_nick').focus();
         }
     });
+}
+
+//모달종료시 액션
+function closeJoinModal() {
+	$('#joinModal').on('hidden.bs.modal, hide.bs.modal', function(e){
+		e.stopImmediatePropagation();
+			console.log('hide modal');
+			$('.joinmodal_choose').stop();
+			$('.joinmodal_choose').css({
+				'top':'-50%',
+				'left':'290%'
+			});
+	});
 }
 
 //로그인 버튼
@@ -95,11 +128,11 @@ function loginBtn(){
 //회원가입 이미지 변경 아이콘 움직임
 function swing() {
     $c('.joinmodal_choose').animate({
-        'top': '50px',
-        'left': '270px'
+        'top': '4%',
+        'left': '57%'
     }, 600).animate({
-        'top': '40px',
-        'left': '280px'
+        'top': '7%',
+        'left': '52%'
     }, 600, swing);
 }
 
@@ -147,6 +180,7 @@ function socialLogin() {
     });
 }
 
+// 모달 X버튼 클릭시
 function socialClose() {
     $c('.social-close').on('click', function () {
         movePath("/");
@@ -255,7 +289,6 @@ function inputValueCheck() {
     }
 
 
-
 }
 
 
@@ -295,7 +328,7 @@ function checkRedu(btnSelector, preSeletor, lastSelector, text, type, value) {
         if (btnSelector.attr('data') == 'true') {
             Swal({
                 title: '사용가능',
-                text: '작성 하신 ' + text + '를 확정 하시겠습니까?',
+                text: text + '를 확정 하시겠습니까?',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -378,4 +411,84 @@ function validationCheck(type, value) {
         }
     });
     return result;
+}
+
+//닉네임변경
+function nickCheck(){
+	$('.modifymodal_modifybtn').on('click', function(){
+		var nick = $('.modifymodal_nick').val();
+		$.ajax({
+			type : 'POST',
+			url : '/member/checkNick',
+			data : {
+				nick : nick
+			} ,
+			success : function(callback){
+				console.log(callback);
+				if ( callback == 'false' ) {
+					$('#nickForm').submit();
+				} else if ( callback == 'true' ) {
+					Swal('사용불가','이미 사용중인 닉네임 입니다.','error');
+				} else if ( callback == 'emptyValue' ) {
+					Swal('사용불가','닉네임을 입력 해 주세요.','error');
+				}
+			}
+		});
+	});
+}
+
+//드래그앤드롭 이미지
+function drageImage(){
+	$(function () {
+	     var obj = $("#profileImage");
+	     var image = '';
+
+	     obj.on('dragenter', function (e) {
+	          e.stopPropagation();
+	          e.preventDefault();
+	          image = $(this).attr('src');
+	          $(this).attr('src', '/images/main/loading.gif');
+	     });
+
+	     obj.on('dragleave', function (e) {
+	          e.stopPropagation();
+	          e.preventDefault();
+	          obj.attr('src', image);
+	          $(this).css('border', '1px solid transparent');
+	     });
+
+	     obj.on('dragover', function (e) {
+	          e.stopPropagation();
+	          e.preventDefault();
+	     });
+
+	     obj.on('drop', function (e) {
+	          e.preventDefault();
+	          $(this).css('border', '1px solid transparent');
+
+	          var files = e.originalEvent.dataTransfer.files;
+	          var file = files[0];
+	          console.log(file);
+	          uploadFile(file, "profile");
+	     });
+	});
+}
+
+//파일 업로드
+function uploadFile(file, type) {
+	var formData = new FormData();
+	formData.append("file", file);
+	formData.append("type", type);
+         $.ajax({
+        	type: 'POST',
+            url: '/upload',
+            data: formData,
+            dataType: 'text',
+            processData: false,
+            contentType: false,
+            success: function(callback) {
+            	$("#profileImage").attr('src',  '/local_upload/'+ type + '/' +callback);
+                Swal('정보변경', '프로필 사진이 변경 되었습니다.', 'success');
+            }
+         });
 }

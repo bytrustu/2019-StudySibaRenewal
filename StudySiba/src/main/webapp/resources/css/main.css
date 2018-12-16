@@ -8,7 +8,13 @@
     font-family: 'Nanum Gothic', sans-serif;
 }
 
+.modal-nopadding {
+    padding-right: 0px !important;
+}
 
+.modal-nooverflow{
+	overflow-y: auto !important;
+}
 /*
 **      최상단 흰여백
 */
@@ -272,6 +278,120 @@ ul.navbar-nav > li.nav-item {
     font-weight: bold;
 }
 
+.logininfo_top {
+    height: 30%;
+    padding: 6%;
+}
+
+.logininfo_middle {
+    border-top: 2px dotted #c1c1c1;
+    border-bottom: 2px dotted #c1c1c1;
+    height: 25%;
+}
+
+.logininfo_bottom {
+    height: 15%;
+}
+
+.logininfo_profile {
+    height: 80%;
+}
+
+.logininfo_profile > img {
+    width: 26.5%;
+    height: 100%;
+    border-radius: 20%;
+}
+
+.logininfo_profile > span:nth-of-type(1) {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-left: 5%;
+    max-width: 55%;
+    max-height: 1000%;
+    color: #3c578e;
+}
+
+.logininfo_profile > span:nth-of-type(2) {
+    font-size: 1.2rem;
+    vertical-align: middle;
+    font-weight: bold;
+}
+
+.logininfo_connect {
+    padding-top: 2%;
+}
+
+.logininfo_connect > span {
+    display: inline-block;
+}
+
+.logininfo_connect > span:nth-of-type(1) {
+    vertical-align: middle;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.logininfo_connect > span:nth-of-type(2) {
+    vertical-align: middle;
+    font-weight: bold;
+    font-size: 0.8rem;
+    color: #3c578e;
+}
+
+.logininfo_details {
+    margin-top: 3%;
+    height: 22%;
+}
+
+.logininfo_details > img {
+    margin-left: 10%;
+    width: 7%;
+    height: 100%;
+}
+
+.logininfo_details > span:nth-of-type(1) {
+    margin-left: 3%;
+    display: inline-block;
+    width: 45%;
+    vertical-align: top;
+    font-weight: bold;
+}
+
+.logininfo_details > span:nth-of-type(2) {
+    margin-left: 3%;
+    display: inline-block;
+    vertical-align: top;
+    font-weight: bold;
+}
+
+.logininfo_details > span:nth-of-type(3) {
+    display: inline-block;
+    font-size: 0.8rem;
+    vertical-align: middle;
+}
+
+.logininfo_mywrite,
+.logininfo_myinfo {
+    display: inline-block;
+    margin-left: 17%;
+    margin-top: 6%;
+}
+
+.logininfo_mywrite > a,
+.logininfo_myinfo > a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.logininfo_mywrite > a:hover,
+.logininfo_myinfo > a:hover {
+    color: #de1414;
+}
+
 
 /*
 **      로그인 및 회원가입 부분
@@ -481,12 +601,14 @@ ul.navbar-nav > li.nav-item {
     height: 15%;
     width: 60%;
     float: left;
+    padding-top: 3%;
+    padding-left: 5%;
 }
 
 .footer_right {
     height: 15%;
     width: 25%;
-    float: left;
+    float: right;
 }
 
 .footer_logo {
@@ -511,11 +633,6 @@ ul.navbar-nav > li.nav-item {
     height: 80%
 }
 
-.footer_center {
-    padding-top: 6%;
-    padding-left: 23%;
-}
-
 .footer_center > p {
     margin: 0;
     font-weight: bold;
@@ -527,17 +644,25 @@ ul.navbar-nav > li.nav-item {
     color: white;
     font-size: 5rem;
     margin-top: 10%;
-    margin-left: 8%;
+    margin-right: 6%;
     cursor: pointer;
+    float: right;
+    vertical-align: middle;
 }
 
-
-
+.footer-icons:nth-of-type(1) {
+	margin-right: 35%;
+	margin-top: 10.5%;
+}
 
 
 /*
 **    모달창 : 회원 로그인
 */
+
+.modal-margin{
+	margin-left: 40%;
+}
 
 .loginmodal_warp {
     top: -10%;
@@ -548,8 +673,9 @@ ul.navbar-nav > li.nav-item {
 }
 
 .loginmodal_image {
-    padding: 5% 0;
-    width: 40%;
+    margin: 5% 0 3% 6%;
+    width: 146px;
+    height: 146px;
 }
 
 .loginmodal_title {
@@ -562,6 +688,7 @@ ul.navbar-nav > li.nav-item {
 .loginmodal_loginpass {
     width: 90%;
     padding: 1.5% 3%;
+    padding-left: 8%;
     border-radius: 10px;
     border: 1px solid #b7b7b7;
     font-size: 1rem;
@@ -575,6 +702,17 @@ ul.navbar-nav > li.nav-item {
     font-size: 1.2rem;
     margin-bottom: 5%;
     background-color: #3c578e;
+}
+
+.loginmodal_loginbtn:hover {
+	color: #fff;
+    background-color: #213c6f;
+    border-color: #213c6f;
+}
+
+
+.loginmodal_resize {
+	width: 80%;
 }
 
 
@@ -621,13 +759,14 @@ ul.navbar-nav > li.nav-item {
 
 .joinmodal_choose {
     position: absolute;
-    top: 41px;
-    left: 280px;
+    top: -50%;
+    left: 290%;
     cursor: pointer;
 }
 
 .joinmodal_image {
     width: 40%;
+    height: 19%;
     padding: 5% 0;
 }
 
@@ -682,4 +821,39 @@ ul.navbar-nav > li.nav-item {
 
 .validation_readonly {
     background-color: #e6e6e6;
+}
+
+
+/*
+**    모달창 : 정보 수정
+*/
+.modifymodal_resize{
+    width: 80%;
+}
+.modifymodal_retop{
+	top: -9%;
+	left: 2.5%;
+}
+.modifymodal_title{
+    font-weight: bold;
+}
+.modifymodal_nick{
+    text-align: center;
+    width: 60%;
+    padding: 1.5% 3%;
+    border-radius: 10px;
+    border: 1px solid #b7b7b7;
+}
+.modifymodal_modifybtn{
+    width: 60%;
+    padding: 1%;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-top: 3%;
+    background-color: #3c578e;
+}
+.modifymodal_modifybtn:hover {
+	color: #fff;
+    background-color: #213c6f;
+    border-color: #213c6f;
 }

@@ -7,6 +7,8 @@ import com.studysiba.domain.member.MemberVO;
 public interface MemberDAO {
 
 	int insertTest(HashMap<String, Object> map);
+	// 회원정보 조회
+	MemberVO getUserInfomation(MemberVO memberVO);
 	// 소셜 회원가입
 	int socialJoin(MemberVO memberVO);
 	// 회원가입 값 체크 : 아이디
@@ -17,5 +19,14 @@ public interface MemberDAO {
 	String valueCheckEmail(String value);
 	// 회원가입 값 체크 : 비밀번호
 	String valueCheckPass(String id);
-
+	// 로그인시 방문로그 기록
+	void insertVisitLog(MemberVO memberVO);
+	// 로그인시 접속로그 갱신
+	void updateConnectLog(MemberVO memberVO);
+	// 회원정보수정 
+	void updateUserInfo(MemberVO memberVO);
+	// 프로필 사진 수정
+	void updateProFile(MemberVO memberVO);
+	
+	
 }

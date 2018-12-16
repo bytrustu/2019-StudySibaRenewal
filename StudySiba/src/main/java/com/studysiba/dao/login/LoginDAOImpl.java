@@ -1,7 +1,5 @@
 package com.studysiba.dao.login;
 
-import java.util.List;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -13,6 +11,8 @@ public class LoginDAOImpl implements LoginDAO {
 
 	@Autowired
 	private SqlSession sqlSession;
+	
+	private static final String namespace="com.studysiba.mapper.LoginMapper";
 
 	@Override
 	public String test() {
@@ -21,9 +21,7 @@ public class LoginDAOImpl implements LoginDAO {
 
 	@Override
 	public MemberVO checkJoinSocial(String sId) {
-		return sqlSession.selectOne("checkJoinSocial",sId);
+		return sqlSession.selectOne(namespace + ".checkJoinSocial",sId);
 	}
-	
-	
 	
 }

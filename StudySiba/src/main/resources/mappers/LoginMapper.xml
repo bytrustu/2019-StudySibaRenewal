@@ -2,11 +2,14 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-  <mapper namespace="com.studysiba.mapper.LoginMapper">
-  
-  <select id="checkJoinSocial" resultType="com.studysiba.domain.member.MemberVO">
-  	select * from member where sId = #{sId}
-  </select>
-  
-  </mapper>
+
+<mapper namespace="com.studysiba.mapper.LoginMapper">
+
+	<select id="checkJoinSocial" resultType="com.studysiba.domain.member.MemberVO">
+		select no, type, auth, id, sId, pass, nick, eMail, proFile,
+		DATE_FORMAT(cDate, '%Y년 %m월 %d일 %H시 %i분') as cDate,
+		DATE_FORMAT(mDate, '%Y년 %m월 %d일 %H시 %i분') as mDate
+		from member where sId = #{sId}
+	</select>
+
+</mapper>

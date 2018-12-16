@@ -1,6 +1,7 @@
 package com.studysiba.dao.member;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -19,38 +20,65 @@ public class MemberDaoImpl implements MemberDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	private static final String namespace="com.studysiba.mapper.MemberMapper";
+	
 	private static final Logger logger = LoggerFactory.getLogger(MemberDaoImpl.class);
 
 	@Override
 	public int insertTest(HashMap<String, Object> map) {
-		return sqlSession.insert("insertTest",map);
+		return sqlSession.insert(namespace+ ".insertTest",map);
 	}
-
+	
+	@Override
+	public MemberVO getUserInfomation(MemberVO memberVO) {
+		return sqlSession.selectOne(namespace + ".getUserInfomation", memberVO);
+	}
+	
 	@Override
 	public int socialJoin(MemberVO memberVO) {
-		return sqlSession.insert("socialJoin", memberVO);
+		return sqlSession.insert(namespace + ".socialJoin", memberVO);
 	}
 
 	@Override
 	public String valueCheckId(String value) {
-		return sqlSession.selectOne("valueCheckId", value);
+		return sqlSession.selectOne(namespace + ".valueCheckId", value);
 	}
 
 	@Override
 	public String valueCheckNick(String value) {
-		return sqlSession.selectOne("valueCheckNick", value);
+		return sqlSession.selectOne(namespace + ".valueCheckNick", value);
 	}
 
 	@Override
 	public String valueCheckEmail(String value) {
-		return sqlSession.selectOne("valueCheckEmail", value);
+		return sqlSession.selectOne(namespace + ".valueCheckEmail", value);
 	}
 
 	@Override
 	public String valueCheckPass(String id) {
-		return sqlSession.selectOne("valueCheckPass", id);
+		return sqlSession.selectOne(namespace + ".valueCheckPass", id);
 	}
-	
-	
-	
+
+	@Override
+	public void insertVisitLog(MemberVO memberVO) {
+		sqlSession.insert(namespace + ".insertVisitLog", memberVO);
+	}
+
+	@Override
+	public void updateConnectLog(MemberVO memberVO) {
+		sqlSession.update(namespace + ".updateConnectLog", memberVO);
+	}
+
+	@Override
+	public void updateUserInfo(MemberVO memberVO) {
+		if ( memberVO.getType().equals("nick") ) {
+			sqlSession.update(namespace + ".changeNick", memberVO);
+		}
+	}
+
+	@Override
+	public void updateProFile(MemberVO memberVO) {
+		sqlSession.update(namespace + ".updateProFile", memberVO);
+	}
+
 }

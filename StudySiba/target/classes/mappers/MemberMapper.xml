@@ -12,6 +12,13 @@
   	insert into test(no,text) values( #{no},#{text})
   </insert>
   
+  <select id="getUserInfomation" resultType="com.studysiba.domain.member.MemberVO">
+  	select no, type, auth, id, sId, pass, nick, eMail, proFile, 
+  	DATE_FORMAT(cDate, '%Y년 %m월 %d일 %H시 %i분') as cDate, 
+  	DATE_FORMAT(mDate, '%Y년 %m월 %d일 %H시 %i분') as mDate  
+  	from member where id = #{id}
+  </select>
+  
   <insert id="socialJoin">
   	<selectKey keyProperty="no" order="BEFORE" resultType="long">
   		select coalesce(max(no+1),1) as no from member
@@ -35,6 +42,24 @@
   <select id="valueCheckPass" resultType="String">
   	select pass from member where id =#{id}
   </select>
- 
+  
+  <insert id="insertVisitLog">
+  	<selectKey keyProperty="no" resultType="long" order="BEFORE">
+    	select coalesce(max(no+1),1) as no from visit
+  	</selectKey>
+  		insert into visit(no, id, vDate) values(#{no}, #{id}, now())
+  </insert>
+  
+  <update id="updateConnectLog">
+  	update member set cDate = now() where id = #{id}
+  </update>
+  
+  <update id="changeNick">
+  	update member set nick = #{nick} where id = #{id}
+  </update>
+  
+  <update id="updateProFile">
+  	update member set proFile = #{proFile} where id = #{id}
+  </update>
   
   </mapper>

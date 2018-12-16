@@ -4,11 +4,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -27,10 +24,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.studysiba.domain.member.MemberVO;
 import com.studysiba.service.login.LoginService;
+import com.studysiba.service.member.MemberService;
 
 @RequestMapping("/login")
 @Controller
@@ -42,6 +39,9 @@ public class LoginController {
 	private OAuth2Parameters googleOAuth2Parameters;
 	private OAuth2Operations oauthOperations;
 
+	@Autowired
+	private MemberService memberService;
+	
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
 	@Autowired
@@ -85,8 +85,9 @@ public class LoginController {
         	session.setAttribute("socialInfo", googleUser);
         } else if ( sId.equals(memberVO.getsId()) ) {
         	path = "/";
-        	session.setAttribute( "userId", memberVO.getId() );
-        	session.setAttribute( "userNick", memberVO.getNick() );
+        	HashMap<String, String> userSession = memberService.setUserSession(memberVO);
+			session.setAttribute( "userSession", userSession);
+			memberService.insertVisitLog(memberVO);
         	session.setAttribute( "message", memberVO.getId()+ "님, 로그인 되었습니다.");
         }
  
@@ -133,8 +134,10 @@ public class LoginController {
         	session.setAttribute("socialInfo", facebookUser);
         } else if ( sId.equals(facebookInfo.getsId()) ) {
         	path = "/";
-        	session.setAttribute( "userId", facebookInfo.getId() );
-        	session.setAttribute( "userNick", facebookInfo.getNick() );
+        	
+        	HashMap<String, String> userSession = memberService.setUserSession(facebookInfo);
+			session.setAttribute( "userSession", userSession);
+			memberService.insertVisitLog(facebookInfo);
         	session.setAttribute( "message", facebookInfo.getId()+ "님, 로그인 되었습니다.");
         }
 		return "redirect:"+path;
@@ -156,6 +159,7 @@ public class LoginController {
         	facebookUser.put("type", "facebook");
         	session.setAttribute("socialInfo", facebookUser);
         } else if ( sId.equals(facebookInfo.getsId()) ) {
+        	memberService.insertVisitLog(memberVO);
         	path = "/";
         	session.setAttribute( "userId", facebookInfo.getId() );
         	session.setAttribute( "userNick", facebookInfo.getNick() );
@@ -178,14 +182,15 @@ public class LoginController {
         	kakaoUser.put("type", "kakao");
         	session.setAttribute("socialInfo", kakaoUser);
         } else if ( sId.equals(kakaoInfo.getsId()) ) {
+        	memberService.insertVisitLog(memberVO);
         	path = "/";
-        	session.setAttribute( "userId", kakaoInfo.getId() );
-        	session.setAttribute( "userNick", kakaoInfo.getNick() );
+        	HashMap<String, String> userSession = memberService.setUserSession(kakaoInfo);
+			session.setAttribute( "userSession", userSession);
+			memberService.insertVisitLog(kakaoInfo);
         	session.setAttribute( "message", kakaoInfo.getId()+ "님, 로그인 되었습니다.");
         }
 		return "redirect:"+path;
 	}
 }
-
 
 
