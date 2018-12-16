@@ -64,7 +64,7 @@
 }
 
 ul.navbar-nav > li.nav-item {
-    margin: 4% 10% 5% 10%;
+    margin: 18px 25px 18px 25px;
 }
 
 .menu-dropmenu {
@@ -146,7 +146,8 @@ ul.navbar-nav > li.nav-item {
 }
 
 .content_titletext {
-    background-color: #3c578e;
+    /* background-color: #3c578e; */
+    background-color: #fecc84;
     padding: 8%;
     border-top-left-radius: 14px;
     border-top-right-radius: 14px;
@@ -159,13 +160,13 @@ ul.navbar-nav > li.nav-item {
 
 .content_toptext {
     font-weight: bold;
-    color: white;
+    color: #495057;
     display: inline-block;
     vertical-align: middle;
 }
 
 .content_textmiddle {
-    color: #F07171;
+    color: #ec3333;
     font-size: 1.3rem;
 }
 

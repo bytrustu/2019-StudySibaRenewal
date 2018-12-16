@@ -61,11 +61,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">
-                        <i class="fa fa-envelope menu-icon modal_open" data=messageModal></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
                         <i class="fa fa-edit menu-icon"></i>
                     </a>
                 </li>
@@ -74,11 +69,18 @@
                         <i class="fas fa-book menu-icon"></i>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fa fa-user-plus menu-icon"></i>
-                    </a>
-                </li>
+                <c:if test="${userSession ne null }">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fa fa-user-plus menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fa fa-envelope menu-icon modal_open" data=messageModal></i>
+                        </a>
+                    </li>
+                </c:if>
             </ul>
 
             <ul class="nav navbar-nav menu-infobtn">
@@ -496,128 +498,132 @@
     </div>
 
 
-	<!-- 메신저 모달 -->
-        <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
-            <div class="modal-dialog" id="message_modal_layout">
-                <div class="modal-content" style="background-color: transparent; border: 1px solid transparent">
-                    <div class="modal-body">
-                        <div id="message_container">
-                            <div style="width: 520px">
-                                <!-- 메세지 목록 부분 -->
-                                <div class="card mr-2 float-left" style="width: 125px;">
-                                    <div class="card-header bg-custom text-white" id="message_listtitle">
-                                        <span>목록</span>
-                                    </div>
-                                    <div class="card-body" id="message_list">
-                                        
-                                           
-                                           <div class="ml-2 mb-3 message_profile">
-                                            <div id="message_id">junes</div>
-                                            <img class="rounded-circle message_listimage" id="junes" src="/images/profile/kakao/kakao-22.png" draggable="true" ondragstart="drag(this, event)">
-                                            <div class="background_red" id="message_state"></div>
-                                            <div id="message_readcount"><span id="message_readtext">0</span></div>
-                                            <div class="message_nickname">
-                                                <span>junes</span>
-                                            </div>
+    <!-- 메신저 모달 -->
+    <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+        <div class="modal-dialog" id="message_modal_layout">
+            <div class="modal-content" style="background-color: transparent; border: 1px solid transparent">
+                <div class="modal-body">
+                    <div id="message_container">
+                        <div style="width: 520px">
+                            <!-- 메세지 목록 부분 -->
+                            <div class="card mr-2 float-left" style="width: 125px;">
+                                <div class="card-header bg-custom text-white" id="message_listtitle">
+                                    <span>목록</span>
+                                </div>
+                                <div class="card-body" id="message_list">
+
+
+                                    <div class="ml-2 mb-3 message_profile">
+                                        <div id="message_id">junes</div>
+                                        <img class="rounded-circle message_listimage" id="junes" src="/images/profile/kakao/kakao-22.png" draggable="true" ondragstart="drag(this, event)">
+                                        <div class="background_red" id="message_state"></div>
+                                        <div id="message_readcount"><span id="message_readtext">0</span></div>
+                                        <div class="message_nickname">
+                                            <span>junes</span>
                                         </div>
-                                        
-                                        <div class="ml-2 mb-3 message_profile">
-                                            <div id="message_id">junes</div>
-                                            <img class="rounded-circle message_listimage" id="junes" src="/images/profile/kakao/kakao-23.png" draggable="true" ondragstart="drag(this, event)">
-                                            <div class="background_red" id="message_state"></div>
-                                            <div id="message_readcount"><span id="message_readtext">0</span></div>
-                                            <div class="message_nickname">
-                                                <span>junes</span>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="ml-2 mb-3 message_profile">
-                                            <div id="message_id">junes</div>
-                                            <img class="rounded-circle message_listimage" id="junes" src="/images/profile/kakao/kakao-24.png" draggable="true" ondragstart="drag(this, event)">
-                                            <div class="background_red" id="message_state"></div>
-                                            <div id="message_readcount"><span id="message_readtext">0</span></div>
-                                            <div class="message_nickname">
-                                                <span>junes</span>
-                                            </div>
-                                        </div>
-                                        
-                                        
                                     </div>
 
-                                    <div class="card-footer" id="memberList_footer" ondragover="return false;" ondragenter="return false;" ondrop="drop(this, event);">
-                                        <div class="message_waste"></div>
+                                    <div class="ml-2 mb-3 message_profile">
+                                        <div id="message_id">junes</div>
+                                        <img class="rounded-circle message_listimage" id="junes" src="/images/profile/kakao/kakao-23.png" draggable="true" ondragstart="drag(this, event)">
+                                        <div class="background_red" id="message_state"></div>
+                                        <div id="message_readcount"><span id="message_readtext">0</span></div>
+                                        <div class="message_nickname">
+                                            <span>junes</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="ml-2 mb-3 message_profile">
+                                        <div id="message_id">junes</div>
+                                        <img class="rounded-circle message_listimage" id="junes" src="/images/profile/kakao/kakao-24.png" draggable="true" ondragstart="drag(this, event)">
+                                        <div class="background_red" id="message_state"></div>
+                                        <div id="message_readcount"><span id="message_readtext">0</span></div>
+                                        <div class="message_nickname">
+                                            <span>junes</span>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="card-footer" id="memberList_footer" ondragover="return false;" ondragenter="return false;" ondrop="drop(this, event);">
+                                    <div class="message_waste"></div>
+                                </div>
+                            </div>
+                            <!-- 메세지함 부분 -->
+                            <div class="card">
+                                <div class="card-header bg-custom text-white" id="message_title">
+                                    <div class="message_userInfo">
+                                        <!-- <img class="rounded-circle message_userimage" src="/images/profile/kakao/kakao-5.png"> -->
+                                        <span id="message_title_text">메세지시바</span>
+                                    </div>
+                                    <div class="message_functionbtn">
+                                        <img src="/images/main/find-my-friend.png" class="modal_open" data="searchModal">
+                                        <img src="/images/main/friendship.png" class="modal_open" data="friendModal">
                                     </div>
                                 </div>
-                                <!-- 메세지함 부분 -->
-                                <div class="card">
-                                    <div class="card-header bg-custom text-white" id="message_title">
-                                        <span id="message_title_text">메세지시바</span>
-                                        <img src="/images/main/friendship.png" class="modal_open" data="friendModal">
-                                        <img src="/images/main/find-my-friend.png" class="modal_open" data="searchModal">
-                                    </div>
-                                    <div class="card-body" id="message_body">
-                                        <div class="message_commentwarp">
-                                            <div class="message_imgwarp">
-                                                <img class="rounded-circle" id="message_img" src="/images/profile/kakao/kakao-10.png">
+                                <div class="card-body" id="message_body">
+                                    <div class="message_commentwarp">
+                                        <div class="message_imgwarp">
+                                            <img class="rounded-circle" id="message_img" src="/images/profile/kakao/kakao-5.png">
+                                        </div>
+                                        <div class="message_commentbox_other">
+                                            <div class="message_nick">
+                                                <p>ADMIN</p>
                                             </div>
-                                            <div class="message_commentbox_other">
-                                                <div class="message_nick">
-                                                    <p>ADMIN</p>
-                                                </div>
-                                                <div class="clear-fix"></div>
-                                                <div class="message_baloon">
-                                                    <p>dddddd</p>
-                                                </div>
-                                                <div class="message_date">
-                                                    <p>2018년 01월 28일 10시 28분</p>
-                                                </div>
+                                            <div class="clear-fix"></div>
+                                            <div class="message_baloon">
+                                                <p>dddddd</p>
+                                            </div>
+                                            <div class="message_date">
+                                                <p>2018년 01월 28일 10시 28분</p>
                                             </div>
                                         </div>
-                                        <div class="clear-fix message_padding"></div>
+                                    </div>
+                                    <div class="clear-fix message_padding"></div>
 
-                                        <div class="message_commentwarp">
-                                            <div class="message_imgwarp">
-                                                <img class="rounded-circle" id="message_img" src="/images/profile/kakao/kakao-10.png">
+                                    <div class="message_commentwarp">
+                                        <div class="message_imgwarp">
+                                            <img class="rounded-circle" id="message_img" src="/images/profile/kakao/kakao-5.png">
+                                        </div>
+                                        <div class="message_commentbox_other">
+                                            <div class="message_nick">
+                                                <p>ADMIN</p>
                                             </div>
-                                            <div class="message_commentbox_other">
-                                                <div class="message_nick">
-                                                    <p>ADMIN</p>
-                                                </div>
-                                                <div class="clear-fix"></div>
-                                                <div class="message_baloon">
-                                                    <p>안녕하세요.</p>
-                                                </div>
-                                                <div class="message_date">
-                                                    <p>2018년 01월 28일 10시 28분</p>
-                                                </div>
+                                            <div class="clear-fix"></div>
+                                            <div class="message_baloon">
+                                                <p>안녕하세요.</p>
+                                            </div>
+                                            <div class="message_date">
+                                                <p>2018년 01월 28일 10시 28분</p>
                                             </div>
                                         </div>
-                                        <div class="clear-fix message_padding"></div>
+                                    </div>
+                                    <div class="clear-fix message_padding"></div>
 
-                                        <div class="message_commentwarp">
-                                            <div class="message_imgwarp_me">
-                                                <img class="rounded-circle" id="message_img" src="/images/profile/kakao/kakao-12.png">
+                                    <div class="message_commentwarp">
+                                        <div class="message_imgwarp_me">
+                                            <img class="rounded-circle" id="message_img" src="/images/profile/kakao/kakao-12.png">
+                                        </div>
+                                        <div class="message_commentbox_me">
+                                            <div class="message_nick_me ">
+                                                <p>복실복실</p>
                                             </div>
-                                            <div class="message_commentbox_me">
-                                                <div class="message_nick_me ">
-                                                    <p>복실복실</p>
-                                                </div>
-                                                <div class="clear-fix"></div>
-                                                <div class="message_baloon_me">
-                                                    <p>dddddd</p>
-                                                </div>
-                                                <div class="message_date_me">
-                                                    <p>2018년 01월 28일 10시 28분</p>
-                                                </div>
+                                            <div class="clear-fix"></div>
+                                            <div class="message_baloon_me">
+                                                <p>dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</p>
+                                            </div>
+                                            <div class="message_date_me">
+                                                <p>2018년 01월 28일 10시 28분</p>
                                             </div>
                                         </div>
+                                    </div>
 
 
-                                    </div>
-                                    <div class="card-footer" id="message_footer">
-                                        <input type="text float-left" id="message_input">
-                                        <button class="btn btn-danger" id="message_btn">전송</button>
-                                    </div>
+                                </div>
+                                <div class="card-footer" id="message_footer">
+                                    <input type="text" class="messenger_input" id="message_input" data="message">
+                                    <button class="btn btn-warning messenger_btn" id="message_btn" data="message">전송</button>
                                 </div>
                             </div>
                         </div>
@@ -625,8 +631,9 @@
                 </div>
             </div>
         </div>
+    </div>
 
-	<!-- 닉네임 검색 모달 -->
+    <!-- 닉네임 검색 모달 -->
     <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content col-sm-8">
@@ -638,18 +645,18 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>닉네임</label> <input type="text" name="searchText" id="searchText" class="form-control" maxlength="15">
+                        <label>닉네임</label> <input type="text" id="search_text" class="form-control messenger_input" maxlength="15" data="search">
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-danger" id="message_search" data-dismiss="modal" aria-label="Close">검색</button>
-                        <button class="btn btn-default" data-dismiss="modal" aria-label="Close">취소</button>
+                        <button class="btn btn-danger messenger_btn" id="message_search" data-dismiss="modal" aria-label="Close" data="search">검색</button>
+                        <button class="btn btn-default" type="button" data-dismiss="modal" aria-label="Close">취소</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-	<!-- 친구신청 모달 -->
+    <!-- 친구신청 모달 -->
     <div class="modal fade" id="friendModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content col-sm-8">
@@ -661,10 +668,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>닉네임</label> <input type="text" name="searchText" id="friend_text" class="form-control" maxlength="15">
+                        <label>닉네임</label> <input type="text" name="searchText" id="friend_text" class="form-control messenger_input" maxlength="15" data="friend">
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-danger friend_apply" id="message_friend" data-dismiss="modal" aria-label="Close">신청</button>
+                        <button class="btn btn-danger friend_apply messenger_btn" id="message_friend" data-dismiss="modal" aria-label="Close" data="friend">신청</button>
                         <button class="btn btn-default" data-dismiss="modal" aria-label="Close">취소</button>
                     </div>
                 </div>

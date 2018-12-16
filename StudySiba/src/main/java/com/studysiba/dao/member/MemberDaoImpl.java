@@ -81,4 +81,14 @@ public class MemberDaoImpl implements MemberDAO {
 		sqlSession.update(namespace + ".updateProFile", memberVO);
 	}
 
+	@Override
+	public String getUserId(String nick) {
+		return sqlSession.selectOne(namespace + ".getUserId", nick);
+	}
+
+	@Override
+	public String getUserImage(String id) {
+		return sqlSession.selectOne(namespace + ".getUserImage", id);
+	}
+
 }

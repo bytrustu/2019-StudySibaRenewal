@@ -27,6 +27,10 @@ public interface MemberDAO {
 	void updateUserInfo(MemberVO memberVO);
 	// 프로필 사진 수정
 	void updateProFile(MemberVO memberVO);
+	// 닉네임으로 아이디 조회
+	String getUserId(String nick);
+	// 유저 프로필 사진 조회
+	String getUserImage(String id);
 	
 	
 }

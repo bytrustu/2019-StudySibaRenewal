@@ -1,5 +1,5 @@
 $(document).ready(function () {
-	//상단 아이콘 HOVER 색상 반응
+    //상단 아이콘 HOVER 색상 반응
     iconDecoration();
     //푸터 아이콘 클릭 처리
     footerIconClick();
@@ -21,8 +21,8 @@ $(document).ready(function () {
     nickCheck();
     // 드래그앤드롭 이미지
     drageImage();
-    // 툴팁 뷰
-    $('[data-toggle="tooltip"]').tooltip();   
+    // 메신저 버튼 클릭 구별 로직
+    messengerBtn();
 });
 
 //selector 캐싱
@@ -89,39 +89,49 @@ function footerIconClick() {
 
 //모달창 보이기
 function modalShow() {
-	$('body, nav, .modal').addClass('modal-nopadding');
-	$('body, .modal').addClass('modal-nooverflow');
-	$(".joinmodal_choose").css({"top": "-50%", "left": "290%"});
+    $('body, nav, .modal').addClass('modal-nopadding');
+    $('body, .modal').addClass('modal-nooverflow');
+    $(".joinmodal_choose").css({
+        "top": "-50%",
+        "left": "290%"
+    });
     $c('.modal_open').on('click', function () {
         var value = $(this).attr('data');
         $('#' + value).modal('show');
-        if ( value == 'joinModal' ) {
-        	$('.joinmodal_joinid').focus();
+        if (value == 'joinModal') {
+            $('.joinmodal_joinid').focus();
             swing();
-        } else if ( value == 'modifyModal' ) {
-        	$('.modifymodal_nick').focus();
+        } else if (value == 'modifyModal') {
+            $('.modifymodal_nick').focus();
+        } else if (value == 'messageModal') {
+            messengerOpen();
+        } else if ( value == 'searchModal' ) {
+        	$('#search_text').val('');
+        	setTimeout(function(){ $('#search_text').focus(); }, 500);
+        } else if ( value == 'friendModal' ) {
+        	setTimeout(function(){ $('#friend_text').focus(); }, 500);
         }
     });
 }
 
 //모달종료시 액션
 function closeJoinModal() {
-	$('#joinModal').on('hidden.bs.modal, hide.bs.modal', function(e){
-		e.stopImmediatePropagation();
-			console.log('hide modal');
-			$('.joinmodal_choose').stop();
-			$('.joinmodal_choose').css({
-				'top':'-50%',
-				'left':'290%'
-			});
-	});
+    $('#joinModal').on('hidden.bs.modal, hide.bs.modal', function (e) {
+        e.stopImmediatePropagation();
+        console.log('hide modal');
+        $('.joinmodal_choose').stop();
+        $('.joinmodal_choose').css({
+            'top': '-50%',
+            'left': '290%'
+        });
+    });
 }
 
 //로그인 버튼
-function loginBtn(){
-	$c('.loginmodal_loginbtn').on('click', function(){
-		$('#loginForm').submit();
-	});
+function loginBtn() {
+    $c('.loginmodal_loginbtn').on('click', function () {
+        $('#loginForm').submit();
+    });
 }
 
 
@@ -190,7 +200,7 @@ function socialClose() {
 //회원가입 처리
 function joinFunction() {
     $c('.joinmodal_joinbtn').on('click', function () {
-    	
+
         var div = $(this).attr('data');
         if ($('.validation_final').attr('data') == 'false') {
             Swal({
@@ -234,7 +244,7 @@ function inputValueCheck() {
             inputLength.nick = $('#socialJoinNick').val().length;
         }
 
-        
+
         if (inputName == 'id') {
             changeCheckView(inputName, 3, inputLength.id, idSelector);
         } else if (inputName == 'pass') {
@@ -414,81 +424,174 @@ function validationCheck(type, value) {
 }
 
 //닉네임변경
-function nickCheck(){
-	$('.modifymodal_modifybtn').on('click', function(){
-		var nick = $('.modifymodal_nick').val();
-		$.ajax({
-			type : 'POST',
-			url : '/member/checkNick',
-			data : {
-				nick : nick
-			} ,
-			success : function(callback){
-				console.log(callback);
-				if ( callback == 'false' ) {
-					$('#nickForm').submit();
-				} else if ( callback == 'true' ) {
-					Swal('사용불가','이미 사용중인 닉네임 입니다.','error');
-				} else if ( callback == 'emptyValue' ) {
-					Swal('사용불가','닉네임을 입력 해 주세요.','error');
-				}
-			}
-		});
-	});
+function nickCheck() {
+    $('.modifymodal_modifybtn').on('click', function () {
+        var nick = $('.modifymodal_nick').val();
+        $.ajax({
+            type: 'POST',
+            url: '/member/checkNick',
+            data: {
+                nick: nick
+            },
+            success: function (callback) {
+                console.log(callback);
+                if (callback == 'false') {
+                    $('#nickForm').submit();
+                } else if (callback == 'true') {
+                    Swal('사용불가', '이미 사용중인 닉네임 입니다.', 'error');
+                } else if (callback == 'emptyValue') {
+                    Swal('사용불가', '닉네임을 입력 해 주세요.', 'error');
+                }
+            }
+        });
+    });
 }
 
 //드래그앤드롭 이미지
-function drageImage(){
-	$(function () {
-	     var obj = $("#profileImage");
-	     var image = '';
+function drageImage() {
+    $(function () {
+        var obj = $("#profileImage");
+        var image = '';
 
-	     obj.on('dragenter', function (e) {
-	          e.stopPropagation();
-	          e.preventDefault();
-	          image = $(this).attr('src');
-	          $(this).attr('src', '/images/main/loading.gif');
-	     });
+        obj.on('dragenter', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            image = $(this).attr('src');
+            $(this).attr('src', '/images/main/loading.gif');
+        });
 
-	     obj.on('dragleave', function (e) {
-	          e.stopPropagation();
-	          e.preventDefault();
-	          obj.attr('src', image);
-	          $(this).css('border', '1px solid transparent');
-	     });
+        obj.on('dragleave', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            obj.attr('src', image);
+            $(this).css('border', '1px solid transparent');
+        });
 
-	     obj.on('dragover', function (e) {
-	          e.stopPropagation();
-	          e.preventDefault();
-	     });
+        obj.on('dragover', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+        });
 
-	     obj.on('drop', function (e) {
-	          e.preventDefault();
-	          $(this).css('border', '1px solid transparent');
+        obj.on('drop', function (e) {
+            e.preventDefault();
+            $(this).css('border', '1px solid transparent');
 
-	          var files = e.originalEvent.dataTransfer.files;
-	          var file = files[0];
-	          console.log(file);
-	          uploadFile(file, "profile");
-	     });
-	});
+            var files = e.originalEvent.dataTransfer.files;
+            var file = files[0];
+            console.log(file);
+            uploadFile(file, "profile");
+        });
+    });
 }
 
 //파일 업로드
 function uploadFile(file, type) {
-	var formData = new FormData();
-	formData.append("file", file);
-	formData.append("type", type);
-         $.ajax({
-        	type: 'POST',
-            url: '/upload',
-            data: formData,
-            dataType: 'text',
-            processData: false,
-            contentType: false,
-            success: function(callback) {
-            	$("#profileImage").attr('src',  '/local_upload/'+ type + '/' +callback);
-                Swal('정보변경', '프로필 사진이 변경 되었습니다.', 'success');
+    var formData = new FormData();
+    formData.append("file", file);
+    formData.append("type", type);
+    $.ajax({
+        type: 'POST',
+        url: '/upload',
+        data: formData,
+        dataType: 'text',
+        processData: false,
+        contentType: false,
+        success: function (callback) {
+            $("#profileImage").attr('src', '/local_upload/' + type + '/' + callback);
+            Swal('정보변경', '프로필 사진이 변경 되었습니다.', 'success');
+        }
+    });
+}
+
+
+
+// 메세지 부분
+function messengerOpen() {
+    $c('.message_userInfo').html(
+        '<span id="message_title_text">메세지시바</span>'
+    );
+    $c('#message_body').html('');
+    $c('#message_body').append(
+        '<div class="row mb-3" id="message_line">' +
+        '<div class="col-12 message_defaulttext">메세지를 보낼 대상을 선택 해 주세요 !</div>' +
+        '</div>'
+    );
+    setTimeout(function(){
+		$('#message_input').focus();
+	}, 500);
+}
+
+function messengerBtn() {
+    $c('.messenger_btn').on('click', function () {
+        var data = $(this).attr('data');
+        if (data == 'message') {
+
+        } else if (data == 'search') {
+        	var searchVal = $('#search_text').val();
+        	console.log(searchVal);
+        	findUser(searchVal);
+        } else if (data == 'friend') {
+        	var friendVal = $('#friend_text').val();
+
+        }
+    });
+
+    $c('.messenger_input').on('keyup', function (e) {
+        var data = $(this).attr('data');
+        var value = $(this).val();
+        if (e.which == 13) {
+            if (data == 'message') {
+
+            } else if (data == 'search') {
+            	findUser(value);
+                
+            } else if (data == 'friend') {
+                $('#friendModal').modal('hide');
             }
-         });
+        }
+    });
+}
+
+
+// 닉네임 조회
+function findUser(value) {
+    $.ajax({
+        type: 'POST',
+        url: '/messenger/findUser',
+        data: {
+            nick: value
+        },
+        success: function (callback) {
+            console.log(callback);
+            if ( callback == 'true' ) {
+                Swal('검색 성공',  value + '님과 대화를 시작 합니다.', 'success');
+                $('#searchModal').modal('hide');
+                
+                $.ajax({
+                	type : 'POST',
+                	url : '/messenger/getImage',
+                	data : {
+                		nick : value
+                	},
+                	success : function(callback){
+                		$c('.message_userInfo').html(
+                				'<img class="rounded-circle message_userimage" src="/images/profile/kakao/'+ callback +'">'
+                				+'<span id="message_title_text">'+ value +'</span>'
+                		    );
+                	}
+                });
+                
+                
+            } else if ( callback == 'false' ) {
+                Swal('검색 실패', '존재하지 않는 닉네임 입니다.', 'error');
+                return;
+            } else if ( callback == 'equal' ) {
+            	Swal('검색 실패', '본인과는 대화를 연결 할 수 없습니다.', 'error');
+            	return;
+            } else if ( callback == 'error' ) {
+            	Swal('검색 실패' , '닉네임을 입력 해 주세요.', 'error');
+            	return;
+            }
+        }
+    });
 }
