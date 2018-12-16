@@ -3,6 +3,7 @@ package com.studysiba.dao.messenger;
 import java.util.List;
 
 import com.studysiba.domain.messenger.MessageVO;
+import com.studysiba.domain.messenger.UserListVO;
 
 public interface MessengerDAO {
 	// 메세지 roomId 확인
@@ -16,6 +17,6 @@ public interface MessengerDAO {
 	// 메세지 뷰
 	List<MessageVO> getMessage(MessageVO messageVO);
 	// 메신저 유저 정보 리스트 조회
-	List<MessageVO> getMessengerUserList(String id);
+	List<UserListVO> getMessengerUserList(String id);
 
 }

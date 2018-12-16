@@ -12,6 +12,7 @@ import com.studysiba.dao.member.MemberDAO;
 import com.studysiba.dao.messenger.MessengerDAO;
 import com.studysiba.domain.member.MemberVO;
 import com.studysiba.domain.messenger.MessageVO;
+import com.studysiba.domain.messenger.UserListVO;
 
 @Service
 public class MessengerServiceImpl implements MessengerService {
@@ -120,21 +121,51 @@ public class MessengerServiceImpl implements MessengerService {
 
 	@Override
 	public String getMessengerUserList(String id) {
-		List<MessageVO> list = new ArrayList<MessageVO>();
+		List<UserListVO> list = new ArrayList<UserListVO>();
+		List<MemberVO> connect = memberDAO.getConnectList();
 		list = messengerDAO.getMessengerUserList(id);
+
 		JSONObject result = new JSONObject();
 		JSONArray array = new JSONArray();
-		for ( int i=0; i<list.size(); i++ ) {
+		for (int i = 0; i < list.size(); i++) {
 			JSONObject value = new JSONObject();
-			value.put("cDate", list.get(i).getcDate());
-			value.put("nick", list.get(i).getNick());
-			value.put("proFile", list.get(i).getProFile());
-			value.put("mRead", list.get(i).getmRead());
+			if (list.get(i).getPreId().equals(id)) {
+				value.put("id", list.get(i).getLastId());
+				value.put("nick", list.get(i).getLastNick());
+				value.put("proFile", list.get(i).getLastProfile());
+				if (checkConnect(connect, list.get(i).getLastId())) {
+					value.put("connect", "on");
+				} else {
+					value.put("connect", "off");
+				}
+			} else {
+				value.put("id", list.get(i).getPreId());
+				value.put("nick", list.get(i).getPreNick());
+				value.put("proFile", list.get(i).getPreProfile());
+				if (checkConnect(connect, list.get(i).getPreId())) {
+					value.put("connect", "on");
+				} else {
+					value.put("connect", "off");
+				}
+			}
+			value.put("unRead", list.get(i).getUnRead());
 			array.add(value);
 		}
 		result.put("result", array);
 		System.out.println(result.toString());
 		return result.toString();
+	}
+
+	public boolean checkConnect(List<MemberVO> connect, String id) {
+		boolean result = false;
+		if (connect != null) {
+			for (int i = 0; i < connect.size(); i++) {
+				if (connect.get(i).getId().equals(id)) {
+					result = true;
+				}
+			}
+		}
+		return result;
 	}
 
 }

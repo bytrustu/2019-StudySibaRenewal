@@ -1,6 +1,7 @@
 package com.studysiba.dao.member;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -94,6 +95,11 @@ public class MemberDaoImpl implements MemberDAO {
 	@Override
 	public String getUserNick(String id) {
 		return sqlSession.selectOne(namespace + ".getUserNick", id);
+	}
+
+	@Override
+	public List<MemberVO> getConnectList() {
+		return sqlSession.selectList(namespace + ".getConnectList");
 	}
 
 }

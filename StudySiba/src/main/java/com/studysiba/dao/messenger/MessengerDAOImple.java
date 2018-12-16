@@ -1,6 +1,5 @@
 package com.studysiba.dao.messenger;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -8,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.studysiba.domain.messenger.MessageVO;
+import com.studysiba.domain.messenger.UserListVO;
 
 @Repository
 public class MessengerDAOImple implements MessengerDAO {
@@ -38,7 +38,7 @@ public class MessengerDAOImple implements MessengerDAO {
 		return sqlSession.selectList(namespace + ".getMessage", messageVO);
 	}
 	@Override
-	public List<MessageVO> getMessengerUserList(String id) {
+	public List<UserListVO> getMessengerUserList(String id) {
 		return sqlSession.selectList(namespace + ".getMessengerUserList" , id);
 	}
 	

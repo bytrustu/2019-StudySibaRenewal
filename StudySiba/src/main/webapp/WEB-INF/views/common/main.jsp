@@ -112,7 +112,7 @@
                     <p class="context_lasttext">STUDY SIBA</p>
                 </div>
                 <div class="content_main">
-                    <img class="content_mainimage" src="/images/main/content_siba.png">
+                    <img class="content_mainimage" src="/images/main/background_siba.png">
                 </div>
             </div>
 

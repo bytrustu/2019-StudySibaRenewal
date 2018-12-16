@@ -1,6 +1,7 @@
 package com.studysiba.dao.member;
 
 import java.util.HashMap;
+import java.util.List;
 
 import com.studysiba.domain.member.MemberVO;
 
@@ -33,6 +34,8 @@ public interface MemberDAO {
 	String getUserImage(String id);
 	// 아이디로 닉네임 조회
 	String getUserNick(String id);
+	// 접속중인 회원 목록
+	List<MemberVO> getConnectList();
 	
 	
 }

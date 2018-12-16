@@ -34,19 +34,23 @@
 		order by message.mDate ASC
   	</select>
   	
-  	<select id="getMessengerUserList" resultType="com.studysiba.domain.messenger.MessageVO">
-  		select member.nick , COALESCE(member.cDate,'disconnect') as cDate, member.proFile as profile, readcount.mRead from 
-		( select * from message where no IN (select max(no) from message where id=#{id} or toId=#{id} group by roomid) ) message
-		left join ( 
-		select profile.id, profile.nick, profile.proFile, connect.cDate from 
-		( select id, nick, proFile from member ) profile
-		left join ( select id, cDate from member where cDate between now()-interval 1 minute and now() ) connect
-		on profile.id = connect.id
-		) member
-		on message.toId = member.id
-		left join ( select roomId, count(mRead) as mRead from message group by roomId, mRead having mRead=0 ) readcount
-		on message.roomId = readcount.roomId 
-		order by message.mDate
+  	<select id="getMessengerUserList" resultType="com.studysiba.domain.messenger.UserListVO">
+  		select myInfo.id as preId, myInfo.nick as preNick, myInfo.proFile as preProfile, 
+  		toInfo.id as lastId, toInfo.nick as lastNick, toInfo.proFile as lastProfile, 
+  		coalesce(unread.unread,0) as unRead from 
+		( select * from message where id=#{id} OR toId=#{id} group by roomId ) message
+		left join 
+		( select roomId,count(*) as unread from message where toId='test' group by roomId ) unread
+		on message.roomId = unread.roomId
+		left join
+		member myInfo
+		on message.id = myInfo.id
+		left join
+		member toInfo
+		on message.toId = toInfo.id
+		order by message.mDate ASC
   	</select>
+  	
+  	
   	
   </mapper>

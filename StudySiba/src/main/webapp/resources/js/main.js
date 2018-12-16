@@ -656,6 +656,7 @@ function viewMessage(nick) {
     });
 }
 
+// 메신져 유저 리스트 조회
 function getMessengerUserList() {
     $.ajax({
         type: 'POST',
@@ -665,38 +666,49 @@ function getMessengerUserList() {
             console.log(callback);
             $('#message_list').html('');
             $.each(callback.result, function (index, item) {
-                userList(item.nick, item.cDate, item.proFile, item.mRead);
+                userList(item.nick, item.connect, item.proFile, item.unRead);
             });
         },
         error: function () {
             Swal('오류', '[유저리스트] 관리자에게 문의 해 주세요.', 'error');
         },
         complete: function () {
-
+        	userClick();
         }
     });
 }
 
-function userList(nick, cDate, proFile, mRead) {
+// 목록 유저 선택
+function userClick(){
+	$('.message_listimage').on('click', function(){
+		var nick = $(this).parent('.message_profile').children('.message_nickname').find('span').html();
+		viewMessage(nick);
+		successSearch(nick);
+	});
+}
+
+// 유저리스트 설정
+function userList(nick, connect, proFile, unRead) {
     var red = '<div class="background_red" id="message_state"></div>';
     var green = '<div class="background_green" id="message_state"></div>';
     var result = '';
-    if (cDate == 'disconnect') {
+    if (connect == 'off') {
         result = red;
     } else {
         result = green;
     }
     $('#message_list').append(
         '<div class="ml-2 mb-3 message_profile">' +
-        '<img class="rounded-circle message_listimage" id="junes" src="/local_upload/profile/' + proFile + '" draggable="true" ondragstart="drag(this, event)">' +
+        '<img class="rounded-circle message_listimage" src="/local_upload/profile/' + proFile + '" draggable="true" ondragstart="drag(this, event)">' +
         result +
-        '<div id="message_readcount"><span id="message_readtext">' + mRead + '</span></div>' +
+        '<div id="message_readcount"><span id="message_readtext">' + unRead + '</span></div>' +
         '<div class="message_nickname">' +
         '<span>' + nick + '</span>' +
         '</div></div>'
     );
 }
 
+// 내가 보내는 메세지 설정
 function myMessage(nick, profile, content, mDate) {
     $('#message_body').append(
         '<div class="message_commentwarp">' +
@@ -718,6 +730,7 @@ function myMessage(nick, profile, content, mDate) {
     );
 }
 
+// 받은 메세지 설정
 function fromMessage(nick, profile, content, mDate) {
     $('#message_body').append(
         '<div class="message_commentwarp">' +
@@ -739,6 +752,7 @@ function fromMessage(nick, profile, content, mDate) {
     );
 }
 
+// 초대 메세지 설정
 function inviteMessage() {
 
 }
