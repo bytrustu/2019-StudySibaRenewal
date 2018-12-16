@@ -15,5 +15,7 @@ public interface MessengerDAO {
 	long getRoomId();
 	// 메세지 뷰
 	List<MessageVO> getMessage(MessageVO messageVO);
+	// 메신저 유저 정보 리스트 조회
+	List<MessageVO> getMessengerUserList(String id);
 
 }

@@ -118,4 +118,23 @@ public class MessengerServiceImpl implements MessengerService {
 		return result.toString();
 	}
 
+	@Override
+	public String getMessengerUserList(String id) {
+		List<MessageVO> list = new ArrayList<MessageVO>();
+		list = messengerDAO.getMessengerUserList(id);
+		JSONObject result = new JSONObject();
+		JSONArray array = new JSONArray();
+		for ( int i=0; i<list.size(); i++ ) {
+			JSONObject value = new JSONObject();
+			value.put("cDate", list.get(i).getcDate());
+			value.put("nick", list.get(i).getNick());
+			value.put("proFile", list.get(i).getProFile());
+			value.put("mRead", list.get(i).getmRead());
+			array.add(value);
+		}
+		result.put("result", array);
+		System.out.println(result.toString());
+		return result.toString();
+	}
+
 }

@@ -138,7 +138,7 @@
 
                         <div class="content_rank">
                             <img class="content_ranknum" src="/images/main/rank1.png">
-                            <img class="content_rankimage" src="/images/main/kakao-1.png">
+                            <img class="content_rankimage" src="/local_upload/profile/kakao-1.png">
                             <img class="content_like" src="/images/main/like.png">
                             <span class="content_liketext">15</span>
                             <span class="content_boardtitle">월요일싫어요월요...</span>
@@ -146,7 +146,7 @@
 
                         <div class="content_rank content_rank2">
                             <img class="content_ranknum" src="/images/main/rank2.png">
-                            <img class="content_rankimage" src="/images/main/kakao-2.png">
+                            <img class="content_rankimage" src="/local_upload/profile/kakao-2.png">
                             <img class="content_like" src="/images/main/like.png">
                             <span class="content_liketext">8</span>
                             <span class="content_boardtitle">화요일싫어요화요...</span>
@@ -154,7 +154,7 @@
 
                         <div class="content_rank content_rank3">
                             <img class="content_ranknum" src="/images/main/rank3.png">
-                            <img class="content_rankimage" src="/images/main/kakao-3.png">
+                            <img class="content_rankimage" src="/local_upload/profile/kakao-3.png">
                             <img class="content_like" src="/images/main/like.png">
                             <span class="content_liketext">5</span>
                             <span class="content_boardtitle">수요일싫어요수요...</span>
@@ -172,35 +172,35 @@
                     </div>
                     <div class="content_connectbody">
                         <div class="content_connect">
-                            <img class="content_user" src="/images/main/kakao-1.png">
+                            <img class="content_user" src="/local_upload/profile/kakao-1.png">
                             <span>관리자</span>
                             <img class="content_connecticon" src="/images/main/friendship.png">
                             <img class="content_connecticon" src="/images/main/mail.png">
                         </div>
 
                         <div class="content_connect">
-                            <img class="content_user" src="/images/main/kakao-2.png">
+                            <img class="content_user" src="/local_upload/profile/kakao-2.png">
                             <span>복실이</span>
                             <img class="content_connecticon" src="/images/main/friendship.png">
                             <img class="content_connecticon" src="/images/main/mail.png">
                         </div>
 
                         <div class="content_connect">
-                            <img class="content_user" src="/images/main/kakao-3.png">
+                            <img class="content_user" src="/local_upload/profile/kakao-3.png">
                             <span>하하호호</span>
                             <img class="content_connecticon" src="/images/main/friendship.png">
                             <img class="content_connecticon" src="/images/main/mail.png">
                         </div>
 
                         <div class="content_connect">
-                            <img class="content_user" src="/images/main/kakao-2.png">
+                            <img class="content_user" src="/local_upload/profile/kakao-2.png">
                             <span>하하호호</span>
                             <img class="content_connecticon" src="/images/main/friendship.png">
                             <img class="content_connecticon" src="/images/main/mail.png">
                         </div>
 
                         <div class="content_connect">
-                            <img class="content_user" src="/images/main/kakao-3.png">
+                            <img class="content_user" src="/local_upload/profile/kakao-3.png">
                             <span>관리자</span>
                             <img class="content_connecticon" src="/images/main/friendship.png">
                             <img class="content_connecticon" src="/images/main/mail.png">
@@ -241,7 +241,7 @@
                         <div class="content_container">
                             <div class="logininfo_top">
                                 <div class="logininfo_profile">
-                                    <img src="/images/profile/kakao/kakao-1.png">
+                                    <img src="/local_upload/profile/kakao-1.png">
                                     <span>가나다라마</span>
                                     <span>님</span>
                                 </div>
@@ -305,7 +305,7 @@
                     <div class="content_meetbody">
                         <p class="content_meetsubject">씨샾 스터디 개발자 모임</p>
                         <div class="content_meetinfo">
-                            <img class="rounded-circle" src="/images/main/kakao-2.png">
+                            <img class="rounded-circle" src="/local_upload/profile/kakao-2.png">
                             <div class="content_groupleader">
                                 <span>그룹장 : </span> <span>복실이</span>
                             </div>
@@ -326,7 +326,7 @@
                     <div class="content_meetbody">
                         <p class="content_meetsubject">영어 스터디 정기 모임</p>
                         <div class="content_meetinfo">
-                            <img class="rounded-circle" src="/images/main/kakao-2.png">
+                            <img class="rounded-circle" src="/local_upload/profile/kakao-2.png">
                             <div class="content_groupleader">
                                 <span>그룹장 : </span> <span>복실이</span>
                             </div>
@@ -347,7 +347,7 @@
                     <div class="content_meetbody">
                         <p class="content_meetsubject">오라클 스터디 개발자 모임</p>
                         <div class="content_meetinfo">
-                            <img class="rounded-circle" src="/images/main/kakao-2.png">
+                            <img class="rounded-circle" src="/local_upload/profile/kakao-2.png">
                             <div class="content_groupleader">
                                 <span>그룹장 : </span> <span>복실이</span>
                             </div>
@@ -368,7 +368,7 @@
                     <div class="content_meetbody">
                         <p class="content_meetsubject">자바 스터디 개발자 모임</p>
                         <div class="content_meetinfo">
-                            <img class="rounded-circle" src="/images/main/kakao-2.png">
+                            <img class="rounded-circle" src="/local_upload/profile/kakao-2.png">
                             <div class="content_groupleader">
                                 <span>그룹장 : </span> <span>복실이</span>
                             </div>
@@ -512,38 +512,6 @@
                                 </div>
                                 <div class="card-body" id="message_list">
 
-
-                                    <div class="ml-2 mb-3 message_profile">
-                                        <div id="message_id">junes</div>
-                                        <img class="rounded-circle message_listimage" id="junes" src="/images/profile/kakao/kakao-22.png" draggable="true" ondragstart="drag(this, event)">
-                                        <div class="background_red" id="message_state"></div>
-                                        <div id="message_readcount"><span id="message_readtext">0</span></div>
-                                        <div class="message_nickname">
-                                            <span>trycatch</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="ml-2 mb-3 message_profile">
-                                        <div id="message_id">junes</div>
-                                        <img class="rounded-circle message_listimage" id="junes" src="/images/profile/kakao/kakao-23.png" draggable="true" ondragstart="drag(this, event)">
-                                        <div class="background_red" id="message_state"></div>
-                                        <div id="message_readcount"><span id="message_readtext">0</span></div>
-                                        <div class="message_nickname">
-                                            <span>개발자싫어요</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="ml-2 mb-3 message_profile">
-                                        <div id="message_id">junes</div>
-                                        <img class="rounded-circle message_listimage" id="junes" src="/images/profile/kakao/kakao-30.png" draggable="true" ondragstart="drag(this, event)">
-                                        <div class="background_red" id="message_state"></div>
-                                        <div id="message_readcount"><span id="message_readtext">0</span></div>
-                                        <div class="message_nickname">
-                                            <span>메세지3</span>
-                                        </div>
-                                    </div>
-
-
                                 </div>
 
                                 <div class="card-footer" id="memberList_footer" ondragover="return false;" ondragenter="return false;" ondrop="drop(this, event);">
@@ -562,64 +530,8 @@
                                         <img src="/images/main/friendship.png" class="modal_open" data="friendModal">
                                     </div>
                                 </div>
-                                
+
                                 <div class="card-body" id="message_body">
-                                    <div class="message_commentwarp">
-                                        <div class="message_imgwarp">
-                                            <img class="rounded-circle" id="message_img" src="/images/profile/kakao/kakao-30.png">
-                                        </div>
-                                        <div class="message_commentbox_other">
-                                            <div class="message_nick">
-                                                <p>메세지3</p>
-                                            </div>
-                                            <div class="clear-fix"></div>
-                                            <div class="message_baloon">
-                                                <p>dddddd</p>
-                                            </div>
-                                            <div class="message_date">
-                                                <p>2018년 12월 16일 22시 10분</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="clear-fix message_padding"></div>
-
-                                    <div class="message_commentwarp">
-                                        <div class="message_imgwarp">
-                                            <img class="rounded-circle" id="message_img" src="/images/profile/kakao/kakao-30.png">
-                                        </div>
-                                        <div class="message_commentbox_other">
-                                            <div class="message_nick">
-                                                <p>메세지3</p>
-                                            </div>
-                                            <div class="clear-fix"></div>
-                                            <div class="message_baloon">
-                                                <p>안녕하세요.</p>
-                                            </div>
-                                            <div class="message_date">
-                                                <p>2018년 12월 16일 22시 13분</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="clear-fix message_padding"></div>
-
-                                    <div class="message_commentwarp">
-                                        <div class="message_imgwarp_me">
-                                            <img class="rounded-circle" id="message_img" src="/images/profile/kakao/kakao-12.png">
-                                        </div>
-                                        <div class="message_commentbox_me">
-                                            <div class="message_nick_me ">
-                                                <p>복실복실</p>
-                                            </div>
-                                            <div class="clear-fix"></div>
-                                            <div class="message_baloon_me">
-                                                <p>dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</p>
-                                            </div>
-                                            <div class="message_date_me">
-                                                <p>2018년 12월 16일 22시 17분</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
 
                                 </div>
                                 <div class="card-footer" id="message_footer">
@@ -679,9 +591,6 @@
             </div>
         </div>
     </div>
-
-
-
 
 </body>
 

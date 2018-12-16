@@ -25,13 +25,28 @@
   	
   	<select id="getMessage" resultType="com.studysiba.domain.messenger.MessageVO">
   		select message.*, my.profile as myProfile, other.profile as toProfile from 
-		( select no, roomId, type, id, toId, content, mRead, date_format(mDate, '%Y년%m월%d일 %h시%i분') as mDate from message 
+		( select no, roomId, type, id, toId, content, mRead, date_format(mDate, '%Y년%m월%d일 %H시%i분') as mDate from message 
 		where ( id = #{id} AND toId = #{toId} ) OR ( id = #{toId} AND toId = #{id}) ) message
 		join member my
 		on message.id = my.id
 		join member other
 		on message.toId = other.id
 		order by message.mDate ASC
+  	</select>
+  	
+  	<select id="getMessengerUserList" resultType="com.studysiba.domain.messenger.MessageVO">
+  		select member.nick , COALESCE(member.cDate,'disconnect') as cDate, member.proFile as profile, readcount.mRead from 
+		( select * from message where no IN (select max(no) from message where id=#{id} or toId=#{id} group by roomid) ) message
+		left join ( 
+		select profile.id, profile.nick, profile.proFile, connect.cDate from 
+		( select id, nick, proFile from member ) profile
+		left join ( select id, cDate from member where cDate between now()-interval 1 minute and now() ) connect
+		on profile.id = connect.id
+		) member
+		on message.toId = member.id
+		left join ( select roomId, count(mRead) as mRead from message group by roomId, mRead having mRead=0 ) readcount
+		on message.roomId = readcount.roomId 
+		order by message.mDate
   	</select>
   	
   </mapper>

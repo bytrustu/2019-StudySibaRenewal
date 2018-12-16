@@ -1,6 +1,8 @@
 package com.studysiba.domain.messenger;
 
-public class MessageVO {
+import com.studysiba.domain.member.MemberVO;
+
+public class MessageVO extends MemberVO {
 
 	private long no;
 	private long roomId;
@@ -69,7 +71,7 @@ public class MessageVO {
 	public void setmRead(int mRead) {
 		this.mRead = mRead;
 	}
-
+	
 	public String getmDate() {
 		return mDate;
 	}
@@ -93,6 +95,7 @@ public class MessageVO {
 	public void setToProfile(String toProfile) {
 		this.toProfile = toProfile;
 	}
+	
 
 	@Override
 	public String toString() {

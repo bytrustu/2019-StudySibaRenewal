@@ -75,5 +75,13 @@ public class MessengerController {
 		String result = messengerService.getMessage(id, nick);
 		return result;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="getMessengerUserList", method=RequestMethod.POST, produces = "application/json; charset=utf8")
+	public String getMessengerUserList(HttpSession session) {
+		String id = ((HashMap<String, String>) session.getAttribute("userSession")).get("id");
+		String result = messengerService.getMessengerUserList(id);
+		return result;
+	}
 
 }

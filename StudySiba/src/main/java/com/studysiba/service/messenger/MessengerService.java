@@ -12,5 +12,7 @@ public interface MessengerService {
 	String sendMessage(MessageVO messageVO);
 	// 메세지 뷰
 	String getMessage(String id, String nick);
+	// 메신저 유저 정보 리스트 조회
+	String getMessengerUserList(String id);
 
 }
