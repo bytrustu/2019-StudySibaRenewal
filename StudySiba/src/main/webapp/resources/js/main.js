@@ -687,6 +687,7 @@ function fromMessage(nick,profile,content,mDate){
 			);
 }
 
+
 function inviteMessage(){
 	
 }
