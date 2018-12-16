@@ -31,6 +31,8 @@ public interface MemberDAO {
 	String getUserId(String nick);
 	// 유저 프로필 사진 조회
 	String getUserImage(String id);
+	// 아이디로 닉네임 조회
+	String getUserNick(String id);
 	
 	
 }

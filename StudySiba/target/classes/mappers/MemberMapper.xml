@@ -70,4 +70,8 @@
   	select proFile from member where id = #{id}
   </select>
   
+  <select id="getUserNick" resultType="String">
+  	select nick from member where id = #{id}
+  </select>
+  
   </mapper>

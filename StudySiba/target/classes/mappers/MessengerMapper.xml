@@ -5,5 +5,33 @@
   
   <mapper namespace="com.studysiba.mapper.MessengerMapper">
   
-  
+  	<select id="checkRoomId" resultType="String">
+  		select roomId from message 
+  		where ( id = #{id} AND toId = #{toId} ) OR ( id = #{toId} AND toId = #{id} )
+  		group by roomId
+  	</select>
+  	
+  	<insert id="sendMessage">
+  		<selectKey keyProperty="no" resultType="long" order="BEFORE">
+    		select coalesce(max(no+1),1) as no from message
+  		</selectKey>
+  		insert into message (no, roomId, type, id, toId, content, mRead, mDate )
+  		values ( #{no}, #{roomId}, #{type}, #{id}, #{toId}, #{content}, #{mRead}, now() )
+  	</insert>
+  	
+  	<select id="getRoomId" resultType="long">
+  		select COALESCE(max(roomId+1),1) as roomId from message
+  	</select>
+  	
+  	<select id="getMessage" resultType="com.studysiba.domain.messenger.MessageVO">
+  		select message.*, my.profile as myProfile, other.profile as toProfile from 
+		( select no, roomId, type, id, toId, content, mRead, date_format(mDate, '%Y년%m월%d일 %h시%i분') as mDate from message 
+		where ( id = #{id} AND toId = #{toId} ) OR ( id = #{toId} AND toId = #{id}) ) message
+		join member my
+		on message.id = my.id
+		join member other
+		on message.toId = other.id
+		order by message.mDate ASC
+  	</select>
+  	
   </mapper>

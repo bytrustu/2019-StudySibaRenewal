@@ -108,7 +108,6 @@ public class MemberController {
 		return "redirect:/";
 	}
 
-	@SuppressWarnings("unused")
 	@ResponseBody
 	@RequestMapping(value = "validationCheck", method = RequestMethod.POST)
 	public String validationCheck(@RequestParam HashMap<String, String> map) {

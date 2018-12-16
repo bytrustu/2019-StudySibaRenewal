@@ -519,7 +519,7 @@
                                         <div class="background_red" id="message_state"></div>
                                         <div id="message_readcount"><span id="message_readtext">0</span></div>
                                         <div class="message_nickname">
-                                            <span>junes</span>
+                                            <span>trycatch</span>
                                         </div>
                                     </div>
 
@@ -529,17 +529,17 @@
                                         <div class="background_red" id="message_state"></div>
                                         <div id="message_readcount"><span id="message_readtext">0</span></div>
                                         <div class="message_nickname">
-                                            <span>junes</span>
+                                            <span>개발자싫어요</span>
                                         </div>
                                     </div>
 
                                     <div class="ml-2 mb-3 message_profile">
                                         <div id="message_id">junes</div>
-                                        <img class="rounded-circle message_listimage" id="junes" src="/images/profile/kakao/kakao-24.png" draggable="true" ondragstart="drag(this, event)">
+                                        <img class="rounded-circle message_listimage" id="junes" src="/images/profile/kakao/kakao-30.png" draggable="true" ondragstart="drag(this, event)">
                                         <div class="background_red" id="message_state"></div>
                                         <div id="message_readcount"><span id="message_readtext">0</span></div>
                                         <div class="message_nickname">
-                                            <span>junes</span>
+                                            <span>메세지3</span>
                                         </div>
                                     </div>
 
@@ -562,21 +562,22 @@
                                         <img src="/images/main/friendship.png" class="modal_open" data="friendModal">
                                     </div>
                                 </div>
+                                
                                 <div class="card-body" id="message_body">
                                     <div class="message_commentwarp">
                                         <div class="message_imgwarp">
-                                            <img class="rounded-circle" id="message_img" src="/images/profile/kakao/kakao-5.png">
+                                            <img class="rounded-circle" id="message_img" src="/images/profile/kakao/kakao-30.png">
                                         </div>
                                         <div class="message_commentbox_other">
                                             <div class="message_nick">
-                                                <p>ADMIN</p>
+                                                <p>메세지3</p>
                                             </div>
                                             <div class="clear-fix"></div>
                                             <div class="message_baloon">
                                                 <p>dddddd</p>
                                             </div>
                                             <div class="message_date">
-                                                <p>2018년 01월 28일 10시 28분</p>
+                                                <p>2018년 12월 16일 22시 10분</p>
                                             </div>
                                         </div>
                                     </div>
@@ -584,18 +585,18 @@
 
                                     <div class="message_commentwarp">
                                         <div class="message_imgwarp">
-                                            <img class="rounded-circle" id="message_img" src="/images/profile/kakao/kakao-5.png">
+                                            <img class="rounded-circle" id="message_img" src="/images/profile/kakao/kakao-30.png">
                                         </div>
                                         <div class="message_commentbox_other">
                                             <div class="message_nick">
-                                                <p>ADMIN</p>
+                                                <p>메세지3</p>
                                             </div>
                                             <div class="clear-fix"></div>
                                             <div class="message_baloon">
                                                 <p>안녕하세요.</p>
                                             </div>
                                             <div class="message_date">
-                                                <p>2018년 01월 28일 10시 28분</p>
+                                                <p>2018년 12월 16일 22시 13분</p>
                                             </div>
                                         </div>
                                     </div>
@@ -614,7 +615,7 @@
                                                 <p>dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</p>
                                             </div>
                                             <div class="message_date_me">
-                                                <p>2018년 01월 28일 10시 28분</p>
+                                                <p>2018년 12월 16일 22시 17분</p>
                                             </div>
                                         </div>
                                     </div>

@@ -91,4 +91,9 @@ public class MemberDaoImpl implements MemberDAO {
 		return sqlSession.selectOne(namespace + ".getUserImage", id);
 	}
 
+	@Override
+	public String getUserNick(String id) {
+		return sqlSession.selectOne(namespace + ".getUserNick", id);
+	}
+
 }

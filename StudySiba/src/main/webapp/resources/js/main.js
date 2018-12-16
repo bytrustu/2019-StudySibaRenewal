@@ -21,8 +21,6 @@ $(document).ready(function () {
     nickCheck();
     // 드래그앤드롭 이미지
     drageImage();
-    // 메신저 버튼 클릭 구별 로직
-    messengerBtn();
 });
 
 //selector 캐싱
@@ -118,7 +116,6 @@ function modalShow() {
 function closeJoinModal() {
     $('#joinModal').on('hidden.bs.modal, hide.bs.modal', function (e) {
         e.stopImmediatePropagation();
-        console.log('hide modal');
         $('.joinmodal_choose').stop();
         $('.joinmodal_choose').css({
             'top': '-50%',
@@ -297,8 +294,6 @@ function inputValueCheck() {
             checkRedu(eMailSelector, eMailInput, null, '이메일', 'eMail', $('#socialJoinEmail').val());
         });
     }
-
-
 }
 
 
@@ -307,7 +302,6 @@ function changeTrueView(selector) {
     selector.removeClass('btn-warning');
     selector.addClass('btn-success');
     selector.attr('data', 'true');
-    console.log(selector);
     if (selector.attr('id') == 'passChecker') {
         selector.html('변경확인');
     } else {
@@ -417,7 +411,7 @@ function validationCheck(type, value) {
             result = data;
         },
         error: function () {
-            console.log('validationCheck Function Error');
+            console.log('valdation function error');
         }
     });
     return result;
@@ -434,7 +428,6 @@ function nickCheck() {
                 nick: nick
             },
             success: function (callback) {
-                console.log(callback);
                 if (callback == 'false') {
                     $('#nickForm').submit();
                 } else if (callback == 'true') {
@@ -478,7 +471,6 @@ function drageImage() {
 
             var files = e.originalEvent.dataTransfer.files;
             var file = files[0];
-            console.log(file);
             uploadFile(file, "profile");
         });
     });
@@ -505,8 +497,9 @@ function uploadFile(file, type) {
 
 
 
-// 메세지 부분
+// 메신저 모달 호출 시
 function messengerOpen() {
+	
     $c('.message_userInfo').html(
         '<span id="message_title_text">메세지시바</span>'
     );
@@ -516,23 +509,30 @@ function messengerOpen() {
         '<div class="col-12 message_defaulttext">메세지를 보낼 대상을 선택 해 주세요 !</div>' +
         '</div>'
     );
+    $('#message_input').val('');
     setTimeout(function(){
 		$('#message_input').focus();
 	}, 500);
+    
+    messengerBtn();
 }
 
+// 메신져 버튼 별 처리 구분
 function messengerBtn() {
     $c('.messenger_btn').on('click', function () {
         var data = $(this).attr('data');
         if (data == 'message') {
-
+        	var nick = $('#message_title_text').attr('data');
+        	var content = $('#message_input').val();
+        	var type = data;
+        	sendMessage(nick, type, content);
+        	
         } else if (data == 'search') {
         	var searchVal = $('#search_text').val();
         	console.log(searchVal);
         	findUser(searchVal);
         } else if (data == 'friend') {
         	var friendVal = $('#friend_text').val();
-
         }
     });
 
@@ -562,26 +562,10 @@ function findUser(value) {
             nick: value
         },
         success: function (callback) {
-            console.log(callback);
             if ( callback == 'true' ) {
                 Swal('검색 성공',  value + '님과 대화를 시작 합니다.', 'success');
                 $('#searchModal').modal('hide');
-                
-                $.ajax({
-                	type : 'POST',
-                	url : '/messenger/getImage',
-                	data : {
-                		nick : value
-                	},
-                	success : function(callback){
-                		$c('.message_userInfo').html(
-                				'<img class="rounded-circle message_userimage" src="/images/profile/kakao/'+ callback +'">'
-                				+'<span id="message_title_text">'+ value +'</span>'
-                		    );
-                	}
-                });
-                
-                
+                successSearch(value);
             } else if ( callback == 'false' ) {
                 Swal('검색 실패', '존재하지 않는 닉네임 입니다.', 'error');
                 return;
@@ -594,4 +578,115 @@ function findUser(value) {
             }
         }
     });
+}
+
+// 닉네임 조회 성공시 메신져 상단 변화
+function successSearch(value) {
+	$.ajax({
+    	type : 'POST',
+    	url : '/messenger/getImage',
+    	data : {
+    		nick : value
+    	},
+    	success : function(callback){
+    		$c('.message_userInfo').html(
+    				'<img class="rounded-circle message_userimage" src="/images/profile/kakao/'+ callback +'">'
+    				+'<span id="message_title_text" data="'+ value +'">'+ value +'</span>'
+    		    );
+    		viewMessage(value);
+    	}
+    });
+}
+
+// 메세지 전송
+function sendMessage(nick,type,content) {
+	if ( nick == '' || type == '' || content == '' ) {
+		Swal('오류', '입력사항을 다시 확인 해 주세요.', 'error');
+	}
+	$.ajax({
+		type : 'POST',
+		url : '/messenger/sendMessage',
+		data : {
+			nick : nick,
+			type : type,
+			content : content
+		}, 
+		success : function(callback) {
+			if ( callback == 'true' ) {
+			
+			} else if ( callback == 'false' ) {
+				Swal('오류', '입력사항을 다시 확인 해 주세요.', 'error');
+			}
+		}
+	});
+}
+
+// 메세지 조회
+function viewMessage(nick) {
+	$.ajax({
+		type : 'POST',
+		url : '/messenger/viewMessage',
+		dataType : 'json',
+		data : {
+			nick : nick
+		},
+		success : function (callback) {
+			$.each(callback.result, function(index,item){
+				if ( item.myNick === item.nick ) {
+					myMessage(item.nick, item.myProfile, item.content, item.mDate);
+				} else {
+					fromMessage(item.nick, item.myProfile, item.content, item.mDate);
+				}
+			});
+		},
+		complete : function(){
+			$('#message_body').scrollTop($('#message_body')[0].scrollHeight);
+		}
+	});
+}
+
+function myMessage(nick,profile,content,mDate){
+	$('#message_body').append(
+			'<div class="message_commentwarp">'
+			+'<div class="message_imgwarp_me">'
+			+'<img class="rounded-circle" id="message_img" src="/images/profile/kakao/'+ profile +'">'
+			+'</div>'
+			+'<div class="message_commentbox_me">'
+			+'<div class="message_nick_me ">'
+			+'<p>'+ nick +'</p>'
+			+'</div>'
+			+'<div class="clear-fix"></div>'
+			+'<div class="message_baloon_me">'
+			+'<p>'+ content +'</p>'
+			+'</div>'
+			+'<div class="message_date_me">'
+			+'<p>'+ mDate +'</p>'
+			+'</div></div></div>'
+			+'<div class="clear-fix message_padding"></div>'
+		);
+}
+
+function fromMessage(nick,profile,content,mDate){
+	$('#message_body').append(
+			'<div class="message_commentwarp">'
+			+'<div class="message_imgwarp">'
+			+'<img class="rounded-circle" id="message_img" src="/images/profile/kakao/'+ profile +'">'
+			+'</div>'
+			+'<div class="message_commentbox_other">'
+			+'<div class="message_nick">'
+			+'<p>'+ nick +'</p>'
+			+'</div>'
+			+'<div class="clear-fix"></div>'
+			+'<div class="message_baloon">'
+			+'<p>'+ content +'</p>'
+			+'</div>'
+			+'<div class="message_date">'
+			+'<p>'+ mDate +'</p>'
+			+'</div></div></div>'
+			+'<div class="clear-fix message_padding"></div>'
+			);
+}
+
+function inviteMessage(){
+	
 }
