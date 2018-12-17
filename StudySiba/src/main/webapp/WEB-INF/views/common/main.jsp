@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/css/main.css">
 
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="/js/jquery-ui.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.32.2/dist/sweetalert2.min.js"></script>
     <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>

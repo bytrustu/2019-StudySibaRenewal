@@ -41,6 +41,10 @@ public class MessengerDAOImple implements MessengerDAO {
 	public List<UserListVO> getMessengerUserList(String id) {
 		return sqlSession.selectList(namespace + ".getMessengerUserList" , id);
 	}
+	@Override
+	public String deleteMessage(MessageVO messageVO) {
+		return Integer.toString(sqlSession.delete(namespace + ".deleteMessage", messageVO));
+	}
 	
 	
 }

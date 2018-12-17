@@ -126,7 +126,7 @@ public class MessengerServiceImpl implements MessengerService {
 		list = messengerDAO.getMessengerUserList(id);
 
 		JSONObject result = new JSONObject();
-		JSONArray array = new JSONArray();
+		JSONArray array =  new JSONArray();
 		for (int i = 0; i < list.size(); i++) {
 			JSONObject value = new JSONObject();
 			if (list.get(i).getPreId().equals(id)) {
@@ -165,6 +165,16 @@ public class MessengerServiceImpl implements MessengerService {
 				}
 			}
 		}
+		return result;
+	}
+
+	@Override
+	public String deleteMessage(String id, String nick) {
+		String toId = checkNick(id, nick, "getId");
+		MessageVO messageVO = new MessageVO();
+		messageVO.setId(id);
+		messageVO.setToId(toId);
+		String result = messengerDAO.deleteMessage(messageVO);
 		return result;
 	}
 

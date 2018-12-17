@@ -18,5 +18,7 @@ public interface MessengerDAO {
 	List<MessageVO> getMessage(MessageVO messageVO);
 	// 메신저 유저 정보 리스트 조회
 	List<UserListVO> getMessengerUserList(String id);
+	// 메세지 삭제
+	String deleteMessage(MessageVO messageVO);
 
 }

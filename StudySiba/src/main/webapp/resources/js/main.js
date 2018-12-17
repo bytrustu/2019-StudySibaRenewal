@@ -1,17 +1,17 @@
 $(document).ready(function () {
-    //상단 아이콘 HOVER 색상 반응
+    // 상단 아이콘 HOVER 색상 반응
     iconDecoration();
-    //푸터 아이콘 클릭 처리
+    // 푸터 아이콘 클릭 처리
     footerIconClick();
-    //모달창 보이기
+    // 모달창 보이기
     modalShow();
-    //회원가입 이미지 변경 버튼 클릭시
+    // 회원가입 이미지 변경 버튼 클릭시
     chooseBtn();
-    //회원가입 이미지 변경 로직
+    // 회원가입 이미지 변경 로직
     chooseProfile();
-    //소셜 로그인 버튼 클릭
+    // 소셜 로그인 버튼 클릭
     socialLogin();
-    //회원가입 처리
+    // 회원가입 처리
     joinFunction();
     // 입력값 validation 체크
     inputValueCheck();
@@ -23,9 +23,10 @@ $(document).ready(function () {
     drageImage();
     // 메신져 버튼 구분 처리
     messengerBtn();
+    deleteMotion();
 });
 
-//selector 캐싱
+// selector 캐싱
 var $c = function (qr, force) {
     if (!$c.dt) {
         $c.dt = {};
@@ -36,23 +37,22 @@ var $c = function (qr, force) {
     return $c.dt[qr];
 };
 
-/*  console.time('t1');
-      for (let i = 0; i < 100000; i++) {
-         $c;
-      }
-      console.timeEnd('t1');*/
+/*
+ * console.time('t1'); for (let i = 0; i < 100000; i++) { $c; }
+ * console.timeEnd('t1');
+ */
 
-//페이지 이동
+// 페이지 이동
 function movePath(path) {
     location.href = path;
 }
 
-//새창 페이지 이동
+// 새창 페이지 이동
 function moveNewPath(path) {
     window.open(path, '_blank');
 }
 
-//상단 아이콘 HOVER 색상 반응
+// 상단 아이콘 HOVER 색상 반응
 function iconDecoration() {
     $c('.menu-icon, .menu-dropicon, .menu-pre').hover(
         function () {
@@ -71,7 +71,7 @@ function iconDecoration() {
         });
 }
 
-//푸터 아이콘 클릭 처리
+// 푸터 아이콘 클릭 처리
 function footerIconClick() {
     $c('.footer-icons').on('click', function () {
         var path = '';
@@ -87,7 +87,7 @@ function footerIconClick() {
     });
 }
 
-//모달창 보이기
+// 모달창 보이기
 function modalShow() {
     $('body, nav, .modal').addClass('modal-nopadding');
     $('body, .modal').addClass('modal-nooverflow');
@@ -119,7 +119,7 @@ function modalShow() {
     });
 }
 
-//모달종료시 액션
+// 모달종료시 액션
 function closeJoinModal() {
     $('#joinModal').on('hidden.bs.modal, hide.bs.modal', function (e) {
         e.stopImmediatePropagation();
@@ -131,7 +131,7 @@ function closeJoinModal() {
     });
 }
 
-//로그인 버튼
+// 로그인 버튼
 function loginBtn() {
     $c('.loginmodal_loginbtn').on('click', function () {
         $('#loginForm').submit();
@@ -139,7 +139,7 @@ function loginBtn() {
 }
 
 
-//회원가입 이미지 변경 아이콘 움직임
+// 회원가입 이미지 변경 아이콘 움직임
 function swing() {
     $c('.joinmodal_choose').animate({
         'top': '4%',
@@ -150,7 +150,7 @@ function swing() {
     }, 600, swing);
 }
 
-//소셜 회원가입 이미지 변경 아이콘 움직임
+// 소셜 회원가입 이미지 변경 아이콘 움직임
 function socialSwing() {
     $c('.social_choose').animate({
         'top': '22%',
@@ -161,14 +161,14 @@ function socialSwing() {
     }, 600, socialSwing);
 }
 
-//회원가입 이미지 변경 버튼 클릭시
+// 회원가입 이미지 변경 버튼 클릭시
 function chooseBtn() {
     $c('.joinmodal_choose, .social_choose').on('click', function () {
         chooseProfile();
     });
 }
 
-//회원가입 이미지 변경 로직
+// 회원가입 이미지 변경 로직
 function chooseProfile() {
     var path = '/images/profile/kakao/'
     var result = Math.floor(Math.random() * 40) + 1;
@@ -177,7 +177,7 @@ function chooseProfile() {
     $('input[name=proFile]').val(profile);
 }
 
-//소셜 로그인 버튼 클릭
+// 소셜 로그인 버튼 클릭
 function socialLogin() {
     $c('.content_socialicon').on('click', function () {
         var value = $(this).attr('data');
@@ -201,7 +201,7 @@ function socialClose() {
     });
 }
 
-//회원가입 처리
+// 회원가입 처리
 function joinFunction() {
     $c('.joinmodal_joinbtn').on('click', function () {
 
@@ -219,7 +219,7 @@ function joinFunction() {
     });
 }
 
-//소셜 회원가입 입력값 확인
+// 소셜 회원가입 입력값 확인
 function inputValueCheck() {
 
     var exp = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
@@ -304,7 +304,7 @@ function inputValueCheck() {
 }
 
 
-//확인버튼 : 중복확인
+// 확인버튼 : 중복확인
 function changeTrueView(selector) {
     selector.removeClass('btn-warning');
     selector.addClass('btn-success');
@@ -316,7 +316,7 @@ function changeTrueView(selector) {
     }
 }
 
-//확인버튼 : 불가능
+// 확인버튼 : 불가능
 function changeFalseView(selector) {
     selector.removeClass('btn-success');
     selector.addClass('btn-warning');
@@ -324,7 +324,7 @@ function changeFalseView(selector) {
     selector.html('불가능');
 }
 
-//중복확인 로직
+// 중복확인 로직
 function checkRedu(btnSelector, preSeletor, lastSelector, text, type, value) {
 
     var result = '';
@@ -403,7 +403,7 @@ function checkRedu(btnSelector, preSeletor, lastSelector, text, type, value) {
 }
 
 
-//입력값 중복 확인값 리턴
+// 입력값 중복 확인값 리턴
 function validationCheck(type, value) {
     var result = '';
     $.ajax({
@@ -424,7 +424,7 @@ function validationCheck(type, value) {
     return result;
 }
 
-//닉네임변경
+// 닉네임변경
 function nickCheck() {
     $('.modifymodal_modifybtn').on('click', function () {
         var nick = $('.modifymodal_nick').val();
@@ -447,7 +447,7 @@ function nickCheck() {
     });
 }
 
-//드래그앤드롭 이미지
+// 드래그앤드롭 이미지
 function drageImage() {
     $(function () {
         var obj = $("#profileImage");
@@ -483,7 +483,7 @@ function drageImage() {
     });
 }
 
-//파일 업로드
+// 파일 업로드
 function uploadFile(file, type) {
     var formData = new FormData();
     formData.append("file", file);
@@ -521,7 +521,7 @@ function messengerOpen() {
         $('#message_input').focus();
     }, 500);
 
-    //messengerBtn();
+    // messengerBtn();
 }
 
 // 메신져 버튼 별 처리 구분
@@ -539,7 +539,6 @@ function messengerBtn() {
 
         } else if (data == 'search') {
             var searchVal = $('#search_text').val();
-            console.log(searchVal);
             findUser(searchVal);
         } else if (data == 'friend') {
             var friendVal = $('#friend_text').val();
@@ -551,7 +550,10 @@ function messengerBtn() {
         var value = $(this).val();
         if (e.which == 13) {
             if (data == 'message') {
-
+            	var nick = $('#message_title_text').attr('data');
+                var content = $('#message_input').val();
+                var type = data;
+                sendMessage(nick, type, content);
             } else if (data == 'search') {
                 findUser(value);
 
@@ -612,7 +614,14 @@ function successSearch(value) {
 function sendMessage(nick, type, content) {
     if (nick == '' || type == '' || content == '') {
         Swal('오류', '입력사항을 다시 확인 해 주세요.', 'error');
+        return;
     }
+    $c('#message_input').val('');
+	$c('#message_input').focus();
+    $c('#message_btn').html('전송중');
+    $c('#message_btn').removeClass('btn-warning');
+    $c('#message_btn').addClass('btn-primary');
+    $c('#message_btn').attr('disabled','disabled');
     $.ajax({
         type: 'POST',
         url: '/messenger/sendMessage',
@@ -627,6 +636,19 @@ function sendMessage(nick, type, content) {
             } else if (callback == 'false') {
                 Swal('오류', '입력사항을 다시 확인 해 주세요.', 'error');
             }
+        },
+        error : function(){
+        	Swal('메세지오류','관리자에게 문의 해 주세요.','error');
+        },
+        complete : function(){
+        	viewMessage(nick);
+        	getMessengerUserList();
+        	setTimeout(function(){
+        		$c('#message_btn').html('전송');
+            	$c('#message_btn').removeClass('btn-primary');
+            	$c('#message_btn').addClass('btn-warning');
+            	$c('#message_btn').removeAttr('disabled');
+        	},500);
         }
     });
 }
@@ -663,7 +685,6 @@ function getMessengerUserList() {
         url: '/messenger/getMessengerUserList',
         dataType: 'json',
         success: function (callback) {
-            console.log(callback);
             $('#message_list').html('');
             $.each(callback.result, function (index, item) {
                 userList(item.nick, item.connect, item.proFile, item.unRead);
@@ -673,18 +694,18 @@ function getMessengerUserList() {
             Swal('오류', '[유저리스트] 관리자에게 문의 해 주세요.', 'error');
         },
         complete: function () {
-        	userClick();
+            userClick();
         }
     });
 }
 
 // 목록 유저 선택
-function userClick(){
-	$('.message_listimage').on('click', function(){
-		var nick = $(this).parent('.message_profile').children('.message_nickname').find('span').html();
-		viewMessage(nick);
-		successSearch(nick);
-	});
+function userClick() {
+    $('.message_listimage').on('click', function () {
+        var nick = $(this).parent('.message_profile').children('.message_nickname').find('span').html();
+        viewMessage(nick);
+        successSearch(nick);
+    });
 }
 
 // 유저리스트 설정
@@ -692,16 +713,24 @@ function userList(nick, connect, proFile, unRead) {
     var red = '<div class="background_red" id="message_state"></div>';
     var green = '<div class="background_green" id="message_state"></div>';
     var result = '';
+    var newElement = '';
     if (connect == 'off') {
         result = red;
     } else {
         result = green;
     }
+    if ( unRead > 0 ) {
+    	newElement = '<div class="message_alarm"><span class="badge badge-warning">New</span></div>';
+    	if ( unRead > 9 ) {
+        	unRead = '!?';
+        }
+    }
     $('#message_list').append(
         '<div class="ml-2 mb-3 message_profile">' +
-        '<img class="rounded-circle message_listimage" src="/local_upload/profile/' + proFile + '" draggable="true" ondragstart="drag(this, event)">' +
+        '<img class="rounded-circle message_listimage" id="' + nick + '" src="/local_upload/profile/' + proFile + '"  draggable="true" ondragstart="drag(this, event)">' +
         result +
         '<div id="message_readcount"><span id="message_readtext">' + unRead + '</span></div>' +
+        newElement +
         '<div class="message_nickname">' +
         '<span>' + nick + '</span>' +
         '</div></div>'
@@ -755,4 +784,65 @@ function fromMessage(nick, profile, content, mDate) {
 // 초대 메세지 설정
 function inviteMessage() {
 
+}
+
+//드래그 시작시 호출 할 함수
+function drag(target, profile) {
+    profile.dataTransfer.setData('memberList', target.id);
+};
+
+// 드롭시 호출 할 함수
+function drop(target, profile) {
+    var id = profile.dataTransfer.getData('memberList');
+    target.appendChild(document.getElementById(id));
+    profile.preventDefault();
+    var nick = $('#memberList_footer').find('.message_listimage').attr('id');
+    $('#memberList_footer').html('<div class="message_waste"></div>');
+    deleteMessage(nick);
+}
+
+
+function deleteMotion() {
+
+    $(function () {
+        var obj = $("#memberList_footer");
+        obj.on('dragenter', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            $(this).css('border', '3px solid #5272A0');
+        });
+        obj.on('dragleave', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            $(this).css('border', '1px solid #dddddd');
+        });
+        obj.on('dragover', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+        });
+        obj.on('drop', function (e) {
+            e.preventDefault();
+            $(this).css('border', '1px solid #dddddd');
+        });
+    });
+}
+
+function deleteMessage(nick) {
+	$.ajax({
+		type : 'POST',
+		url : '/messenger/deleteMessage',
+		data : {
+			nick : nick
+		}, 
+		success : function(callback){
+			Swal('메세지삭제', callback+'개 메세지가 삭제 되었습니다.', 'success');
+		},
+		error : function(){
+			Swal('삭제오류', '관리자에게 문의 해 주세요.', 'error');
+		},
+		complete : function(){
+			getMessengerUserList();
+			messengerOpen();
+		}
+	});
 }

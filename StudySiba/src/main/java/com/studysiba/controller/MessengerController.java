@@ -83,5 +83,13 @@ public class MessengerController {
 		String result = messengerService.getMessengerUserList(id);
 		return result;
 	}
-
+	
+	@ResponseBody
+	@RequestMapping(value="deleteMessage", method=RequestMethod.POST)
+	public String deleteMessage( @RequestParam("nick") String nick, HttpSession session ) {
+		
+		String id = ((HashMap<String, String>) session.getAttribute("userSession")).get("id");
+		String result = messengerService.deleteMessage(id, nick);
+		return result;
+	}
 }

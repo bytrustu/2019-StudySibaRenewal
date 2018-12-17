@@ -21,7 +21,7 @@
 }
 
 #message_input {
-	width: 280px;
+	width: 276px;
 	height: 35px;
 	border: 1px solid #d6d6d6;
 	padding-left: 15px;
@@ -104,15 +104,15 @@
 
 #message_readtext {
 	position: absolute;
-	left: 30%;
-	bottom: -13%;
-	font-weight: bold;
-	color: white;
+    left: 26%;
+    bottom: -8%;
+    font-weight: bold;
+    color: white;
 }
 
 .message_alarm {
 	position: absolute;
-	top: 18px;
+	top: 3px;
 	left: 48px;
 	color: royalblue;
 	font-weight: bold;
@@ -159,10 +159,11 @@
 .message_waste {
 	background-image: url("/images/main/waste.png");
 	background-size: cover;
-	width: 40px;
-	height: 40px;
-	margin-left: 42px;
-	margin-top: 10px;
+    width: 25px;
+    height: 25px;
+    margin-left: 50px;
+    margin-top: 18px;
+}
 }
 
 .message_commentwarp {

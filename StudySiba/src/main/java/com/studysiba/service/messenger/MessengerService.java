@@ -14,5 +14,7 @@ public interface MessengerService {
 	String getMessage(String id, String nick);
 	// 메신저 유저 정보 리스트 조회
 	String getMessengerUserList(String id);
+	// 메세지 삭제
+	String deleteMessage(String id, String nick);
 
 }
