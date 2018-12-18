@@ -23,7 +23,12 @@ $(document).ready(function () {
     drageImage();
     // 메신져 버튼 구분 처리
     messengerBtn();
+    // 메세지 휴지통 드래그시 모션 처리
     deleteMotion();
+    // 접속목록 버튼 클릭시
+    connecticonBtn();
+    // 접속시간 갱신
+    statusConnect();
 });
 
 // selector 캐싱
@@ -101,19 +106,31 @@ function modalShow() {
         if (value == 'joinModal') {
             $('.joinmodal_joinid').focus();
             swing();
+        } else if (value == 'loginModal') {
+        	setTimeout(function(){
+        		$('.loginmodal_loginid').focus();
+        	}, 500);
         } else if (value == 'modifyModal') {
-            $('.modifymodal_nick').focus();
+        	setTimeout(function(){
+        		$('.modifymodal_nick').focus();
+        	}, 500);
         } else if (value == 'messageModal') {
             messengerOpen();
             getMessengerUserList();
         } else if (value == 'searchModal') {
             $('#search_text').val('');
             setTimeout(function () {
-                $('#search_text').focus();
+                $c('#search_text').focus();
             }, 500);
         } else if (value == 'friendModal') {
             setTimeout(function () {
-                $('#friend_text').focus();
+                $c('#friend_text').focus();
+            }, 500);
+        } else if (value == 'passModal') {
+            $c('#currPassword').val('');
+            $c('#changePassword').val('');
+            setTimeout(function () {
+                $c('#currPassword').focus();
             }, 500);
         }
     });
@@ -434,12 +451,12 @@ function nickCheck() {
             data: {
                 nick: nick
             },
-            success: function (callback) {
-                if (callback == 'false') {
+            success: function (response) {
+                if (response == 'false') {
                     $('#nickForm').submit();
-                } else if (callback == 'true') {
+                } else if (response == 'true') {
                     Swal('사용불가', '이미 사용중인 닉네임 입니다.', 'error');
-                } else if (callback == 'emptyValue') {
+                } else if (response == 'emptyValue') {
                     Swal('사용불가', '닉네임을 입력 해 주세요.', 'error');
                 }
             }
@@ -495,8 +512,8 @@ function uploadFile(file, type) {
         dataType: 'text',
         processData: false,
         contentType: false,
-        success: function (callback) {
-            $("#profileImage").attr('src', '/local_upload/' + type + '/' + callback);
+        success: function (response) {
+            $("#profileImage").attr('src', '/local_upload/' + type + '/' + response);
             Swal('정보변경', '프로필 사진이 변경 되었습니다.', 'success');
         }
     });
@@ -512,7 +529,7 @@ function messengerOpen() {
     );
     $c('#message_body').html('');
     $c('#message_body').append(
-        '<div class="row mb-3" id="message_line">' +
+        '<div class="row mb-3">' +
         '<div class="col-12 message_defaulttext">메세지를 보낼 대상을 선택 해 주세요 !</div>' +
         '</div>'
     );
@@ -520,46 +537,65 @@ function messengerOpen() {
     setTimeout(function () {
         $('#message_input').focus();
     }, 500);
-
-    // messengerBtn();
 }
 
 // 메신져 버튼 별 처리 구분
 function messengerBtn() {
-    // 결국 여기가 창 뜰때마다 실행되니까
-    // 이벤트가 창 띄울때마다 추가되고
 
-    $c('.messenger_btn').on('click', function () {
+    $('.messenger_btn').on('click', function () {
         var data = $(this).attr('data');
         if (data == 'message') {
-            var nick = $('#message_title_text').attr('data');
-            var content = $('#message_input').val();
+            var nick = $c('#message_title_text').attr('data');
+            var content = $c('#message_input').val();
             var type = data;
             sendMessage(nick, type, content);
-
         } else if (data == 'search') {
-            var searchVal = $('#search_text').val();
+            var searchVal = $c('#search_text').val();
             findUser(searchVal);
         } else if (data == 'friend') {
-            var friendVal = $('#friend_text').val();
+            var friendVal = $c('#friend_text').val();
+            checkFriendStatus(friendVal);
+        } else if ( data == 'changePass' ) {
+        	var currPass = $('#currPassword').val();
+            var changePass = $('#changePassword').val();
+            changPasswrod(currPass, changePass);
         }
     });
 
-    $c('.messenger_input').on('keyup', function (e) {
+    $('.messenger_input').on('keyup', function (e) {
         var data = $(this).attr('data');
         var value = $(this).val();
         if (e.which == 13) {
             if (data == 'message') {
-            	var nick = $('#message_title_text').attr('data');
+                var nick = $('#message_title_text').attr('data');
                 var content = $('#message_input').val();
                 var type = data;
                 sendMessage(nick, type, content);
             } else if (data == 'search') {
                 findUser(value);
-
             } else if (data == 'friend') {
+                checkFriendStatus(value);
                 $('#friendModal').modal('hide');
+            } else if (data == 'currPass') {
+                $c('#changePassword').focus();
+            } else if (data == 'changePass') {
+                var currPass = $('#currPassword').val();
+                var changePass = $('#changePassword').val();
+                changPasswrod(currPass, changePass);
             }
+        }
+    });
+}
+
+function functionBtn(nick) {
+    $('.messenger_btn').on('click', function () {
+        var data = $(this).attr('data');
+        if (data == 'friend_refuse') {
+            var no = $(this).parent('div').children('#frined_messageno').html();
+            refuseFriend(no, nick);
+        } else if (data == 'friend_accept') {
+            var no = $(this).parent('div').children('#frined_messageno').html();
+            acceptFriend(no, nick);
         }
     });
 }
@@ -573,18 +609,18 @@ function findUser(value) {
         data: {
             nick: value
         },
-        success: function (callback) {
-            if (callback == 'true') {
+        success: function (response) {
+            if (response == 'true') {
                 Swal('검색 성공', value + '님과 대화를 시작 합니다.', 'success');
                 $('#searchModal').modal('hide');
                 successSearch(value);
-            } else if (callback == 'false') {
+            } else if (response == 'false') {
                 Swal('검색 실패', '존재하지 않는 닉네임 입니다.', 'error');
                 return;
-            } else if (callback == 'equal') {
+            } else if (response == 'equal') {
                 Swal('검색 실패', '본인과는 대화를 연결 할 수 없습니다.', 'error');
                 return;
-            } else if (callback == 'error') {
+            } else if (response == 'error') {
                 Swal('검색 실패', '닉네임을 입력 해 주세요.', 'error');
                 return;
             }
@@ -600,9 +636,9 @@ function successSearch(value) {
         data: {
             nick: value
         },
-        success: function (callback) {
+        success: function (response) {
             $c('.message_userInfo').html(
-                '<img class="rounded-circle message_userimage" src="/local_upload/profile/' + callback + '">' +
+                '<img class="rounded-circle message_userimage" src="/local_upload/profile/' + response + '">' +
                 '<span id="message_title_text" data="' + value + '">' + value + '</span>'
             );
             viewMessage(value);
@@ -617,11 +653,11 @@ function sendMessage(nick, type, content) {
         return;
     }
     $c('#message_input').val('');
-	$c('#message_input').focus();
+    $c('#message_input').focus();
     $c('#message_btn').html('전송중');
     $c('#message_btn').removeClass('btn-warning');
     $c('#message_btn').addClass('btn-primary');
-    $c('#message_btn').attr('disabled','disabled');
+    $c('#message_btn').attr('disabled', 'disabled');
     $.ajax({
         type: 'POST',
         url: '/messenger/sendMessage',
@@ -630,25 +666,25 @@ function sendMessage(nick, type, content) {
             type: type,
             content: content
         },
-        success: function (callback) {
-            if (callback == 'true') {
+        success: function (response) {
+            if (response == 'true') {
 
-            } else if (callback == 'false') {
+            } else if (response == 'false') {
                 Swal('오류', '입력사항을 다시 확인 해 주세요.', 'error');
             }
         },
-        error : function(){
-        	Swal('메세지오류','관리자에게 문의 해 주세요.','error');
+        error: function () {
+            Swal('메세지오류', '관리자에게 문의 해 주세요.', 'error');
         },
-        complete : function(){
-        	viewMessage(nick);
-        	getMessengerUserList();
-        	setTimeout(function(){
-        		$c('#message_btn').html('전송');
-            	$c('#message_btn').removeClass('btn-primary');
-            	$c('#message_btn').addClass('btn-warning');
-            	$c('#message_btn').removeAttr('disabled');
-        	},500);
+        complete: function () {
+            viewMessage(nick);
+            getMessengerUserList();
+            setTimeout(function () {
+                $c('#message_btn').html('전송');
+                $c('#message_btn').removeClass('btn-primary');
+                $c('#message_btn').addClass('btn-warning');
+                $c('#message_btn').removeAttr('disabled');
+            }, 500);
         }
     });
 }
@@ -662,18 +698,25 @@ function viewMessage(nick) {
         data: {
             nick: nick
         },
-        success: function (callback) {
+        success: function (response) {
             $('#message_body').html('');
-            $.each(callback.result, function (index, item) {
-                if (item.myNick === item.nick) {
-                    myMessage(item.nick, item.myProfile, item.content, item.mDate);
-                } else {
-                    fromMessage(item.nick, item.myProfile, item.content, item.mDate);
+            $.each(response.result, function (index, item) {
+                if (item.type == 'message') {
+
+                    if (item.myNick === item.nick) {
+                        myMessage(item.nick, item.myProfile, item.content, item.mDate);
+                    } else {
+                        fromMessage(item.nick, item.myProfile, item.content, item.mDate);
+                    }
+
+                } else if (item.type == 'friend') {
+                    inviteMessage(item.no, item.myNick, item.nick, item.toNick, item.myProfile, item.toProfile);
                 }
             });
         },
         complete: function () {
             $('#message_body').scrollTop($('#message_body')[0].scrollHeight);
+            functionBtn(nick);
         }
     });
 }
@@ -684,9 +727,9 @@ function getMessengerUserList() {
         type: 'POST',
         url: '/messenger/getMessengerUserList',
         dataType: 'json',
-        success: function (callback) {
+        success: function (response) {
             $('#message_list').html('');
-            $.each(callback.result, function (index, item) {
+            $.each(response.result, function (index, item) {
                 userList(item.nick, item.connect, item.proFile, item.unRead);
             });
         },
@@ -719,10 +762,10 @@ function userList(nick, connect, proFile, unRead) {
     } else {
         result = green;
     }
-    if ( unRead > 0 ) {
-    	newElement = '<div class="message_alarm"><span class="badge badge-warning">New</span></div>';
-    	if ( unRead > 9 ) {
-        	unRead = '!?';
+    if (unRead > 0) {
+        newElement = '<div class="message_alarm"><span class="badge badge-warning">New</span></div>';
+        if (unRead > 9) {
+            unRead = '!?';
         }
     }
     $('#message_list').append(
@@ -782,8 +825,29 @@ function fromMessage(nick, profile, content, mDate) {
 }
 
 // 초대 메세지 설정
-function inviteMessage() {
-
+function inviteMessage(no, myNick, nick, toNick, myProfile, toProfile) {
+    if (myNick == nick) {
+        $('#message_body').append(
+            '<div class="row mb-3" id="message_line">' +
+            '<div class="col-11" style="text-align: center; margin-left:6%;">' +
+            '<div id="frined_messageno" style="visibility: hidden; ">' + no + '</div>' +
+            '<img src="/local_upload/profile/' + toProfile + '" id="friend_img" class="rounded-circle">' +
+            '<p>' + toNick + '님에게 친구 요청 중...' + '</p>' +
+            '<button class="btn btn-danger messenger_btn" data="friend_refuse">취소</button></div>' +
+            '</div>'
+        );
+    } else {
+        $('#message_body').append(
+            '<div class="row mb-3" id="message_line">' +
+            '<div class="col-11" style="text-align: center; margin-left:6%;">' +
+            '<div id="frined_messageno"style="visibility: hidden; ">' + no + '</div>' +
+            '<img src="/local_upload/profile/' + myProfile + '" id="friend_img" class="rounded-circle">' +
+            '<p>' + nick + '님의 친구신청</p>' +
+            '<button class="btn btn-primary messenger_btn" data="friend_accept" style="margin-right : 2%;">수락</button>' +
+            '<button class="btn btn-danger messenger_btn" data="friend_refuse">거절</button></div>' +
+            '</div>'
+        );
+    }
 }
 
 //드래그 시작시 호출 할 함수
@@ -801,9 +865,8 @@ function drop(target, profile) {
     deleteMessage(nick);
 }
 
-
+// 유저 이미지를 푸터로 드래그 시 모션변화
 function deleteMotion() {
-
     $(function () {
         var obj = $("#memberList_footer");
         obj.on('dragenter', function (e) {
@@ -827,22 +890,249 @@ function deleteMotion() {
     });
 }
 
+// 메세지 삭제
 function deleteMessage(nick) {
+    $.ajax({
+        type: 'POST',
+        url: '/messenger/deleteMessage',
+        data: {
+            nick: nick
+        },
+        success: function (response) {
+            Swal('메세지삭제', response + '개 메세지가 삭제 되었습니다.', 'success');
+        },
+        error: function () {
+            Swal('삭제오류', '관리자에게 문의 해 주세요.', 'error');
+        },
+        complete: function () {
+            getMessengerUserList();
+            messengerOpen();
+        }
+    });
+}
+
+// 친구 관계 상태 확인 및 초대
+function checkFriendStatus(nick) {
+    $.ajax({
+        type: 'POST',
+        url: '/messenger/checkFriendStatus',
+        data: {
+            nick: nick
+        },
+        success: function (response) {
+            if (response == 'emptyValue') {
+                Swal('친구오류', '닉네임을 입력 해 주세요.', 'error');
+            } else if (response == 'false') {
+                Swal('친구오류', nick + '님은 존재하지 않는 사용자 입니다.', 'error');
+            } else if (response == 2) {
+                Swal('친구추가', nick + '님은 이미 등록 된 친구 입니다.', 'error');
+            } else if (response == 1) {
+                Swal('친구추가', nick + '님은 이미 친구신청 진행 중 입니다.', 'error');
+            } else if (response == 0) {
+                applyFriend(nick);
+            }
+        },
+        error: function () {
+            Swal('친구초대오류', '관리자에게 문의 해 주세요.', 'error');
+        },
+        complete: function () {
+            $c('#friend_text').val('');
+        }
+    });
+}
+
+// 친구초대
+function applyFriend(nick) {
+    var check = false;
+    $.ajax({
+        type: 'POST',
+        url: '/messenger/applyFriend',
+        data: {
+            nick: nick
+        },
+        success: function (response) {
+            if (response == '2') {
+                check = true;
+                let timerInterval
+                Swal({
+                    title: '친구신청 중...',
+                    html: '친구 신청까지 <strong></strong> 남았습니다',
+                    timer: 1000,
+                    onBeforeOpen: () => {
+                        Swal.showLoading()
+                        timerInterval = setInterval(() => {
+                            Swal.getContent().querySelector('strong')
+                                .textContent = Swal.getTimerLeft()
+                        }, 100)
+                    },
+                    onClose: () => {
+                        clearInterval(timerInterval)
+                    }
+                }).then((result) => {
+                    if (
+                        result.dismiss === Swal.DismissReason.timer
+                    ) {
+                        Swal('친구신청', nick + '님에게 친구신청 되었습니다.', 'success');
+                    }
+                })
+            } else {
+                Swal('친구오류', nick + '님에게 전송한 친구신청이 오류가 발생했습니다.', 'error');
+            }
+        },
+        error: function () {
+            Swal('친구오류', '관리자에게 문의 해 주세요.', 'error');
+        },
+        complete: function () {
+            if (check) {
+                setTimeout(function () {
+                    sendMessage(nick, 'friend', '친구신청메세지');
+                    successSearch(nick);
+                }, 1500);
+            }
+        }
+    });
+}
+
+// 친구 초대 거절
+function refuseFriend(no, nick) {
+    $.ajax({
+        type: 'POST',
+        url: '/messenger/refuseFriend',
+        data: {
+            no: no,
+            nick: nick
+        },
+        success: function (response) {
+            if (response > 0) {
+                Swal('친구거절', nick + '님의 친구신청을 거절 하였습니다.', 'success');
+            } else {
+                Swal('친구오류', nick + '님에게 전송한 친구거절이 오류가 발생했습니다.', 'error');
+            }
+        },
+        error: function () {
+            Swal('친구오류', '관리자에게 문의 해 주세요.', 'error');
+        },
+        complete: function () {
+            getMessengerUserList();
+            viewMessage(nick);
+        }
+    });
+}
+
+// 친구 초대 수락
+function acceptFriend(no, nick) {
+    $.ajax({
+        type: 'POST',
+        url: '/messenger/acceptFriend',
+        data: {
+            no: no,
+            nick: nick
+        },
+        success: function (response) {
+            if (response == '1') {
+                Swal('친구수락', nick + '님의 친구신청을 수락 하였습니다.', 'success');
+            } else {
+                Swal('친구오류', nick + '님에게 전송한 친구수락이 오류가 발생했습니다.', 'error');
+            }
+        },
+        error: function () {
+            Swal('친구오류', '관리자에게 문의 해 주세요.', 'error');
+        },
+        complete: function () {
+            getMessengerUserList();
+            viewMessage(nick);
+        }
+    });
+}
+
+// 친구 변경 로직
+function changPasswrod(currPass, changePass) {
+	var type = false;
+    $.ajax({
+        type: 'POST',
+        url: '/member/changPasswrod',
+        data: {
+            currPass: currPass,
+            changePass: changePass
+        },
+        dataType : 'json',
+        success: function (response) {
+        	console.log(response);
+        	 if ( response == 'success' ) {
+             	type = true;
+             }
+            passwordAlert(response);
+        },
+        error: function () {
+            Swal('비밀번호변경오류', '관리자에게 문의 해 주세요.', 'error');
+        },
+        complete: function () {
+        	if ( type ) {
+        		$('#passModal').modal('hide');
+        	} else {
+        		$c('#currPassword').val('');
+        		$c('#changePassword').val('');
+        		$c('#currPassword').focus();
+        	}
+        }
+    });
+}
+
+// 패스워드 변경 처리에 따른 alert
+function passwordAlert(response) {
+	if (response == 'success') {
+        Swal('비밀번호변경', '비밀번호가 변경 되었습니다.', 'success');
+    } else if (response == 'empty') {
+        Swal('비밀번호변경오류', '비밀번호를 입력 해 주세요.', 'error');
+    } else if (response == 'length') {
+        Swal('비밀번호변경오류', '비밀번호는 4글자이상 필수 사항 입니다.', 'error');
+    } else if (response == 'equal') {
+        Swal('비밀번호변경오류', '현재 비밀번호와 동일 합니다.', 'error');
+    }  else if (response == 'currpass') {
+        Swal('비밀번호변경오류', '현재 비밀번호가 올바르지 않습니다.', 'error');
+    } else {
+        Swal('비밀번호변경오류', '관리자에게 문의 해 주세요.', 'error');
+    }
+}
+
+// 접속 회원 목록 버튼 클릭시
+function connecticonBtn() {
+	$('.content_connecticon').on('click', function(){
+		var data = $(this).attr('id');
+		var nick = $(this).parent('.content_connect').children('span').html();
+		setTimeout(function(){
+			if ( data == 'messageBtn' ) {
+				findUser(nick);
+			} else if ( data == 'friendBtn' ) {
+				viewMessage(nick);
+				checkFriendStatus(nick);
+			}
+		}, 500);
+	});
+}
+
+function statusConnect(){
+	addConnect();
+	setInterval(function(){
+		addConnect();
+	}, 55000);
+}
+
+function addConnect() {
 	$.ajax({
 		type : 'POST',
-		url : '/messenger/deleteMessage',
-		data : {
-			nick : nick
-		}, 
-		success : function(callback){
-			Swal('메세지삭제', callback+'개 메세지가 삭제 되었습니다.', 'success');
+		url : '/member/addConnect',
+		dataType : 'json',
+		success : function(response) {
+			if ( response == 'true' ) {
+				console.log('접속 시간 갱신');
+			}
 		},
 		error : function(){
-			Swal('삭제오류', '관리자에게 문의 해 주세요.', 'error');
+			Swal('접속로그오류', '관리자에게 문의 해 주세요.', 'error');
 		},
 		complete : function(){
-			getMessengerUserList();
-			messengerOpen();
+			
 		}
 	});
 }

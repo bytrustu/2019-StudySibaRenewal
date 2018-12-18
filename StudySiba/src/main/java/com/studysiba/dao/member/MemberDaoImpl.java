@@ -102,4 +102,14 @@ public class MemberDaoImpl implements MemberDAO {
 		return sqlSession.selectList(namespace + ".getConnectList");
 	}
 
+	@Override
+	public int changPasswrod(HashMap<String, String> pass) {
+		return sqlSession.update(namespace + ".changPasswrod", pass);
+	}
+
+	@Override
+	public int addConnect(String id) {
+		return sqlSession.update(namespace + ".addConnect", id);
+	}
+
 }

@@ -78,4 +78,12 @@
   	select * from member where cDate between now()-interval 1 minute and now()
   </select>
   
+  <update id="changPasswrod">
+  	update member set pass = #{encodePass} where id = #{id} AND pass = #{currPass}
+  </update>
+  
+  <update id="addConnect">
+  	update member set cDate = now() where id = #{id}
+  </update>
+  
   </mapper>

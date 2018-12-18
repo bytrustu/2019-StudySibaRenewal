@@ -157,5 +157,45 @@ public class MemberServiceImpl implements MemberService {
 		memberDAO.updateUserInfo(memberVO);
 	}
 
+	@Override
+	public String changPasswrod(HashMap<String, String> pass) {
+		String currPass = pass.get("currPass");
+		String changePass = pass.get("changePass");
+		String type = null;
+		if ( currPass.length() <= 0 || changePass.length() <= 0 ) {
+			type = "empty";
+		} else if ( currPass.length() <= 3 || changePass.length() <= 3 ) {
+			type = "length";
+		} else if ( currPass.equals(changePass) ) {
+			type = "equal";
+		} else {
+			String dbPass = memberDAO.valueCheckPass(pass.get("id"));
+			if ( passwordEncoder.matches( currPass, dbPass) ) {
+				pass.put("currPass", dbPass);
+				pass.put("encodePass", passwordEncoder.encode(changePass));
+				int result = memberDAO.changPasswrod(pass);
+				if ( result == 1 ) {
+					type = "success";
+				} else {
+					type = "error";
+				}
+			} else {
+				type = "currpass";
+			}
+		}
+		return type;
+	}
+
+	@Override
+	public String addConnect(String id) {
+		String result = null;
+		if ( memberDAO.addConnect(id) == 1 ) {
+			result = "true";
+		} else {
+			result = "false";
+		}
+		return result;
+	}
+
 	
 }

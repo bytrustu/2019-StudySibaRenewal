@@ -36,6 +36,10 @@ public interface MemberDAO {
 	String getUserNick(String id);
 	// 접속중인 회원 목록
 	List<MemberVO> getConnectList();
+	// 비밀번호 변경
+	int changPasswrod(HashMap<String, String> pass);
+	// 접속기록 갱신
+	int addConnect(String id);
 	
 	
 }

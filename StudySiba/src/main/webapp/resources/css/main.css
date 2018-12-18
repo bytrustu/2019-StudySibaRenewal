@@ -859,3 +859,16 @@ ul.navbar-nav > li.nav-item {
     background-color: #213c6f;
     border-color: #213c6f;
 }
+
+.modal_menu:hover{
+	background-color: #fecc84;
+}
+
+.passmodal_locate{
+	top: 12rem;
+    left: 5.5rem;
+}
+
+.content_user, .content_rankimage{
+	border-radius: 5px;
+}

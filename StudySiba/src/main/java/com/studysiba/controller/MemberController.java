@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -139,5 +141,31 @@ public class MemberController {
 		session.setAttribute("message", "닉네임이 변경 되었습니다.");
 		return "redirect:/";
 	}
-
+	
+	@ResponseBody
+	@RequestMapping(value="changPasswrod", method=RequestMethod.POST, produces = "application/json; charset=utf8")
+	public String changPasswrod(@RequestParam HashMap<String, String> pass, HttpSession session) {
+		String id = ((HashMap<String, String>) session.getAttribute("userSession")).get("id");
+		pass.put("id", id);
+		String result = memberService.changPasswrod(pass);
+		String json = jsonArr(result);
+		return json;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="addConnect", method=RequestMethod.POST, produces = "application/json; charset=utf8")
+	public String addConnect(HttpSession session) {
+		String id = ((HashMap<String, String>) session.getAttribute("userSession")).get("id");
+		String result = memberService.addConnect(id);
+		String json = jsonArr(result);
+		return json;
+	}
+	
+	
+	public String jsonArr(String data) {
+		JSONArray array = new JSONArray();
+		array.add(data);
+		return array.toString();
+	}
+	
 }

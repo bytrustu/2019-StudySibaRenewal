@@ -52,9 +52,33 @@
   	</select>
   	
   	<delete id="deleteMessage">
-  		delete from message where ( id = #{id} AND toId = #{toId} ) OR ( id = #{toId} AND toId = #{id} )
+  		delete from message 
+  		where ( id = #{id} AND toId = #{toId} AND type = 'message' ) 
+  		OR ( id = #{toId} AND toId = #{id} AND type = 'message' )
   	</delete>
   	
+  	<select id="checkFriendStatus" resultType="int">
+  		select count(*) as count from friend 
+		where ( id = #{id} and fId=#{fId} and request=1 ) or ( id=#{fId} and fId=#{id} and request=1 )
+  	</select>
   	
+  	<insert id="applyFriend">
+  	<selectKey keyProperty="no" resultType="long" order="BEFORE">
+    	select coalesce(max(no+1),1) as no from friend
+  	</selectKey>
+  		insert into friend(no,id,fId,request) values(#{no}, #{id}, #{fId}, 1),(#{no}+1, #{fId}, #{id}, 0);
+  	</insert>
+  	
+  	<delete id="deleteMessageByNum">
+  		delete from message where no = #{no}
+  	</delete>
+  	
+  	<delete id="refuseFriend">
+  		delete from friend where ( id = #{id} AND fId = #{fId} ) OR ( id = #{fId} AND fId = #{id} )
+  	</delete>
+  	
+  	<update id="acceptFriend">
+  		update friend set request=1 where id = #{id} AND fId = #{fId} 
+  	</update>
   	
   </mapper>

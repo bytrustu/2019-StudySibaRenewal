@@ -33,8 +33,12 @@ public interface MemberService {
 	HashMap<String, String> setUserSession(MemberVO memberVO);
 	// 회원정보수정 값 체크 : 닉네임
 	String checkNick(String nick);
-	// 회원정보수정
+	// 회원정보 수정
 	void updateUserInfo(MemberVO memberVO);
+	// 비밀번호 변경
+	String changPasswrod(HashMap<String, String> pass);
+	// 접속로그 갱신
+	String addConnect(String id);
 	
 	
 }

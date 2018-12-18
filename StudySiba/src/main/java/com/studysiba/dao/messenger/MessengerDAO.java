@@ -20,5 +20,15 @@ public interface MessengerDAO {
 	List<UserListVO> getMessengerUserList(String id);
 	// 메세지 삭제
 	String deleteMessage(MessageVO messageVO);
+	// 친구 상태 조회
+	String checkFriendStatus(FriendVO friendVO);
+	// 친구 신청
+	String applyFriend(FriendVO friendVO);
+	// 메세지 번호를 통한 삭제
+	int deleteMessageByNum(int no);
+	// 친구 신청 거절
+	String refuseFriend(FriendVO friendVO);
+	// 친구 신청 수락
+	String acceptFriend(FriendVO friendVO);
 
 }

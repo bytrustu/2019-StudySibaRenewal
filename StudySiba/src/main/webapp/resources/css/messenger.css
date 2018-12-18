@@ -120,8 +120,9 @@
 }
 
 #message_line {
-	border-bottom: 1px solid #dddddd;
-	padding-bottom: 20px;
+	padding : 20px 0;
+	background-image: url(/images/main/friend-background.jpg);
+    background-size: cover;
 }
 
 #message_id {

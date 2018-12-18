@@ -16,5 +16,13 @@ public interface MessengerService {
 	String getMessengerUserList(String id);
 	// 메세지 삭제
 	String deleteMessage(String id, String nick);
+	// 친구 상태 확인
+	String checkFriendStatus(String id, String nick);
+	// 친구 신청
+	String applyFriend(String id, String nick);
+	// 친구 신청 거절
+	String refuseFriend(int no, String id, String nick);
+	// 친구 신청 수락
+	String acceptFriend(int no, String id, String nick);
 
 }

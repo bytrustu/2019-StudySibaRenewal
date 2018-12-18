@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.studysiba.dao.member.MemberDAO;
+import com.studysiba.dao.messenger.FriendVO;
 import com.studysiba.dao.messenger.MessengerDAO;
 import com.studysiba.domain.member.MemberVO;
 import com.studysiba.domain.messenger.MessageVO;
@@ -87,9 +88,7 @@ public class MessengerServiceImpl implements MessengerService {
 		messageVO.setToId(toId);
 		List<MessageVO> list = new ArrayList<MessageVO>();
 		list = messengerDAO.getMessage(messageVO);
-
 		String myNick = memberDAO.getUserNick(id);
-
 		JSONObject result = new JSONObject();
 		JSONArray array = new JSONArray();
 		for (int i = 0; i < list.size(); i++) {
@@ -124,9 +123,8 @@ public class MessengerServiceImpl implements MessengerService {
 		List<UserListVO> list = new ArrayList<UserListVO>();
 		List<MemberVO> connect = memberDAO.getConnectList();
 		list = messengerDAO.getMessengerUserList(id);
-
 		JSONObject result = new JSONObject();
-		JSONArray array =  new JSONArray();
+		JSONArray array = new JSONArray();
 		for (int i = 0; i < list.size(); i++) {
 			JSONObject value = new JSONObject();
 			if (list.get(i).getPreId().equals(id)) {
@@ -152,7 +150,6 @@ public class MessengerServiceImpl implements MessengerService {
 			array.add(value);
 		}
 		result.put("result", array);
-		System.out.println(result.toString());
 		return result.toString();
 	}
 
@@ -178,4 +175,45 @@ public class MessengerServiceImpl implements MessengerService {
 		return result;
 	}
 
+	@Override
+	public String checkFriendStatus(String id, String nick) {
+		FriendVO friendVO = addFriendVO(id, nick);
+		return messengerDAO.checkFriendStatus(friendVO);
+	}
+
+	@Override
+	public String applyFriend(String id, String nick) {
+		FriendVO friendVO = addFriendVO(id, nick);
+		return messengerDAO.applyFriend(friendVO);
+	}
+
+	public FriendVO addFriendVO(String id, String nick) {
+		String fId = checkNick(id, nick, "getId");
+		FriendVO friendVO = new FriendVO();
+		friendVO.setId(id);
+		friendVO.setfId(fId);
+		return friendVO;
+	}
+
+	@Override
+	public String refuseFriend(int no, String id, String nick) {
+		String refuseResult = null;
+		int deleteResult = messengerDAO.deleteMessageByNum(no);
+		if (deleteResult == 1) {
+			FriendVO friendVO = addFriendVO(id, nick);
+			refuseResult = messengerDAO.refuseFriend(friendVO);
+		}
+		return refuseResult;
+	}
+
+	@Override
+	public String acceptFriend(int no, String id, String nick) {
+		String acceptResult = null;
+		int deleteResult = messengerDAO.deleteMessageByNum(no);
+		if (deleteResult == 1) {
+			FriendVO friendVO = addFriendVO(id, nick);
+			acceptResult = messengerDAO.acceptFriend(friendVO);
+		}
+		return acceptResult;
+	}
 }

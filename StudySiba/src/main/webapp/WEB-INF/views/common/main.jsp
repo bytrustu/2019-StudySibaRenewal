@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="/css/main.css">
 
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="/js/jquery-ui.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.32.2/dist/sweetalert2.min.js"></script>
     <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
@@ -96,9 +95,10 @@
                                 <a class="dropdown-item modal_open" data="joinModal" href="#">회원가입</a>
                             </c:when>
                             <c:otherwise>
-                                <a class="dropdown-item modal_open" data="modifyModal" href="#">정보수정</a>
-                                <a class="dropdown-item modal_open" data="secessionModal" href="#">회원탈퇴</a>
-                                <a class="dropdown-item modal_open" data="logoutModal" href="<c:url value='/member/logout'/>">로그아웃</a>
+                                <a class="dropdown-item modal_open modal_menu" data="modifyModal" href="#">정보수정</a>
+                                <a class="dropdown-item modal_open modal_menu" data="passModal" href="#">비밀번호변경</a>
+                                <a class="dropdown-item modal_open modal_menu" data="logoutModal" href="<c:url value='/member/logout'/>">로그아웃</a>
+                                <a class="dropdown-item modal_open modal_menu" data="secessionModal" href="#">회원탈퇴</a>
                             </c:otherwise>
                         </c:choose>
                     </div>
@@ -174,37 +174,37 @@
                     <div class="content_connectbody">
                         <div class="content_connect">
                             <img class="content_user" src="/local_upload/profile/kakao-1.png">
-                            <span>관리자</span>
-                            <img class="content_connecticon" src="/images/main/friendship.png">
-                            <img class="content_connecticon" src="/images/main/mail.png">
+                            <span>테스트1</span>
+                            <img class="content_connecticon modal_open" id="friendBtn" src="/images/main/friendship.png" data="messageModal">
+                            <img class="content_connecticon modal_open" id="messageBtn" src="/images/main/mail.png" data="messageModal">
                         </div>
 
                         <div class="content_connect">
                             <img class="content_user" src="/local_upload/profile/kakao-2.png">
-                            <span>복실이</span>
-                            <img class="content_connecticon" src="/images/main/friendship.png">
-                            <img class="content_connecticon" src="/images/main/mail.png">
+                            <span>테스트2</span>
+                            <img class="content_connecticon modal_open" id="friendBtn" src="/images/main/friendship.png" data="messageModal">
+                            <img class="content_connecticon modal_open" id="messageBtn" src="/images/main/mail.png" data="messageModal">
                         </div>
 
                         <div class="content_connect">
                             <img class="content_user" src="/local_upload/profile/kakao-3.png">
-                            <span>하하호호</span>
-                            <img class="content_connecticon" src="/images/main/friendship.png">
-                            <img class="content_connecticon" src="/images/main/mail.png">
+                            <span>테스트3</span>
+                            <img class="content_connecticon modal_open" id="friendBtn" src="/images/main/friendship.png" data="messageModal">
+                            <img class="content_connecticon modal_open" id="messageBtn" src="/images/main/mail.png" data="messageModal">
                         </div>
 
                         <div class="content_connect">
                             <img class="content_user" src="/local_upload/profile/kakao-2.png">
                             <span>하하호호</span>
-                            <img class="content_connecticon" src="/images/main/friendship.png">
-                            <img class="content_connecticon" src="/images/main/mail.png">
+                            <img class="content_connecticon modal_open" id="friendBtn" src="/images/main/friendship.png" data="messageModal">
+                            <img class="content_connecticon modal_open" id="messageBtn" src="/images/main/mail.png" data="messageModal">
                         </div>
 
                         <div class="content_connect">
                             <img class="content_user" src="/local_upload/profile/kakao-3.png">
                             <span>관리자</span>
-                            <img class="content_connecticon" src="/images/main/friendship.png">
-                            <img class="content_connecticon" src="/images/main/mail.png">
+                            <img class="content_connecticon" src="/images/main/friendship.png" data="message">
+                            <img class="content_connecticon" src="/images/main/mail.png" data="friend">
                         </div>
 
                     </div>
@@ -238,7 +238,6 @@
                     </c:when>
 
                     <c:when test="${sessionScope.userSession ne null }">
-
                         <div class="content_container">
                             <div class="logininfo_top">
                                 <div class="logininfo_profile">
@@ -248,7 +247,16 @@
                                 </div>
                                 <div class="logininfo_connect">
                                     <span>최종접속시간 : </span>
-                                    <span>${sessionScope.userSession.cDate}</span>
+                                    <span>
+                                    <c:choose>
+                                    	<c:when test="${sessionScope.userSession.cDate eq null}">
+                                    		처음 접속한 회원 입니다. ^^
+                                    	</c:when>
+                                    	<c:otherwise>
+                                    		${sessionScope.userSession.cDate}
+                                    	</c:otherwise>
+                                    </c:choose>
+                                    </span>
                                 </div>
                             </div>
                             <div class="logininfo_middle">
@@ -280,7 +288,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </c:when>
                 </c:choose>
 
@@ -592,6 +599,32 @@
             </div>
         </div>
     </div>
+    
+    <!-- 비밀번호변경 모달 -->
+    <div class="modal fade" id="passModal" tabindex="-1" role="dialog" 	aria-labelledby="modal" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content col-sm-8 passmodal_locate">
+					<div class="modal-header">
+						<h4 class="modal-title" id="modal" style="font-weight: bold;">비밀번호 변경</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label>현재비밀번호</label> <input type="password" name="currPassword" id="currPassword" class="form-control messenger_input" maxlength="15" data="currPass">
+						</div>
+						<div class="form-group">
+							<label>변경비밀번호</label> <input type="password" name="changePassword" id="changePassword" class="form-control messenger_input" maxlength="15" data="changePass">
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-primary messenger_btn" id="pass_btn" type="button" aria-label="Close" data="changePass">변경</button>
+							<button class="btn btn-danger" data-dismiss="modal" aria-label="Close">취소</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
 </body>
 
