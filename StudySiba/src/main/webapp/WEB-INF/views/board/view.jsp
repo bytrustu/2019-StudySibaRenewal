@@ -83,7 +83,7 @@
 
             <div class="view_comment">
                 <div class="comment_subject">
-                    <span>10</span>
+                    <span>11</span>
                     <span>개의 댓글이 있습니다.</span>
                 </div>
                 <div class="comment_inputwapr">
