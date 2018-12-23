@@ -19,24 +19,25 @@
         <div class="content_view">
             <div class="view_header">
                 <div class="view_subject">
-                    <span>월요일싫어요월요일싫어요</span>
+                    <span>${view.title }</span>
                 </div>
                 <div class="view_contentinfo">
                     <div class="view_infoleft">
-                        <span>[복실복실]</span>
+                        <span>[${view.nick }]</span>
                     </div>
                     <div class="view_inforight">
-                        <span>2018.12.23 18:25</span>
+                        <span>${view.bDate }</span>
                         <span>｜</span>
-                        <span>조회 23</span>
+                        <span>조회 ${view.count }</span>
                     </div>
                 </div>
-
             </div>
             <div class="view_body">
-
+				<input type="hidden" id="view_gNo" value="${view.gNo }">
+				<input type="hidden" id="view_step" value="${view.step }">
+				<input type="hidden" id="view_indent" value="${view.indent }">
                 <div class="view_content">
-                    dddddd
+                    ${view.content }
                 </div>
                 <div class="view_like" data="like">
                     <img src="/images/sub/unlike.png">
@@ -47,9 +48,9 @@
             </div>
             <div class="view_footer">
                 <div class="view_info">
-                    <img src="/images/profile/kakao/kakao-1.png">
-                    <span>복실복실</span>
-                    <span>[ bytrustu ]</span>
+                    <img src="/images/profile/kakao/${view.proFile }">
+                    <span>${view.nick }</span>
+                    <span>[ ${view.id } ]</span>
                 </div>
                 <div class="view_contact">
                     <div class="view_message">
@@ -64,8 +65,8 @@
             </div>
 
             <div class="view_button">
-                <button class="btn btn-primary">답글쓰기</button>
-                <button class="btn btn-warning">목록</button>
+                <button class="btn btn-primary boardBtn" data="content_rewrite">답글쓰기</button>
+                <button class="btn btn-warning boardBtn" data="board_list">목록</button>
             </div>
 
             <div class="view_comment">
@@ -92,7 +93,7 @@
                             </p>
                             <p>2018.12.23 15:58</p>
                         </div>
-                        <div class="comment_button btn btn-info">
+                        <div class="comment_button btn btn-info" data="close">
                             답글작성
                         </div>
                     </div>

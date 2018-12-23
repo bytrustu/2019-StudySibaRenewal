@@ -700,6 +700,7 @@ ul {
 .view_like:hover, .view_like:hover span{
     background-color: rgba(199, 75, 53, 1);
     color: white;
+    cursor: pointer;
 }
 
 .view_like img{

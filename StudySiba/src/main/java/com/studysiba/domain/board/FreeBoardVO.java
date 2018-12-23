@@ -1,6 +1,8 @@
 package com.studysiba.domain.board;
 
-public class FreeBoardVO {
+import com.studysiba.domain.member.MemberVO;
+
+public class FreeBoardVO extends MemberVO {
 
 	private long no;
 	private String type;

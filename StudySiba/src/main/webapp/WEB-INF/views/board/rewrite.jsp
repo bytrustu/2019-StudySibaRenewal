@@ -40,9 +40,9 @@ $(document).ready(function(){
 
 		<div id="summernote"></div>
 		<input type="hidden" class="board_contenttext">
-		<input type="hidden" id="view_gNo" value="0">
-		<input type="hidden" id="view_step" value="0">
-		<input type="hidden" id="view_indent" value="0">
+		<input type="hidden" id="view_gNo" value="${view.gNo }">
+		<input type="hidden" id="view_step" value="${view.step }">
+		<input type="hidden" id="view_indent" value="${view.indent }">
 
 		<button class="btn btn-danger boardBtn" id="board_wrtiecancel" data="board_cancel">취소</button>
 		<button class="btn btn-primary boardBtn" id="board_wrtiebtn" data="board_write">확인</button>

@@ -1188,6 +1188,9 @@ function boardBtn(){
 		} else if ( value == 'board_write' ) {
 			var content = $('#summernote').summernote('code');
 			var title = $('#board_subjecttext').val();
+			var gNo = $('#view_gNo').val();
+			var step = $('#view_step').val();
+			var indent = $('#view_indent').val();
 			var path = '/board/list';
 			
 			$.ajax({
@@ -1195,7 +1198,10 @@ function boardBtn(){
 				url : '/board/write',
 				data : {
 					title : title,
-					content : content
+					content : content,
+					gNo : gNo,
+					step : step,
+					indent : indent
 				},
 				dataType : 'json',
 				success : function(response){
@@ -1212,6 +1218,13 @@ function boardBtn(){
 				}
 				
 			});
+		} else if ( value == 'content_rewrite' ) {
+			var gNo = $('#view_gNo').val();
+			var step = $('#view_step').val();
+			var indent = $('#view_indent').val();
+			location.href='/board/rewrite?gNo='+gNo+'&&step='+step+'&&indent='+indent;
+		} else if ( value == 'board_cancel' ) {
+			history.back();
 		}
 		
 		
