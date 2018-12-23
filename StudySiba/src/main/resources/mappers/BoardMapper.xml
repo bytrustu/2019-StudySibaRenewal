@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.studysiba.mapper.BoardMapper">
+
+	<insert id="write">
+	<selectKey keyProperty="no" order="BEFORE" resultType="long">
+		select coalesce(max(no+1),1) as no from board
+	</selectKey>
+		insert into board
+		values(#{no}, #{type}, #{id}, #{title}, #{content}, #{no}, #{step}, #{indent}, #{count}, #{available}, now() )
+	</insert>
+
+</mapper>

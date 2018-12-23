@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping(value="/study")
-public class StudyController {
+@RequestMapping(value="/group")
+public class GroupController {
 	
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public String freeList() {
-		return "study/list";
+		return "group/list";
 	}
 }

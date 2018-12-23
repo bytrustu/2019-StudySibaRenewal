@@ -2,7 +2,6 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 
 <tiles:insertAttribute name="header" />
-<tiles:insertAttribute name="leftside" />
 <tiles:insertAttribute name="body" />
 <tiles:insertAttribute name="rightside" />
 <tiles:insertAttribute name="footer" />

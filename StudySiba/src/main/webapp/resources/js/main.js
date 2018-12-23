@@ -1,6 +1,6 @@
 $(document).ready(function () {
     // 상단 아이콘 HOVER 색상 반응
-    iconDecoration();
+    //iconDecoration();
     // 푸터 아이콘 클릭 처리
     footerIconClick();
     // 모달창 보이기
@@ -28,7 +28,14 @@ $(document).ready(function () {
     // 접속목록 버튼 클릭시
     connecticonBtn();
     // 접속시간 갱신
-    statusConnect();
+    //statusConnect();
+    // 게시판에 따른 active 효과
+    viewActive();
+    // 우측 메뉴 링크 이동
+    menuLink();
+    // 게시판 별 버튼 구분
+    boardBtn();
+    
 });
 
 // selector 캐싱
@@ -1135,4 +1142,114 @@ function addConnect() {
 			
 		}
 	});
+}
+
+function viewActive(){
+	var subject = $c('.content_subjectleft').children('span').html();
+	if ( subject == '자유게시판' ) {
+		$('.fa-edit').addClass('menu_active');
+		$('.rightmenu_list:nth-of-type(1)').addClass('rightmenu_active');
+	} else if ( subject == '스터디룸' ) {
+		$('.fa-book').addClass('menu_active');
+		$('.rightmenu_list:nth-of-type(2)').addClass('rightmenu_active');
+	} else if ( subject == '스터디그룹' ) {
+		$('.fa-user-plus').addClass('menu_active');
+		$('.rightmenu_list:nth-of-type(3)').addClass('rightmenu_active');
+	}
+}
+
+
+function menuLink(){
+	$('.rightmenu_list').on('click', function(){
+		var value = $(this).attr('data');
+		var path = '';
+		if ( value == 'freeboard' ) {
+			path = '/board/list';
+		} else if ( value == 'study' ) {
+			path = '/study/list';
+		} else if ( value == 'group' ) {
+			path = '/group/list';
+		} else if ( value == 'home') {
+			return; 
+		}
+		location.href=path;
+	});
+}
+
+
+function boardBtn(){
+	$('.boardBtn').on('click', function(){
+		var value = $(this).attr('data');
+		var text = $(this);
+		var check = false;
+		
+		
+		if ( value == 'board_movewrite' ) {
+			movePath('/board/write');
+		} else if ( value == 'board_write' ) {
+			var content = $('#summernote').summernote('code');
+			var title = $('#board_subjecttext').val();
+			var path = '/board/list';
+			
+			$.ajax({
+				type : 'POST',
+				url : '/board/write',
+				data : {
+					title : title,
+					content : content
+				},
+				dataType : 'json',
+				success : function(response){
+					if ( response == 1 ) {
+						check = true;
+					}
+				},
+				error : function(){
+					check = false;
+				},
+				complete : function(){
+					text.html('등록중');
+					completeAlert(check,'게시판 글 등록','작성하신 게시글이 등록 중 입니다.',path);
+				}
+				
+			});
+		}
+		
+		
+	});
+}
+
+function completeAlert(check,title,content,path){
+	if ( check == true ) {
+		timerAlert(title,content,path);
+	} else {
+		Swal('오류', '관리자에게 문의 해 주세요.', 'error');
+	}
+}
+
+
+function timerAlert(title,content,path){
+	let timerInterval
+	Swal({
+	  title: title,
+	  html: content,
+	  timer: 1000,
+	  onBeforeOpen: () => {
+	    Swal.showLoading()
+	    timerInterval = setInterval(() => {
+	      /*Swal.getContent().querySelector('strong')
+	        .textContent = Swal.getTimerLeft()*/
+	    }, 100)
+	  },
+	  onClose: () => {
+	    clearInterval(timerInterval)
+	  }
+	}).then((result) => {
+	  if (
+	    // Read more about handling dismissals
+	    result.dismiss === Swal.DismissReason.timer
+	  ) {
+		  movePath(path);
+	  }
+	})
 }

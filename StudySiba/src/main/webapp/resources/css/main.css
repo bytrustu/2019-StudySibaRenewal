@@ -35,6 +35,10 @@
     background-color: transparent;
 }
 
+.menu_active {
+    color: white;
+}
+
 .menu-title {
     margin-left: 4%;
 }
@@ -54,6 +58,10 @@
     color: #9a9da0;
 }
 
+.menu-icon:hover, .menu-title:hover span:nth-of-type(1){
+	color: white;
+}
+
 .menu-dropicon {
     color: #9a9da0;
     text-decoration: none;
@@ -71,6 +79,10 @@ ul.navbar-nav > li.nav-item {
 .menu-dropmenu {
     position: absolute;
     left: -225%;
+}
+
+.modal_menu:hover {
+    background-color: #fecc84;
 }
 
 
@@ -588,7 +600,7 @@ ul.navbar-nav > li.nav-item {
 */
 
 .layout-footer {
-    background-color: #343434;
+    background-color: #000000;
     min-height: 18%;
     position: relative;
 }

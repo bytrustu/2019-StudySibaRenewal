@@ -1,0 +1,614 @@
+/* 상단 메뉴 수정 */
+.layout-topheader {
+    height: 125px;
+}
+
+.layout-menu {
+    top: 5%;
+    background-color: #080607;
+    padding: 0;
+}
+
+.menu_active {
+    color: white;
+}
+
+/* 바디 영역 레이아웃 */
+.content {
+    width: 65%;
+    background-color: #f6f7f8;
+    padding: 50px 100px 0 100px;
+}
+
+.rightmenu {
+    width: 35%;
+    background: #e1e8ed;
+    background: -moz-linear-gradient(left, #e1e8ed 0%, #eaeced 100%);
+    background: -webkit-linear-gradient(left, #e1e8ed 0%, #eaeced 100%);
+    background: linear-gradient(to right, #e1e8ed 0%, #eaeced 100%);
+}
+
+.content,
+.rightmenu {
+    float: left;
+    height: 843px;
+}
+
+.content_subject {
+    height: 72px;
+    border-bottom: 2px solid #a6a8a9;
+}
+
+
+/* 좌측 컨텐츠 영역 */
+.content_subject img {
+    width: 50px;
+    height: 50px;
+}
+
+.content_subject span {
+    display: inline-block;
+    font-weight: bold;
+    font-size: 1.8rem;
+    vertical-align: bottom;
+    margin-left: 20px;
+}
+
+.content_subjectleft {
+    float: left;
+}
+
+.content_subjectright {
+    float: left;
+    width: 70%;
+    position: absolute;
+    right: 4%;
+    top: 19.5%;
+}
+
+.content_body {
+    margin-top: 30px;
+    height: 85%;
+}
+
+.content_buttonline {
+    border-bottom: 2px solid black;
+    padding-bottom: 10px;
+    height: 50px;
+}
+
+.board_search {
+    margin-left: 1%;
+    font-weight: bold;
+    width: 20%;
+}
+
+.board_searchtext {
+    width: 20%;
+}
+
+.board_writebtn {
+    color: white;
+    font-weight: bold;
+}
+
+.board_search,
+.board_searchtext,
+.board_searchbtn,
+.board_writebtn {
+    float: left;
+    margin-left: 0.5%;
+}
+
+.content_listwarp {
+    /*border: 1px solid red;*/
+    height: 77%;
+    margin-top: 1%;
+    padding: 0 5% 0 5%;
+}
+
+
+/* 우측 메뉴 영역 */
+
+.rightmenu_nav {
+    width: 50%;
+    height: 100%;
+}
+
+.rightmenu_infowarp {
+    height: 25%;
+    background-image: url(/images/sub/background-info.jpg);
+    background-size: cover;
+    padding: 5% 0 5% 10%;
+}
+
+.rightmenu_info {
+    height: 60%;
+    margin-top: 10px;
+}
+
+.rightmenu_img {
+    width: 70px;
+    height: 70px;
+    border-radius: 20px;
+    float: left;
+    margin-top: 15px;
+}
+
+.rightmenu_user {
+    float: left;
+    padding-left: 20px;
+    padding-top: 10px;
+}
+
+.rightmenu_user p {
+    margin: 0;
+
+}
+
+.rightmenu_user p:nth-of-type(1) {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #3c578e;
+}
+
+.rightmenu_user p:nth-of-type(2) {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #dc3545;
+}
+
+.rightmenu_user p:nth-of-type(3) {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: black;
+}
+
+.rightmenu_connect {
+    margin-top: 10px;
+}
+
+.rightmenu_connect span:nth-of-type(1) {
+    display: block;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.rightmenu_connect span:nth-of-type(2) {
+    display: block;
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+ul {
+    padding: 0;
+    list-style: none;
+}
+
+.rightmenu_list {
+    padding: 20px;
+    background-color: #e8ebf0;
+    border-top: 1px solid white;
+    border-bottom: 1px solid #dad9d9;
+    cursor: pointer;
+}
+
+.rightmenu_list:nth-of-type(1) {
+    border-top: 1px solid #dad9d9;
+}
+
+.rightmenu_list i {
+    float: left;
+    vertical-align: middle;
+    margin-top: 7px;
+    margin-right: 10px;
+}
+
+.rightmenu_list:hover {
+    background-color: #cdced069;
+}
+
+.rightmenu_active {
+    background-color: #cdced069;
+}
+
+.rightmenu_list span {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.rightmenu_community {
+    margin-top: 50px;
+    height: 150px;
+    padding: 0% 5% 0% 5%;
+}
+
+.rightmenu_community > p {
+    margin-bottom: 2px;
+    ;
+    font-weight: bold;
+}
+
+.rightmenu_commwarp {
+    height: 80px;
+}
+
+.rightmenu_comm {
+    height: 90%;
+    width: 28%;
+    float: left;
+    margin-left: 4%;
+    border: 1px solid rgba(0, 0, 0, 0.11);
+    border-radius: 20px;
+    background-color: white;
+}
+
+.rightmenu_comm:nth-of-type(1) {
+    margin-left: 0;
+}
+
+.rightmenu_comm p {
+    text-align: center;
+}
+
+.rightmenu_comm p:nth-of-type(1) {
+    font-weight: bold;
+    font-size: 1.6rem;
+    margin-bottom: 0;
+    margin-top: 5px;
+    color: #0b8ca0;
+}
+
+.rightmenu_comm p:nth-of-type(2) {
+    font-weight: bold;
+    margin-bottom: 0;
+    font-size: 0.8rem;
+    color: black;
+}
+
+.board_searchselect {
+    float: left;
+    width: 120px;
+    height: 40px;
+    border: 1px solid #dddddd;
+    margin-left: 6%;
+}
+
+.board_searchtext {
+    float: left;
+    width: 200px;
+    height: 40px;
+    padding-left: 10px;
+    border-radius: 5px;
+    border: 1px solid #dddddd;
+}
+
+.board_searchbtn,
+.board_writebtn {
+    width: 70px;
+    font-weight: bold;
+}
+
+.board_writebtn:hover {
+    color: white;
+}
+
+.content_list {
+    border-bottom: 1px solid #ccc;
+    height: 80px;
+}
+
+.content_userimg {
+    width: 80px;
+    height: 80px;
+    margin-left: 10px;
+    margin-left: 10px;
+    border-radius: 5px;
+}
+
+.content_boardview {
+    min-width: 60%;
+    height: 80px;
+    padding: 15px;
+}
+
+.content_layoutimg img {
+    width: 58px;
+    height: 58px;
+    margin-left: 5px;
+    margin-top: 5px;
+    z-index: 20;
+    border-radius: 5px;
+}
+
+.content_layoutimg {
+    position: relative;
+    background: #ccc;
+    margin-top: 5px;
+    width: 68px;
+    height: 68px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.content_layoutimg::before {
+    content: '';
+    position: absolute;
+    right: -10px;
+    top: 20px;
+    border-left: 10px solid #ccc;
+    border-top: 0px solid transparent;
+    border-bottom: 10px solid transparent;
+}
+
+.content_userimg,
+.content_boardview {
+    float: left;
+}
+
+.content_boardinfo {
+    float: right;
+    width: 28%;
+}
+
+.content_boardtext span:nth-of-type(1) {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.content_boardtext span:nth-of-type(2) {
+    font-weight: bold;
+    color: darkcyan;
+}
+
+.content_boardinfotext span {
+    font-size: 0.8rem;
+}
+
+.content_boardinfotext span:nth-of-type(1) {
+    font-weight: bold;
+    color: darkcyan;
+}
+
+.content_boardinfotext span:nth-of-type(2) {
+    color: #7d7d7d;
+    font-weight: bold;
+}
+
+.content_boardinfotext span:nth-of-type(3) {
+    color: #7d7d7d;
+    font-weight: bold;
+}
+
+.content_searchicon,
+.content_totalicon {
+    float: left;
+    width: 50%;
+    margin-top: 10%;
+}
+
+.content_boardinfo img {
+    width: 20px;
+    height: 20px;
+}
+
+.content_boardinfo span {
+    font-weight: bold;
+    color: darkcyan;
+    margin-left: 5%;
+}
+
+.content_pagenation {
+    margin-left: 40%;
+    margin-top: 5%;
+}
+
+
+/*
+ *    스터디 게시판
+*/
+
+.study_listwarp {
+    height: 100%;
+    margin: 20% 7% 0 7%;
+}
+
+.study_listwarp:nth-of-type(1){
+    margin-top: 0;
+}
+
+.study_list{
+    border: 1px solid #ccc;
+    border-radius: 10px 10px 0 0;
+    height: 25%;
+    margin-top: 4%;
+}
+
+.study_list:nth-of-type(1){
+    margin-top: 0;
+}
+
+.study_header{
+    border-bottom: 1px solid #ccc;
+    height: 25%;
+    background-color: #dee2e6;
+    border-radius: 10px 10px 0 0;
+}
+
+.study_divide{
+    width: 25%;
+    height: 100%;
+    text-align: center;
+}
+
+.study_subject{
+    width: 25%;
+    height: 100%;
+}
+
+.study_restats{
+    height: 100%;
+}
+
+.study_restats img {
+    float: right;
+    margin-right: 10px;
+    margin-top: 8px;
+    width: 24px;
+}
+
+.study_divide , .study_subject{
+	float: left;
+}
+
+.study_divide span{
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.study_subject{
+    text-align: center;
+}
+
+.study_subject span{
+    display: inline-block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+.study_subject span:nth-of-type(2){
+    font-size: 0.8rem;
+    color: darkcyan;
+}
+
+.study_body{
+    background-color: white;
+    height: 124px;
+    
+}
+
+.study_bodyleft{
+    width: 25%;
+    height: 60%;
+}
+
+.study_bodycenter{
+    width: 75%;
+    height: 60%;
+}
+
+.study_bodyright{
+    width: 100%;
+    height: 40%;
+}
+
+.study_bodyleft , .study_bodycenter, .study_bodyright{
+    float: left;
+}
+.study_bodyleft div, .study_bodycenter div, .study_bodyright div{
+    margin: 10px 0 0 20px;
+}
+.study_bodyleft div:nth-of-type(1), .study_bodycenter div:nth-of-type(1), .study_bodyright div:nth-of-type(1){
+    margin-top: 17px;
+}
+
+.study_bodyleft img, .study_bodycenter img, .study_bodyright img{
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+}
+.study_bodyleft div span:nth-of-type(1), .study_bodycenter div span:nth-of-type(1), .study_bodyright div span:nth-of-type(1){
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.study_bodyleft div span:nth-of-type(2), .study_bodyleft div span:nth-of-type(4) ,.study_bodycenter div span:nth-of-type(2), .study_bodycenter div span:nth-of-type(4) ,.study_bodyright div span:nth-of-type(2), .study_bodyright div span:nth-of-type(4) {
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+.study_bodyleft div span:nth-of-type(3), .study_bodycenter div span:nth-of-type(3) , .study_bodyright div span:nth-of-type(3){
+    font-weight: bold;
+    color: red;
+}
+
+
+.study_bodyright div:nth-of-type(2) img{
+    width: 23px;
+    height: 23px;
+    margin-top: 3px;
+    margin-right: 2px;
+}
+
+.study_pagenation{
+    margin-top: 3.5%;
+}
+
+.study_joiner{
+    margin-top: 15px;
+    padding-top: 5px;
+    padding-left: 20px;
+    border-top: 1px solid #ccc;
+}
+
+.study_joiner img{
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+}
+
+.study_bodyright div:nth-of-type(1){
+    margin-top: 15px;
+    float: left;
+    width: 82%;
+}
+
+.study_bodyright div:nth-of-type(2){
+    float: left;
+    margin-top: 16px;
+}
+
+.study_bodyright div:nth-of-type(2) a{
+    font-weight: bold;
+    color: #0069d9;
+    cursor: pointer;
+}
+
+.study_bodyright div:nth-of-type(2) a:hover{
+    color: #0069d9;    
+}
+
+.board_wrtiewarp{
+    padding: 3% 5% 3% 10%;
+}
+
+.board_writesubject{
+    margin-bottom: 3%;
+}
+
+.board_writesubtop span{
+    font-weight: bold;
+    margin-right: 3%;
+}
+
+.board_writesubtop input{
+    width: 85%;
+    padding-left: 1%;
+}
+
+.board_writesubbottom span{
+    margin-left: 60px;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+#board_wrtiebtn, #board_wrtiecancel{
+    float: right;
+    margin-top: 20px;
+}
+
+#board_wrtiecancel{
+    margin-right: 70px;
+    margin-left: 5px;
+}
