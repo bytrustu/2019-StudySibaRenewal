@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.studysiba.dao.member.MemberDAO;
-import com.studysiba.dao.messenger.FriendVO;
 import com.studysiba.dao.messenger.MessengerDAO;
 import com.studysiba.domain.member.MemberVO;
+import com.studysiba.domain.messenger.FriendVO;
 import com.studysiba.domain.messenger.MessageVO;
 import com.studysiba.domain.messenger.UserListVO;
 

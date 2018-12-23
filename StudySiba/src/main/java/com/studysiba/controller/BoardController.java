@@ -3,14 +3,17 @@ package com.studysiba.controller;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
+import javax.xml.ws.soap.Addressing;
 
 import org.json.simple.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.studysiba.common.makeJSON;
@@ -36,6 +39,11 @@ public class BoardController {
 		return "board/write";
 	}
 	
+	@RequestMapping(value="/view", method = RequestMethod.GET)
+	public String view(Model model) {
+		return "board/view";
+	}
+	
 	@ResponseBody
 	@RequestMapping(value="/write", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
 	public String write(FreeBoardVO freeboardVO, HttpSession session) {
@@ -54,6 +62,7 @@ public class BoardController {
 		JSONArray json = makeJSON.change(result);
 		return json.toString();
 	}
+	
 	
 	
 	

@@ -1,3 +1,7 @@
+html {
+	background-color: #e7ebed;
+}
+
 /* 상단 메뉴 수정 */
 .layout-topheader {
     height: 125px;
@@ -14,6 +18,11 @@
 }
 
 /* 바디 영역 레이아웃 */
+
+.layout-body{
+	height: 843px;
+}
+
 .content {
     width: 65%;
     background-color: #f6f7f8;
@@ -31,7 +40,8 @@
 .content,
 .rightmenu {
     float: left;
-    height: 843px;
+    min-height: 100%;
+    height: auto;
 }
 
 .content_subject {
@@ -68,7 +78,7 @@
 
 .content_body {
     margin-top: 30px;
-    height: 85%;
+    min-height: 680px;
 }
 
 .content_buttonline {
@@ -116,7 +126,7 @@
 }
 
 .rightmenu_infowarp {
-    height: 25%;
+    height: 200px;
     background-image: url(/images/sub/background-info.jpg);
     background-size: cover;
     padding: 5% 0 5% 10%;
@@ -431,7 +441,7 @@ ul {
 
 .study_header{
     border-bottom: 1px solid #ccc;
-    height: 25%;
+    height: 42px;
     background-color: #dee2e6;
     border-radius: 10px 10px 0 0;
 }
@@ -611,4 +621,227 @@ ul {
 #board_wrtiecancel{
     margin-right: 70px;
     margin-left: 5px;
+}
+
+
+/*
+ *         글 보기 뷰
+*/
+
+.content_warp{
+    height: auto;
+    padding: 1% 5% 3% 5%;
+}
+
+.content_view{
+    border: 1px solid #e6e6e6;
+    border-radius: 10px;
+}
+
+.view_header{
+    height: 80px;
+    background-color: #f6fbff;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-bottom: 1px solid #ccc;
+    padding: 15px 30px 0 30px;
+}
+
+.view_subject{
+    
+}
+
+.view_subject span{
+    font-weight: bold;
+    color: #495057;
+}
+
+.view_contentinfo{
+}
+
+
+.view_infoleft{
+    float: left;
+}
+
+.view_infoleft span{
+    font-size: 0.9rem;
+    color: #117a8b;
+}
+
+.view_inforight{
+    float: right;
+}
+
+.view_inforight span{
+    font-size: 0.9rem;
+    color: #6d6b6b;
+}
+
+.view_body{
+    min-height: 100px;
+    padding: 15px 30px 0 30px;
+    border-bottom: 1px dotted #ccc;
+}
+
+.view_like{
+    margin-top: 30px;
+    padding: 15px;
+    border: 1px solid #bfbfbf;
+    width: 130px;
+    height: 55px;
+    border-radius: 20px;
+    text-align: center;
+    margin-left: 40%;
+    margin-bottom: 20px;
+    background-color: #eee;
+}
+
+.view_like:hover, .view_like:hover span{
+    background-color: rgba(199, 75, 53, 1);
+    color: white;
+}
+
+.view_like img{
+    width: 20px;
+    height: 20px;
+}
+
+.view_like span{
+    font-weight: bold;
+    color: #5d5b5b;
+}
+
+.view_footer{
+    min-height: 100px;
+    padding: 20px 30px 0 30px;
+    border-bottom: 1px solid #ccc;
+}
+
+.view_info>img{
+    width: 60px;
+    border-radius: 20px;
+}
+
+.view_info{
+    float: left;
+}
+.view_contact{
+    float: right;
+}
+
+.view_info>span:nth-of-type(1){
+    margin-left: 20px;
+    font-weight: bold;
+    color: #117a8b;
+}
+.view_info>span:nth-of-type(2){
+    margin-left: 5px;
+}
+
+.view_message, .view_friend{
+    float: left;
+    margin: 20px 30px 0 0;
+    cursor: pointer;
+}
+
+.view_message img, .view_friend img {
+    width: 30px;
+}
+
+.view_message span, .view_friend span {
+    vertical-align: middle;
+    font-weight: bold;
+    color: #656565;
+}
+
+.view_button{
+    padding: 20px 20px 20px 20px;
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.view_comment{
+    padding: 0px 20px 20px 20px;
+}
+
+.comment_subject span:nth-of-type(1){
+    font-weight: bold;
+    font-size: 1.4rem;
+    color: #117a8b;
+}
+
+.comment_subject span:nth-of-type(2){
+    font-size: 0.9rem;
+}
+
+.comment_inputwapr{
+    padding: 10px;
+    background-color: #e8e8e8;
+}
+
+.comment_inputwapr input{
+    padding: 10px 20px 10px 20px;
+    width: 89%;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.comment_inputwapr button{
+    height: 48px;
+    width: 80px;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.comment_list{
+    margin-top: 30px;
+     padding: 10px 20px 10px 20px;
+}
+
+.comment_content{
+    height: 80px;
+    border-top: 1px solid #ccc;
+    padding: 15px 15px 0 15px;
+}
+
+.comment_content img {
+    width: 45px;
+    height: 45px;
+    border-radius: 8px;
+    margin-right: 20px;
+}
+
+.comment_content img, .comment_info, .comment_button {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.comment_info p:nth-of-type(1){
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.comment_info p:nth-of-type(1) span:nth-of-type(1){
+    font-weight: bold;
+    color: #117a8b;
+    font-size: 0.9rem;
+}
+
+.comment_info p:nth-of-type(1) span:nth-of-type(2){
+    font-size: 0.9rem;
+}
+
+.comment_info p:nth-of-type(2){
+    margin: 0;
+    font-size: 0.8rem;
+    color: #656565;
+}
+
+.comment_button{
+    float: right;
+    padding: 5px 15px 5 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
 }

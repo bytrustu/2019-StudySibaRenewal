@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+</div>
+
 <!-- 정보수정 모달 -->
 <div class="modal fade modifymodal_warp" id="modifyModal">
     <div class="modal-dialog modal-dialog-centered modifymodal_retop">

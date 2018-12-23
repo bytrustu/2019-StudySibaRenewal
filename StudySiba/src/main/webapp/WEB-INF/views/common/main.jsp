@@ -32,7 +32,13 @@
     		function sessionMessage(){
     			var message = "${sessionScope.message}";
     			if ( message != '' ) {
-    				Swal(message);
+    				Swal({
+    					  position: 'top-end',
+    					  type: 'success',
+    					  title: message,
+    					  showConfirmButton: false,
+    					  timer: 1500
+    					})
     			}
     		}
         });

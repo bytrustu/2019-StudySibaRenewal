@@ -35,7 +35,6 @@ $(document).ready(function () {
     menuLink();
     // 게시판 별 버튼 구분
     boardBtn();
-    
 });
 
 // selector 캐싱

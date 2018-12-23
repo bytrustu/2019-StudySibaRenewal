@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.studysiba.domain.messenger.FriendVO;
 import com.studysiba.domain.messenger.MessageVO;
 import com.studysiba.domain.messenger.UserListVO;
 

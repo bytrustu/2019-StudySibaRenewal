@@ -2,6 +2,7 @@ package com.studysiba.dao.messenger;
 
 import java.util.List;
 
+import com.studysiba.domain.messenger.FriendVO;
 import com.studysiba.domain.messenger.MessageVO;
 import com.studysiba.domain.messenger.UserListVO;
 

@@ -99,6 +99,8 @@
                 </li>
             </ul>
         </nav>
+        
+        <div class="layout-body">
 
 
-        <div class="content">
+        	<div class="content">

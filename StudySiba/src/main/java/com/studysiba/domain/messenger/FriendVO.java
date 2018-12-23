@@ -1,4 +1,4 @@
-package com.studysiba.dao.messenger;
+package com.studysiba.domain.messenger;
 
 public class FriendVO {
 
