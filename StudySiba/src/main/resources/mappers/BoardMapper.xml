@@ -36,7 +36,35 @@
 	</select>
 	
 	<select id="getBoardList" resultType="com.studysiba.domain.board.FreeBoardVO">
-		select * from board order by gNo desc, step asc limit #{startRow},#{pageSize}
+		select no, type, id, title, content, gNo, step, indent, count, available, 
+		DATE_FORMAT(bDate, '%Y년%m월%d일 %H시%i분') as bDate, likes.likecount as likeCount from board
+		left join (select fNo, coalesce(count(*),0) as likecount from likes group by fNo ) likes
+		on board.no = likes.fNo 
+		order by gNo desc, step asc limit #{startRow},#{pageSize}
+	</select>
+	
+	<update id="increaseCount">
+		update board set count = count+1 where no = #{no}
+	</update>
+	
+	<insert id="addLike">
+		<selectKey keyProperty="no" order="BEFORE" resultType="long">
+			select coalesce(max(no+1),1) as no from likes
+		</selectKey>
+		insert into likes(no, fNo, type, id, lDate)
+		values( #{no}, #{fNo}, #{type}, #{id}, now() )
+	</insert>
+	
+	<delete id="deleteLike">
+		delete from likes where id = #{id} AND #{fNo}
+	</delete>
+	
+	<select id="getLike" resultType="String">
+		select count(*) from likes where fNo = #{no}
+	</select>
+	
+	<select id="getLikeId" resultType="String">
+		select id from likes where fNo=#{fNo} and id = #{id}
 	</select>
 
 </mapper>

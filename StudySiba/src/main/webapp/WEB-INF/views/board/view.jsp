@@ -33,17 +33,29 @@
                 </div>
             </div>
             <div class="view_body">
-				<input type="hidden" id="view_gNo" value="${view.gNo }">
-				<input type="hidden" id="view_step" value="${view.step }">
-				<input type="hidden" id="view_indent" value="${view.indent }">
+                <input type="hidden" id="view_no" value="${view.no }">
+                <input type="hidden" id="view_gNo" value="${view.gNo }">
+                <input type="hidden" id="view_step" value="${view.step }">
+                <input type="hidden" id="view_indent" value="${view.indent }">
                 <div class="view_content">
                     ${view.content }
                 </div>
-                <div class="view_like" data="like">
-                    <img src="/images/sub/unlike.png">
-                    <span>좋아요</span>
-                    <span>2</span>
-                </div>
+                <c:choose>
+                    <c:when test="${like.check eq 'true' }">
+                        <div class="view_like" data="like">
+                            <img src="/images/sub/like.png">
+                            <span>좋아요</span>
+                            <span>${like.count }</span>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="view_like" data="unlike">
+                            <img src="/images/sub/unlike.png">
+                            <span>좋아요</span>
+                            <span>${like.count }</span>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
 
             </div>
             <div class="view_footer">
@@ -66,7 +78,7 @@
 
             <div class="view_button">
                 <button class="btn btn-primary boardBtn" data="content_rewrite">답글쓰기</button>
-                <button class="btn btn-warning boardBtn" data="board_list">목록</button>
+                <button class="btn btn-primary boardBtn" data="board_list">목록</button>
             </div>
 
             <div class="view_comment">

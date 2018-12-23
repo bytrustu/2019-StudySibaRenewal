@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.studysiba.common.MakeJSON;
 import com.studysiba.domain.board.FreeBoardVO;
+import com.studysiba.domain.board.LikeVO;
 import com.studysiba.domain.board.PageDTO;
 import com.studysiba.service.board.BoardService;
 
@@ -35,7 +36,7 @@ public class BoardController {
 	public String freeList(Model model, @RequestParam(value="pageNum", defaultValue = "1") int pageNum) {
 		
 		PageDTO page = new PageDTO();
-		page.setPageSize(8);
+		page.setPageSize(7);
 		page.setPageNum(pageNum);
 		page.setCount(boardService.getBoardCount());
 		List<FreeBoardVO> list = boardService.getBoardList(page);
@@ -58,10 +59,16 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/view", method = RequestMethod.GET)
-	public String view(Model model, @RequestParam("no") long no) {
+	public String view(Model model, @RequestParam("no") int no, HttpSession session) {
+		String id = ((HashMap<String, String>) session.getAttribute("userSession")).get("id");
 		FreeBoardVO view = new FreeBoardVO();
+		LikeVO likeVO = new LikeVO();
+		likeVO.setfNo(no);
+		likeVO.setId(id);
+		HashMap<String, Object> like = boardService.getLikeInfo(likeVO);
 		view = boardService.view(no);
 		model.addAttribute("view",view);
+		model.addAttribute("like", like);
 		return "board/view";
 	}
 	
@@ -82,7 +89,24 @@ public class BoardController {
 		return json.toString();
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="likeFunc", method = RequestMethod.POST)
+	public String likeFunc(HttpSession session, LikeVO likeVO) {
+		String id = ((HashMap<String, String>) session.getAttribute("userSession")).get("id");
+		likeVO.setfNo(likeVO.getNo());
+		likeVO.setId(id);
+		String result = boardService.likeFunc(likeVO);
+		JSONArray json = MakeJSON.change(result);
+		return json.toString();
+	}
 	
+	@ResponseBody
+	@RequestMapping(value="getLike", method = RequestMethod.POST)
+	public String getLike(@RequestParam("no") int no ) {
+		String result = boardService.getLike(no);
+		JSONArray json = MakeJSON.change(result);
+		return json.toString();
+	}
 	
 	
 }

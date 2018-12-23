@@ -77,7 +77,7 @@ html {
 }
 
 .content_body {
-    margin-top: 30px;
+    margin-top: 25px;
     min-height: 680px;
 }
 
@@ -370,6 +370,7 @@ ul {
 .content_boardtext span:nth-of-type(2) {
     font-weight: bold;
     color: darkcyan;
+    font-size: 0.9rem;
 }
 
 .content_boardinfotext span {
@@ -640,9 +641,8 @@ ul {
 
 .view_header{
     height: 80px;
-    background-color: #f6fbff;
-    border-top-right-radius: 20px;
-    border-top-left-radius: 20px;
+    background-color: #e2e9ed;
+    border-radius : 10px 10px 0 0;
     border-bottom: 1px solid #ccc;
     padding: 15px 30px 0 30px;
 }

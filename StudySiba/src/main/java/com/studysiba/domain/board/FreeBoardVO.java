@@ -15,6 +15,7 @@ public class FreeBoardVO extends MemberVO {
 	private int count;
 	private int available;
 	private String bDate;
+	private int likeCount;
 
 	public long getNo() {
 		return no;
@@ -103,12 +104,21 @@ public class FreeBoardVO extends MemberVO {
 	public void setbDate(String bDate) {
 		this.bDate = bDate;
 	}
+	
+
+	public int getLikeCount() {
+		return likeCount;
+	}
+
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
 
 	@Override
 	public String toString() {
 		return "FreeBoardVO : [ no = " + no + " , type = " + type + " , id = " + id + " , title = " + title
 				+ " , content = " + content + " , gNo = " + gNo + " , step = " + step + " , indent = " + indent
-				+ " , count = " + count + " , available = " + available + " , bDate = " + bDate + " ] ";
+				+ " , count = " + count + " , available = " + available + " , bDate = " + bDate + " , likeCount = " + likeCount + " ] ";
 	}
 
 }

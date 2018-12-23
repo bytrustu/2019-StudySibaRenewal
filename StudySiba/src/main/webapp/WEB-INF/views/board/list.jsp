@@ -31,6 +31,7 @@
 
     <div class="content_listwarp">
 
+		<c:forEach items="${list }" var="list">
         <div class="content_list">
             <div class="content_userimg">
                 <div class="content_layoutimg">
@@ -39,200 +40,33 @@
             </div>
             <div class="content_boardview">
                 <div class="content_boardtext">
-                    <span>월요일싫어요</span>
+                	<c:if test="${list.indent > 0 }">
+                		<c:set var="wid" value="${list.indent*10 }"></c:set>
+                		<img src='<c:url value="/images/sub/level.png"/>' width="${wid }">
+                		<img src='<c:url value="/images/sub/list-re.png"/>'>
+                	</c:if>
+                    <span data="${list.no }">${list.title }</span>
                     <span>[5]</span>
                 </div>
                 <div class="content_boardinfotext">
-                    <span>복실복실1</span>
-                    <span>[bytrustu1]</span>
-                    <span>- 방금 전</span>
+                    <span>${list.nick }</span>
+                    <span>[${list.id }]</span>
+                    <span> - ${list.bDate }</span>
                 </div>
             </div>
             <div class="content_boardinfo">
                 <div class="content_searchicon">
                     <img src="/images/sub/board_search.png">
-                    <span>222</span>
+                    <span>${list.count }</span>
                 </div>
                 <div class="content_totalicon">
                     <img src="/images/sub/board_like.png">
-                    <span>22</span>
+                    <span>${list.likeCount }</span>
                 </div>
             </div>
         </div>
-
-        <div class="content_list">
-            <div class="content_userimg">
-                <div class="content_layoutimg">
-                    <img src="/images/profile/kakao/kakao-2.png">
-                </div>
-            </div>
-            <div class="content_boardview">
-                <div class="content_boardtext">
-                    <span>화요일싫어요</span>
-                    <span>[5]</span>
-                </div>
-                <div class="content_boardinfotext">
-                    <span>복실복실2</span>
-                    <span>[bytrustu2]</span>
-                    <span>- 10분 전</span>
-                </div>
-            </div>
-            <div class="content_boardinfo">
-                <div class="content_searchicon">
-                    <img src="/images/sub/board_search.png">
-                    <span>55</span>
-                </div>
-                <div class="content_totalicon">
-                    <img src="/images/sub/board_like.png">
-                    <span>5</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="content_list">
-            <div class="content_userimg">
-                <div class="content_layoutimg">
-                    <img src="/images/profile/kakao/kakao-3.png">
-                </div>
-            </div>
-            <div class="content_boardview">
-                <div class="content_boardtext">
-                    <span>수요일싫어요</span>
-                    <span>[32]</span>
-                </div>
-                <div class="content_boardinfotext">
-                    <span>복실복실3</span>
-                    <span>[bytrustu3]</span>
-                    <span>- 15분 전</span>
-                </div>
-            </div>
-            <div class="content_boardinfo">
-                <div class="content_searchicon">
-                    <img src="/images/sub/board_search.png">
-                    <span>52</span>
-                </div>
-                <div class="content_totalicon">
-                    <img src="/images/sub/board_like.png">
-                    <span>3</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="content_list">
-            <div class="content_userimg">
-                <div class="content_layoutimg">
-                    <img src="/images/profile/kakao/kakao-4.png">
-                </div>
-            </div>
-            <div class="content_boardview">
-                <div class="content_boardtext">
-                    <span>목요일싫어요</span>
-                    <span>[52]</span>
-                </div>
-                <div class="content_boardinfotext">
-                    <span>복실복실4</span>
-                    <span>[bytrustu4]</span>
-                    <span>- 22분 전</span>
-                </div>
-            </div>
-            <div class="content_boardinfo">
-                <div class="content_searchicon">
-                    <img src="/images/sub/board_search.png">
-                    <span>5</span>
-                </div>
-                <div class="content_totalicon">
-                    <img src="/images/sub/board_like.png">
-                    <span>5</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="content_list">
-            <div class="content_userimg">
-                <div class="content_layoutimg">
-                    <img src="/images/profile/kakao/kakao-5.png">
-                </div>
-            </div>
-            <div class="content_boardview">
-                <div class="content_boardtext">
-                    <span>금요일싫어요</span>
-                    <span>[21]</span>
-                </div>
-                <div class="content_boardinfotext">
-                    <span>복실복실5</span>
-                    <span>[bytrustu]</span>
-                    <span>- 33분 전</span>
-                </div>
-            </div>
-            <div class="content_boardinfo">
-                <div class="content_searchicon">
-                    <img src="/images/sub/board_search.png">
-                    <span>52</span>
-                </div>
-                <div class="content_totalicon">
-                    <img src="/images/sub/board_like.png">
-                    <span>9</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="content_list">
-            <div class="content_userimg">
-                <div class="content_layoutimg">
-                    <img src="/images/profile/kakao/kakao-6.png">
-                </div>
-            </div>
-            <div class="content_boardview">
-                <div class="content_boardtext">
-                    <span>토요일싫어요</span>
-                    <span>[2]</span>
-                </div>
-                <div class="content_boardinfotext">
-                    <span>복실복실6</span>
-                    <span>[bytrustu6]</span>
-                    <span>- 1시간 전</span>
-                </div>
-            </div>
-            <div class="content_boardinfo">
-                <div class="content_searchicon">
-                    <img src="/images/sub/board_search.png">
-                    <span>56</span>
-                </div>
-                <div class="content_totalicon">
-                    <img src="/images/sub/board_like.png">
-                    <span>5</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="content_list">
-            <div class="content_userimg">
-                <div class="content_layoutimg">
-                    <img src="/images/profile/kakao/kakao-7.png">
-                </div>
-            </div>
-            <div class="content_boardview">
-                <div class="content_boardtext">
-                    <span>일요일싫어요</span>
-                    <span>[2]</span>
-                </div>
-                <div class="content_boardinfotext">
-                    <span>복실복실7</span>
-                    <span>[bytrustu7]</span>
-                    <span>- 3시간 전</span>
-                </div>
-            </div>
-            <div class="content_boardinfo">
-                <div class="content_searchicon">
-                    <img src="/images/sub/board_search.png">
-                    <span>56</span>
-                </div>
-                <div class="content_totalicon">
-                    <img src="/images/sub/board_like.png">
-                    <span>5</span>
-                </div>
-            </div>
-        </div>
+		</c:forEach>
+        
 
 
     </div>

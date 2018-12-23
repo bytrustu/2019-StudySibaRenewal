@@ -3,6 +3,7 @@ package com.studysiba.dao.board;
 import java.util.List;
 
 import com.studysiba.domain.board.FreeBoardVO;
+import com.studysiba.domain.board.LikeVO;
 import com.studysiba.domain.board.PageDTO;
 
 public interface BoardDAO {
@@ -19,6 +20,16 @@ public interface BoardDAO {
 	int getBoardCount();
 	// 자유게시판 페이징 처리 리스트 뷰
 	List<FreeBoardVO> getBoardList(PageDTO page);
+	// 게시글 조회수 증가
+	void increaseCount(long no);
+	// 좋아요 추가
+	String addLike(LikeVO likeVO);
+	// 좋아요 삭제
+	String deleteLike(LikeVO likeVO);
+	// 좋아요 개수 확인
+	String getLike(int no);
+	// 좋아요 아이디 조회
+	String getLikeId(LikeVO likeVO);
 
 
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.studysiba.domain.board.FreeBoardVO;
+import com.studysiba.domain.board.LikeVO;
 import com.studysiba.domain.board.PageDTO;
 
 @Repository
@@ -48,6 +49,31 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public List<FreeBoardVO> getBoardList(PageDTO page) {
 		return sqlSession.selectList(namespace+".getBoardList",page);
+	}
+
+	@Override
+	public void increaseCount(long no) {
+		sqlSession.update(namespace+".increaseCount",no);
+	}
+
+	@Override
+	public String addLike(LikeVO likeVO) {
+		return Integer.toString(sqlSession.insert(namespace+".addLike",likeVO));
+	}
+
+	@Override
+	public String deleteLike(LikeVO likeVO) {
+		return Integer.toString(sqlSession.delete(namespace+".deleteLike",likeVO));
+	}
+
+	@Override
+	public String getLike(int no) {
+		return sqlSession.selectOne(namespace+".getLike",no);
+	}
+
+	@Override
+	public String getLikeId(LikeVO likeVO) {
+		return sqlSession.selectOne(namespace+".getLikeId",likeVO);
 	}
 
 	

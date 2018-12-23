@@ -35,6 +35,10 @@ $(document).ready(function () {
     menuLink();
     // 게시판 별 버튼 구분
     boardBtn();
+    // 자유게시판 제목 클릭시 이동
+    boardSelect();
+    // 자유게시판 좋아요
+    likeFunc();
 });
 
 // selector 캐싱
@@ -1264,4 +1268,93 @@ function timerAlert(title,content,path){
 		  movePath(path);
 	  }
 	})
+}
+
+
+function boardSelect(){
+	$('.content_boardtext').on('click',function(){
+		var no = $(this).find('span:nth-of-type(1)').attr('data');
+		location.href='/board/view?no='+no;
+	});
+}
+
+function likeFunc(){
+	$('.view_like').on('click',function(){
+		var no = $('#view_no').val();
+		var check = false;
+		var data = $(this).attr('data');
+			$.ajax({
+				type : 'POST',
+				url : '/board/likeFunc',
+				data : {
+					no : no,
+					type : data
+				},
+				dataType : 'json',
+				success : function(response){
+					if ( response > 0 ) {
+						check = true;
+					}
+				},
+				error : function(){
+					check = false;
+				},
+				complete : function(){
+					if ( check == true && data == 'unlike' ) {
+						$('.view_like').attr('data','like');
+						$('.view_like').find('img').attr('src','/images/sub/like.png');
+						getLike(no);
+						sAlert('좋아요가 등록 되었습니다.');
+					} else if ( check == true && data == 'like' ) {
+						getLike(no);
+						$('.view_like').attr('data','unlike');
+						$('.view_like').find('img').attr('src','/images/sub/unlike.png');
+						sAlert('좋아요가 삭제 되었습니다.')
+					} else {
+						Swal('오류', '관리자에게 문의 해 주세요.', 'error');
+					}
+				}
+			});
+	});
+}
+
+function getLike(no){
+	var count;
+	var check = false;
+	$.ajax({
+		type : 'POST',
+		url : '/board/getLike',
+		data : {
+			no : no
+		},
+		dataType : 'json',
+		success : function(response){
+			console.log(response);
+			if ( response >= 0 ) {
+				count = response;
+				check = true;
+			}
+		},
+		error : function(){
+			check = false;
+		},
+		complete : function(){
+			if ( check == true ) {
+				$('.view_like').find('span:nth-of-type(2)').html(count);
+			} else {
+				Swal('오류', '관리자에게 문의 해 주세요.', 'error');
+			}
+		}
+	});
+}
+
+
+function sAlert(text){
+	Swal({
+		  position: 'top-end',
+		  type: 'success',
+		  title: text,
+		  showConfirmButton: false,
+		  timer: 1500
+		})
 }
