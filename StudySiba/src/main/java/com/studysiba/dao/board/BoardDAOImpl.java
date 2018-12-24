@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.studysiba.domain.board.CommentVO;
 import com.studysiba.domain.board.FreeBoardVO;
 import com.studysiba.domain.board.LikeVO;
 import com.studysiba.domain.board.PageDTO;
@@ -74,6 +75,41 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public String getLikeId(LikeVO likeVO) {
 		return sqlSession.selectOne(namespace+".getLikeId",likeVO);
+	}
+
+	@Override
+	public String writeComment(CommentVO commentVO) {
+		return Integer.toString(sqlSession.insert(namespace+".writeComment", commentVO));
+	}
+
+	@Override
+	public List<CommentVO> getCommentList(int no) {
+		return sqlSession.selectList(namespace+".getCommentList", no);
+	}
+
+	@Override
+	public void commentShape(CommentVO commentVO) {
+		sqlSession.update(namespace+".commentShape", commentVO);
+	}
+
+	@Override
+	public int reWriteComment(CommentVO commentVO) {
+		return sqlSession.insert(namespace+".reWriteComment", commentVO);
+	}
+
+	@Override
+	public int getCommentCount(int no) {
+		return sqlSession.selectOne(namespace+".getCommentCount", no);
+	}
+
+	@Override
+	public String modify(FreeBoardVO freeboardVO) {
+		return Integer.toString(sqlSession.update(namespace+".modify", freeboardVO));
+	}
+
+	@Override
+	public int delete(FreeBoardVO freeboardVO) {
+		return sqlSession.update(namespace+".delete", freeboardVO);
 	}
 
 	

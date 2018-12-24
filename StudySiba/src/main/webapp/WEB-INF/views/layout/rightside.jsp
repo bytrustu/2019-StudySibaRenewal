@@ -7,16 +7,32 @@
 
         <div class="rightmenu_infowarp">
             <div class="rightmenu_info">
-                <img class="rightmenu_img" src="/images/profile/kakao/kakao-1.png">
+                <img class="rightmenu_img" src="/images/profile/kakao/${sessionScope.userSession.proFile }">
                 <div class="rightmenu_user">
-                    <p>하하호호하하</p>
-                    <p>bytrustu</p>
-                    <p>일반유저</p>
+                    <p>${sessionScope.userSession.nick }</p>
+                    <p>${sessionScope.userSession.id }</p>
+                    <p>
+                        <c:if test="${sessionScope.userSession.auth eq 'admin' }">
+                            관리자
+                        </c:if>
+                        <c:if test="${sessionScope.userSession.auth eq 'normal' }">
+                            일반유저
+                        </c:if>
+                    </p>
                 </div>
             </div>
             <div class="rightmenu_connect">
                 <span>최종접속기록</span>
-                <span>2018월12월12일 22시 51분</span>
+                <span>
+                    <c:choose>
+                        <c:when test="${sessionScope.userSession.cDate eq null}">
+                            처음 접속한 회원 입니다. ^^
+                        </c:when>
+                        <c:otherwise>
+                            ${sessionScope.userSession.cDate}
+                        </c:otherwise>
+                    </c:choose>
+                </span>
             </div>
         </div>
 
@@ -24,7 +40,7 @@
             <li class="rightmenu_list" data="freeboard"><i class="fas fa-angle-right"></i><span>자유게시판</span></li>
             <li class="rightmenu_list" data="study"><i class="fas fa-angle-right"></i><span>스터디룸</span></li>
             <c:if test="${userSession ne null }">
-            	<li class="rightmenu_list" data="group"><i class="fas fa-angle-right"></i><span>스터디그룹</span></li>
+                <li class="rightmenu_list" data="group"><i class="fas fa-angle-right"></i><span>스터디그룹</span></li>
             </c:if>
         </ul>
 
@@ -32,15 +48,15 @@
             <p>커뮤니티활동</p>
             <div class="rightmenu_commwarp">
                 <div class="rightmenu_comm">
-                    <p>113</p>
+                    <p>${sessionScope.userSession.visitCount }</p>
                     <p>방문한수</p>
                 </div>
                 <div class="rightmenu_comm">
-                    <p>53</p>
+                    <p>${sessionScope.userSession.boardCount }</p>
                     <p>작성한글</p>
                 </div>
                 <div class="rightmenu_comm">
-                    <p>555</p>
+                    <p>${sessionScope.userSession.commentCount }</p>
                     <p>댓글단글</p>
                 </div>
             </div>

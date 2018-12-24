@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.studysiba.domain.member.MemberVO;
+import com.studysiba.domain.member.SubInfoVO;
 import com.studysiba.service.member.MemberServiceImpl;
 
 @Repository
@@ -110,6 +111,11 @@ public class MemberDaoImpl implements MemberDAO {
 	@Override
 	public int addConnect(String id) {
 		return sqlSession.update(namespace + ".addConnect", id);
+	}
+
+	@Override
+	public SubInfoVO getSubInfo(String id) {
+		return sqlSession.selectOne(namespace + ".getSubInfo", id);
 	}
 
 }

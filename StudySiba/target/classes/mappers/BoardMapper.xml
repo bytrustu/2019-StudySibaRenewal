@@ -37,9 +37,11 @@
 	
 	<select id="getBoardList" resultType="com.studysiba.domain.board.FreeBoardVO">
 		select no, type, id, title, content, gNo, step, indent, count, available, 
-		DATE_FORMAT(bDate, '%Y년%m월%d일 %H시%i분') as bDate, likes.likecount as likeCount from board
+		DATE_FORMAT(bDate, '%Y년%m월%d일 %H시%i분') as bDate, likes.likecount as likeCount, comment.commentcount as commentCount from board
 		left join (select fNo, coalesce(count(*),0) as likecount from likes group by fNo ) likes
 		on board.no = likes.fNo 
+		left join (select fNo, coalesce(count(*),0) as commentcount from comment group by fNo ) comment
+		on board.no = comment.fNo
 		order by gNo desc, step asc limit #{startRow},#{pageSize}
 	</select>
 	
@@ -66,5 +68,51 @@
 	<select id="getLikeId" resultType="String">
 		select id from likes where fNo=#{fNo} and id = #{id}
 	</select>
+	
+	<insert id="writeComment">
+		<selectKey keyProperty="no" order="BEFORE" resultType="long">
+			select coalesce(max(no+1),1) as no from comment
+		</selectKey>
+		insert into comment(no, fNo, type, id, preId, content, gNo, step, indent, available, cDate)
+		values( #{no}, #{fNo}, #{type}, #{id}, #{preId}, #{content}, #{no}, #{step}, #{indent}, #{available}, now() )
+	</insert>
+	
+	<select id="getCommentList" resultType="com.studysiba.domain.board.CommentVO">
+		select comment.no, comment.fNo, comment.type, comment.id, comment.preId, comment.content, comment.gNo, comment.step, 
+		comment.indent, comment.available, DATE_FORMAT(comment.cDate,'%Y.%m.%d %H:%i') as cDate, member.nick, member.proFile  from 
+		( select * from comment where fNo = #{no} order by gNo ASC, step ASC ) comment
+		left join 
+		( select id, nick, proFile from member ) member
+		on comment.id = member.id
+		order by comment.gNo ASC, comment.step ASC
+	</select> 
+	
+	<update id="commentShape">
+		update comment set step = step+1 where type=#{type} AND gNo = #{gNo} AND step > #{step}
+	</update>
+	
+	<insert id="reWriteComment">
+		<selectKey keyProperty="no" order="BEFORE" resultType="long">
+			select coalesce(max(no+1),1) as no from comment
+		</selectKey>
+		insert into comment(no, fNo, type, id, preId, content, gNo, step, indent, available, cDate)
+		values( #{no}, #{fNo}, #{type}, #{id}, #{preId}, #{content}, #{gNo}, #{step}+1, #{indent}+1, #{available}, now() )
+	</insert>
+
+	<select id="getCommentCount" resultType="int">
+		select count(*) from comment
+		where fNo = #{no}
+	</select>
+
+	<update id="modify">
+		update board 
+		set title=#{title}, content=#{content} 
+		where id=#{id} AND no=#{no}
+	</update>
+	
+	<update id="delete">
+		update board 
+		set available=1 where id=#{id} AND no=#{no}
+	</update>
 
 </mapper>

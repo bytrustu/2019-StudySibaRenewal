@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.studysiba.dao.board.BoardDAO;
 import com.studysiba.dao.member.MemberDAO;
+import com.studysiba.domain.board.CommentVO;
 import com.studysiba.domain.board.FreeBoardVO;
 import com.studysiba.domain.board.LikeVO;
 import com.studysiba.domain.board.PageDTO;
@@ -105,6 +106,38 @@ public class BoardServiceImpl implements BoardService {
 		}
 		like.put("count", boardDAO.getLike((int)likeVO.getfNo()));
 		return like;
+	}
+
+	@Override
+	public String writeComment(CommentVO commentVO) {
+		return boardDAO.writeComment(commentVO);
+	}
+
+	@Override
+	public List<CommentVO> getCommentList(int no) {
+		return boardDAO.getCommentList(no);
+	}
+
+	@Override
+	public String reWriteComment(CommentVO commentVO) {
+		boardDAO.commentShape(commentVO);
+		String result = Integer.toString(boardDAO.reWriteComment(commentVO));
+		return result;
+	}
+
+	@Override
+	public int getCommentCount(int no) {
+		return boardDAO.getCommentCount(no);
+	}
+
+	@Override
+	public String modify(FreeBoardVO freeboardVO) {
+		return boardDAO.modify(freeboardVO);
+	}
+
+	@Override
+	public String delete(FreeBoardVO freeboardVO) {
+		return Integer.toString(boardDAO.delete(freeboardVO));
 	}
 	
 	

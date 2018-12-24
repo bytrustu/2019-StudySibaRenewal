@@ -32,10 +32,12 @@
     <div class="content_listwarp">
 
 		<c:forEach items="${list }" var="list">
+			<c:choose>
+			<c:when test="${list.available eq '0' }">
         <div class="content_list">
             <div class="content_userimg">
                 <div class="content_layoutimg">
-                    <img src="/images/profile/kakao/kakao-1.png">
+                    <img src="/images/profile/kakao/${list.proFile }">
                 </div>
             </div>
             <div class="content_boardview">
@@ -46,7 +48,7 @@
                 		<img src='<c:url value="/images/sub/list-re.png"/>'>
                 	</c:if>
                     <span data="${list.no }">${list.title }</span>
-                    <span>[5]</span>
+                    <span>[ ${list.commentCount } ]</span>
                 </div>
                 <div class="content_boardinfotext">
                     <span>${list.nick }</span>
@@ -65,6 +67,47 @@
                 </div>
             </div>
         </div>
+        </c:when>
+        <c:otherwise>
+        
+        <div class="content_list">
+            <div class="content_userimg">
+                <div class="content_layoutimg">
+                    <img src="/images/profile/kakao/siba-default.png">
+                </div>
+            </div>
+            <div class="content_boardview">
+                <div class="content_boardtext">
+                	<c:if test="${list.indent > 0 }">
+                		<c:set var="wid" value="${list.indent*10 }"></c:set>
+                		<img src='<c:url value="/images/sub/level.png"/>' width="${wid }">
+                		<img src='<c:url value="/images/sub/list-re.png"/>'>
+                	</c:if>
+                    <span data="${list.no }">삭제 된 게시글 입니다.</span>
+                    <span></span>
+                </div>
+                <div class="content_boardinfotext">
+                    <span>확인불가</span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="content_boardinfo">
+                <div class="content_searchicon">
+                    <img src="/images/sub/board_search.png">
+                    <span>-</span>
+                </div>
+                <div class="content_totalicon">
+                    <img src="/images/sub/board_like.png">
+                    <span>-</span>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        </c:otherwise>
+        </c:choose>
 		</c:forEach>
         
 

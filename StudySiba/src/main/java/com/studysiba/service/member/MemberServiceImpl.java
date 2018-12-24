@@ -1,6 +1,7 @@
 package com.studysiba.service.member;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.studysiba.dao.member.MemberDAO;
 import com.studysiba.domain.member.MemberVO;
+import com.studysiba.domain.member.SubInfoVO;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -133,7 +135,13 @@ public class MemberServiceImpl implements MemberService {
 		HashMap<String, String> userSession = new HashMap<String, String>();
 		userSession.put("auth", memberVO.getAuth());
 		userSession.put("id", memberVO.getId());
+		userSession.put("nick", memberVO.getNick());
 		userSession.put("cDate", memberVO.getcDate());
+		userSession.put("proFile", memberVO.getProFile());
+		SubInfoVO subInfoVo = memberDAO.getSubInfo(memberVO.getId());
+		userSession.put("visitCount", Integer.toString(subInfoVo.getVisitCount()));
+		userSession.put("boardCount", Integer.toString(subInfoVo.getBoardCount()));
+		userSession.put("commentCount", Integer.toString(subInfoVo.getCommentCount()));
 		return userSession;
 	}
 

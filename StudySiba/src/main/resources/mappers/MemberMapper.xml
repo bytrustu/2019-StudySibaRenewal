@@ -86,4 +86,11 @@
   	update member set cDate = now() where id = #{id}
   </update>
   
+  <select id="getSubInfo" resultType="com.studysiba.domain.member.SubInfoVO">
+  	select
+        (select count(*) from visit where id=#{id}) visitCount,
+        (select count(*) from board where id=#{id}) boardCount,
+        (select count(*) from comment where id=#{id}) commentCount
+  </select>
+  
   </mapper>

@@ -77,94 +77,59 @@
             </div>
 
             <div class="view_button">
+            	<c:if test="${sessionScope.userSession.id eq view.id}">
+            		<button class="btn btn-primary boardBtn" data="content_modify">수정</button>
+            		<button class="btn btn-primary boardBtn" data="content_delete">삭제</button>
+            	</c:if>
+            
                 <button class="btn btn-primary boardBtn" data="content_rewrite">답글쓰기</button>
                 <button class="btn btn-primary boardBtn" data="board_list">목록</button>
             </div>
 
             <div class="view_comment">
                 <div class="comment_subject">
-                    <span>11</span>
+                    <span>${commentCount }</span>
                     <span>개의 댓글이 있습니다.</span>
                 </div>
-                <div class="comment_inputwapr">
-                    <input type="text">
-                    <button class="btn btn-danger">작성</button>
+                <div class="comment_inputwarp">
+                    <input type="text" class="comment_text">
+                    <button class="btn btn-danger boardBtn" data="comment_write">작성</button>
                 </div>
 
 
 
                 <div class="comment_list">
-
-
+                
+                <c:forEach items="${comment }" var="comment">
                     <div class="comment_content">
+                    <c:if test="${comment.indent > 0 }">
+                		<c:set var="wid" value="${comment.indent*15 }"></c:set>
+                		<img src='<c:url value="/images/sub/level.png"/>' style="width: ${wid}px; margin-right:0;">
+                		<img src='<c:url value="/images/sub/comment.png"/>'style="width: 23px; height: 23px;">
+                	</c:if>
                         <img src="/images/profile/kakao/kakao-1.png">
                         <div class="comment_info">
                             <p>
-                                <span>[국비캐궁금]</span>
-                                <span>쟁비서바보ㅋㅋㅋ</span>
+                                <span>[${comment.nick }]</span>
+                                <c:if test="${comment.preId ne 'default' }">
+                                	<span class="comment_preId">${comment.preId }</span>
+                                </c:if>
+                                <span>${comment.content }</span>
                             </p>
-                            <p>2018.12.23 15:58</p>
+                            <p>${comment.cDate }</p>
                         </div>
                         <div class="comment_button btn btn-info" data="close">
                             답글작성
                         </div>
+                        <input type="hidden" id="comment_type" value="${comment.type }">
+                        <input type="hidden" id="comment_id" value="${comment.id }">
+                        <input type="hidden" id="comment_gNo" value="${comment.gNo }">
+                        <input type="hidden" id="comment_step" value="${comment.step }">
+                        <input type="hidden" id="comment_indent" value="${comment.indent }">
+                        <div class="comment_rewrite"></div>
                     </div>
+                </c:forEach>
 
-                    <div class="comment_content">
-                        <img src="/images/profile/kakao/kakao-2.png">
-                        <div class="comment_info">
-                            <p>
-                                <span>[쟁비서]</span>
-                                <span>캄캄바보</span>
-                            </p>
-                            <p>2018.12.23 15:58</p>
-                        </div>
-                        <div class="comment_button btn btn-info">
-                            답글작성
-                        </div>
-                    </div>
-
-                    <div class="comment_content">
-                        <img src="/images/profile/kakao/kakao-3.png">
-                        <div class="comment_info">
-                            <p>
-                                <span>[캄캄32]</span>
-                                <span>부왕바보</span>
-                            </p>
-                            <p>2018.12.23 15:58</p>
-                        </div>
-                        <div class="comment_button btn btn-info">
-                            답글작성
-                        </div>
-                    </div>
-
-                    <div class="comment_content">
-                        <img src="/images/profile/kakao/kakao-4.png">
-                        <div class="comment_info">
-                            <p>
-                                <span>[부왕]</span>
-                                <span>88실종사태발발</span>
-                            </p>
-                            <p>2018.12.23 15:58</p>
-                        </div>
-                        <div class="comment_button btn btn-info">
-                            답글작성
-                        </div>
-                    </div>
-
-                    <div class="comment_content">
-                        <img src="/images/profile/kakao/kakao-5.png">
-                        <div class="comment_info">
-                            <p>
-                                <span>[88.방장.com]</span>
-                                <span>오늘목욕할예정</span>
-                            </p>
-                            <p>2018.12.23 15:58</p>
-                        </div>
-                        <div class="comment_button btn btn-info">
-                            답글작성
-                        </div>
-                    </div>
 
 
                 </div>

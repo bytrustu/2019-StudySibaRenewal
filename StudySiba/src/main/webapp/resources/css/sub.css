@@ -614,7 +614,7 @@ ul {
     color: #6c757d;
 }
 
-#board_wrtiebtn, #board_wrtiecancel{
+#board_wrtiebtn, #board_wrtiecancel, #board_modifybtn{
     float: right;
     margin-top: 20px;
 }
@@ -766,6 +766,10 @@ ul {
     padding: 0px 20px 20px 20px;
 }
 
+.comment_subject{
+	padding: 0 0 10px 10px;
+}
+
 .comment_subject span:nth-of-type(1){
     font-weight: bold;
     font-size: 1.4rem;
@@ -776,19 +780,19 @@ ul {
     font-size: 0.9rem;
 }
 
-.comment_inputwapr{
+.comment_inputwarp{
     padding: 10px;
     background-color: #e8e8e8;
 }
 
-.comment_inputwapr input{
+.comment_inputwarp input{
     padding: 10px 20px 10px 20px;
     width: 89%;
     border-radius: 10px;
     border: 1px solid #ccc;
 }
 
-.comment_inputwapr button{
+.comment_inputwarp button{
     height: 48px;
     width: 80px;
     font-weight: bold;
@@ -801,9 +805,9 @@ ul {
 }
 
 .comment_content{
-    height: 80px;
+    height: auto;
     border-top: 1px solid #ccc;
-    padding: 15px 15px 0 15px;
+    padding: 15px 15px 15px 15px;
 }
 
 .comment_content img {
@@ -833,6 +837,10 @@ ul {
     font-size: 0.9rem;
 }
 
+.comment_info p:nth-of-type(1) span:nth-of-type(3){
+    font-size: 0.9rem;
+}
+
 .comment_info p:nth-of-type(2){
     margin: 0;
     font-size: 0.8rem;
@@ -846,3 +854,11 @@ ul {
     border: 1px solid #ccc;
     margin-top: 5px;
 }
+
+.comment_preId{
+	color: #dc3545;
+    margin: 0 1px 0 1px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+

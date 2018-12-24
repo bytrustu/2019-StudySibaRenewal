@@ -249,8 +249,8 @@
                         <div class="content_container">
                             <div class="logininfo_top">
                                 <div class="logininfo_profile">
-                                    <img src="/local_upload/profile/kakao-1.png">
-                                    <span>가나다라마</span>
+                                    <img src="/local_upload/profile/${sessionScope.userSession.proFile }">
+                                    <span>${sessionScope.userSession.nick }</span>
                                     <span>님</span>
                                 </div>
                                 <div class="logininfo_connect">
@@ -271,19 +271,19 @@
                                 <div class="logininfo_details">
                                     <img src="/images/main/login_visit.png">
                                     <span>출석수</span>
-                                    <span>333</span>
+                                    <span>${sessionScope.userSession.visitCount }</span>
                                     <span>회</span>
                                 </div>
                                 <div class="logininfo_details">
                                     <img src="/images/main/login_boardwrite.png">
                                     <span>게시글 작성수</span>
-                                    <span>52</span>
+                                    <span>${sessionScope.userSession.boardCount }</span>
                                     <span>회</span>
                                 </div>
                                 <div class="logininfo_details">
                                     <img src="/images/main/login_commentwrite.png">
                                     <span>댓글 작성수</span>
-                                    <span>128</span>
+                                    <span>${sessionScope.userSession.commentCount }</span>
                                     <span>회</span>
                                 </div>
                             </div>

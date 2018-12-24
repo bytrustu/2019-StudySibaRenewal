@@ -39,7 +39,18 @@ $(document).ready(function () {
     boardSelect();
     // 자유게시판 좋아요
     likeFunc();
+    // 코멘트 버튼 생성
+    commentBtn();
+    
+    
+    
+    
+    
+    
+
 });
+
+
 
 // selector 캐싱
 var $c = function (qr, force) {
@@ -1186,7 +1197,6 @@ function boardBtn(){
 		var text = $(this);
 		var check = false;
 		
-		
 		if ( value == 'board_movewrite' ) {
 			movePath('/board/write');
 		} else if ( value == 'board_write' ) {
@@ -1229,8 +1239,93 @@ function boardBtn(){
 			location.href='/board/rewrite?gNo='+gNo+'&&step='+step+'&&indent='+indent;
 		} else if ( value == 'board_cancel' ) {
 			history.back();
+		} else if ( value == 'comment_write' ) {
+			var no = $('#view_no').val();
+			var content = $('.comment_text').val();
+			var check = false;
+			$.ajax({
+				type : 'POST',
+				url : '/board/writeComment',
+				data : {
+					fNo : no,
+					content : content
+				},
+				dataType : 'json',
+				success : function(response){
+					if ( response == 1 ) {
+						check = true;
+					}
+				},
+				error : function(){
+					check = false;
+				},
+				complete : function(){
+					if ( check == true ) {
+						location.reload();
+					} else {
+						Swal('오류', '관리자에게 문의 해 주세요.', 'error');
+					}
+				}
+			});
+		} else if ( value == 'board_list' ) {
+			location.href='/board/list';
+		} else if ( value == 'board_modify' ) {
+			var no = $('#view_no').val();
+			var title = $('#board_subjecttext').val();
+			var content = $('#summernote').summernote('code');
+			var check = false;
+			$.ajax({
+				type : 'POST',
+				url : '/board/modify',
+				data : {
+					title : title,
+					content : content,
+					no : no
+				},
+				dataType : 'json',
+				success : function(response){
+					if ( response == 1 ) {
+						check = true;
+					}
+				},
+				error : function(){
+					check = false;
+				},
+				complete : function(){
+					if ( check == true ) {
+						location.href='/board/view?no='+no;
+					} else {
+						Swal('오류', '관리자에게 문의 해 주세요.', 'error');
+					}
+				}
+			});
+		} else if ( value == 'content_modify' ) {
+			var no = $('#view_no').val();
+			location.href='/board/modify?no='+no;
+		} else if ( value == 'content_delete' ) {
+			var no = $('#view_no').val();
+			var check = false;
+			$.ajax({
+				type : 'POST',
+				url : '/board/delete',
+				data : {
+					no : no
+				},
+				success : function(response){
+					check = true;
+				},
+				error : function(){
+					check = false;
+				},
+				complete : function(){
+					if ( check == true ) {
+						location.href='/board/list';
+					} else {
+						Swal('오류', '관리자에게 문의 해 주세요.', 'error');
+					}
+				}
+			});
 		}
-		
 		
 	});
 }
@@ -1345,6 +1440,74 @@ function getLike(no){
 				Swal('오류', '관리자에게 문의 해 주세요.', 'error');
 			}
 		}
+	});
+}
+
+
+function commentBtn(){
+	$('.comment_button').on('click', function(){
+    	var data = $(this).attr('data');
+    	if ( data == 'close' ) {
+    		$(this).attr('data','open');
+    		$(this).parent('.comment_content').children('.comment_rewrite').css('margin-top','10px');
+        	$(this).parent('.comment_content').children('.comment_rewrite').append(
+        			'<div class="comment_inputwarp">'
+        			+'<input type="text" class="comment_retext">'
+        			+'<button class="btn btn-danger comment_rewrite" onclick="reWriteComment()">작성</button>'
+        			+'</div>'
+        			);
+        	
+    	} else {
+    		$(this).attr('data','close');
+    		$(this).parent('.comment_content').children('.comment_rewrite').css('margin-top','0');
+    		$(this).parent('.comment_content').children('.comment_rewrite').html('');
+    	}
+    });
+}
+
+
+
+function reWriteComment(){
+	$('.comment_rewrite').on('click',function(){
+		var fNo = $('#view_no').val();
+		var type = $(this).parent('.comment_content').children('#comment_type').val();
+		var preId = $(this).parent('.comment_content').children('#comment_id').val();
+		var gNo = $(this).parent('.comment_content').children('#comment_gNo').val();
+		var step = $(this).parent('.comment_content').children('#comment_step').val();
+		var indent = $(this).parent('.comment_content').children('#comment_indent').val();
+		var content = $('.comment_retext').val();
+		console.log(content);
+		var check = false;
+		$.ajax({
+			type : 'POST',
+			url : '/board/reWriteComment',
+			data : {
+				fNo : fNo,
+				type : type,
+				preId : preId,
+				gNo : gNo,
+				step : step,
+				indent : indent,
+				content : content
+			},
+			dataType : 'json',
+			success: function(response){
+				if ( response == 1 ) {
+					check = true;
+				}
+			},
+			error : function(){
+				check = false;
+			},
+			complete : function(){
+				if ( check == true ) {
+					location.reload();
+				} else {
+					Swal('오류', '관리자에게 문의 해 주세요.', 'error');
+				}
+			}
+		});	
+		
 	});
 }
 

@@ -2,8 +2,10 @@ package com.studysiba.dao.member;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.studysiba.domain.member.MemberVO;
+import com.studysiba.domain.member.SubInfoVO;
 
 public interface MemberDAO {
 
@@ -40,6 +42,8 @@ public interface MemberDAO {
 	int changPasswrod(HashMap<String, String> pass);
 	// 접속기록 갱신
 	int addConnect(String id);
+	// 서브페이지 정보 뷰
+	SubInfoVO getSubInfo(String id);
 	
 	
 }

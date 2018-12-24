@@ -3,6 +3,7 @@ package com.studysiba.service.board;
 import java.util.HashMap;
 import java.util.List;
 
+import com.studysiba.domain.board.CommentVO;
 import com.studysiba.domain.board.FreeBoardVO;
 import com.studysiba.domain.board.LikeVO;
 import com.studysiba.domain.board.PageDTO;
@@ -23,5 +24,17 @@ public interface BoardService {
 	String getLike(int no);
 	// 좋아요 조회
 	HashMap<String, Object> getLikeInfo(LikeVO likeVO);
+	// 댓글 작성
+	String writeComment(CommentVO commentVO);
+	// 댓글 조회
+	List<CommentVO> getCommentList(int no);
+	// 대댓글 작성
+	String reWriteComment(CommentVO commentVO);
+	// 댓글 카운트 조회
+	int getCommentCount(int no);
+	// 자유게시판 글 수정
+	String modify(FreeBoardVO freeboardVO);
+	// 자유게시판 글 삭제
+	String delete(FreeBoardVO freeboardVO);
 
 }

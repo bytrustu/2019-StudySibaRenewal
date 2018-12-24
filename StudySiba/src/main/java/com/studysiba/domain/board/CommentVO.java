@@ -2,21 +2,19 @@ package com.studysiba.domain.board;
 
 import com.studysiba.domain.member.MemberVO;
 
-public class FreeBoardVO extends MemberVO {
+public class CommentVO extends MemberVO {
 
 	private long no;
+	private long fNo;
 	private String type;
 	private String id;
-	private String title;
+	private String preId;
 	private String content;
 	private int gNo;
 	private int step;
 	private int indent;
-	private int count;
 	private int available;
-	private String bDate;
-	private int likeCount;
-	private int commentCount;
+	private String cDate;
 
 	public long getNo() {
 		return no;
@@ -24,6 +22,14 @@ public class FreeBoardVO extends MemberVO {
 
 	public void setNo(long no) {
 		this.no = no;
+	}
+
+	public long getfNo() {
+		return fNo;
+	}
+
+	public void setfNo(long fNo) {
+		this.fNo = fNo;
 	}
 
 	public String getType() {
@@ -34,10 +40,6 @@ public class FreeBoardVO extends MemberVO {
 		this.type = type;
 	}
 
-	public String getTitle() {
-		return title;
-	}
-
 	public String getId() {
 		return id;
 	}
@@ -46,8 +48,12 @@ public class FreeBoardVO extends MemberVO {
 		this.id = id;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public String getPreId() {
+		return preId;
+	}
+
+	public void setPreId(String preId) {
+		this.preId = preId;
 	}
 
 	public String getContent() {
@@ -82,14 +88,6 @@ public class FreeBoardVO extends MemberVO {
 		this.indent = indent;
 	}
 
-	public int getCount() {
-		return count;
-	}
-
-	public void setCount(int count) {
-		this.count = count;
-	}
-
 	public int getAvailable() {
 		return available;
 	}
@@ -98,39 +96,18 @@ public class FreeBoardVO extends MemberVO {
 		this.available = available;
 	}
 
-	public String getbDate() {
-		return bDate;
+	public String getcDate() {
+		return cDate;
 	}
 
-	public void setbDate(String bDate) {
-		this.bDate = bDate;
-	}
-	
-
-	public int getLikeCount() {
-		return likeCount;
-	}
-
-	public void setLikeCount(int likeCount) {
-		this.likeCount = likeCount;
-	}
-	
-	
-
-	public int getCommentCount() {
-		return commentCount;
-	}
-
-	public void setCommentCount(int commentCount) {
-		this.commentCount = commentCount;
+	public void setcDate(String cDate) {
+		this.cDate = cDate;
 	}
 
 	@Override
 	public String toString() {
-		return "FreeBoardVO : [ no = " + no + " , type = " + type + " , id = " + id + " , title = " + title
-				+ " , content = " + content + " , gNo = " + gNo + " , step = " + step + " , indent = " + indent
-				+ " , count = " + count + " , available = " + available + " , bDate = " + bDate + " , likeCount = " + likeCount 
-				+ " , commentCount = " + commentCount +" ] ";
+		return "CommentVO : [ no = " + no + " , fNo = " + fNo + " , type = " + type + " , id = " + id + " , preId = "
+				+ preId + " , content = " + content + " , gNo = " + gNo + " , step = " + step + " , indent = " + indent
+				+ " ,available = " + available + " , cDate = " + cDate + " ] ";
 	}
-
 }

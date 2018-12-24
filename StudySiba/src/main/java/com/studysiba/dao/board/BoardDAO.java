@@ -2,6 +2,7 @@ package com.studysiba.dao.board;
 
 import java.util.List;
 
+import com.studysiba.domain.board.CommentVO;
 import com.studysiba.domain.board.FreeBoardVO;
 import com.studysiba.domain.board.LikeVO;
 import com.studysiba.domain.board.PageDTO;
@@ -30,6 +31,21 @@ public interface BoardDAO {
 	String getLike(int no);
 	// 좋아요 아이디 조회
 	String getLikeId(LikeVO likeVO);
+	// 댓글 작성
+	String writeComment(CommentVO commentVO);
+	// 댓글 조회
+	List<CommentVO> getCommentList(int no);
+	// 대댓글 작성시 먼저 작성 된 댓글 인 경우 , 모두 step+1
+	void commentShape(CommentVO commentVO);
+	// 대댓글 작성
+	int reWriteComment(CommentVO commentVO);
+	// 댓글 카운트 조회
+	int getCommentCount(int no);
+	// 자유게시판 글 수정
+	String modify(FreeBoardVO freeboardVO);
+	// 자유게시판 글 삭제
+	int delete(FreeBoardVO freeboardVO);
+	
 
 
 }
