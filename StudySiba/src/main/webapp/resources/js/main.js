@@ -1228,9 +1228,43 @@ function boardBtn(){
 		} else if ( value == 'content_delete' ) {
 			var no = $('#view_no').val();
 			contentDeleteAction(no);
+		} else if ( value == 'study_register' ){
+			var content = $('#study_contenttext').summernote('code');
+	    	$('.study_contenttext').val(content);
+	    	var gName = $('.inputs_gName').val();
+	    	var toPer = $('.inputs_toPer').val();
+	    	var fromPer = $('.inputs_fromPer').val();
+	    	var lat = $('.inputs_lat').val();
+	    	var lng = $('.inputs_lng').val();
+	    	var title = $('.inputs_title').val();
+	    	var text = '';
+	    	var check = false;
+	    	var file = $('.inputs_file').val();
+	    	
+	    	if ( gName == '' || gName == null ) {
+	    		text = '스터디명을 입력 해 주세요.';
+	    	} else if ( toPer == '' || toPer == null || fromPer == '' || fromPer == null ) {
+	    		text = '일자를 확인 해 주세요.';
+	    	} else if ( lat == '' || lng == null || lat == '' || lng == null ) {
+	    		text = '스터디 위치를 검색 해 주세요.';
+	    	} else if ( title == '' || title == null || content == '' || content == null ) {
+	    		text = '세부사항을 입력 해 주세요.';
+	    	} else if ( file == '' || file == null ) {
+	    		text = '그룹사진은 필수조건 입니다.';
+	    	} else {
+	    		check = true;
+	    	}
+	    	
+	    	if ( check == false ) {
+	    		errorAlert(text);
+	    	} else {
+	    		$('#studyForm').submit();
+	    	}
 		}
+	    	
 	});
 }
+
 
 // 게시글 작성 시 
 function contentWriteAction(title, content, gNo, step, indent, path){
@@ -1530,6 +1564,16 @@ function sAlert(text){
 	Swal({
 		  position: 'top-end',
 		  type: 'success',
+		  title: text,
+		  showConfirmButton: false,
+		  timer: 1500
+		})
+}
+
+function errorAlert(text){
+	Swal({
+		  position: 'top-end',
+		  type: 'error',
 		  title: text,
 		  showConfirmButton: false,
 		  timer: 1500

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.studysiba.mapper.StudyMapper">
+
+	<insert id="write">
+		<selectKey keyProperty="no" order="BEFORE" resultType="long">
+			select coalesce(max(no+1),1) as no from studyboard
+		</selectKey>
+		insert into studyboard( no, id, gName, divide, title, content, lat, lng, area, address, toPer, fromPer, toTime, fromTime, person, available, rDate, sDate)
+		values ( #{no}, #{id}, #{gName}, #{divide}, #{title}, #{content}, #{lat}, #{lng}, #{area}, #{address}, #{toPer}, #{fromPer},
+		#{toTime}, #{fromTime}, #{person}, 0, now(), now() )
+	</insert>
+
+	<select id="getStudyNo" resultType="int">
+		select no from studyboard
+		where id = #{id} AND gName = #{gName} 
+		AND divide = #{divide} AND lat = #{lat} AND lng = #{lng}
+	</select>
+	
+	<insert id="makeGroup">
+		<selectKey keyProperty="no" order="BEFORE" resultType="long">
+			select coalesce(max(no+1),1) as no from studygroup
+		</selectKey>
+		insert into studygroup(no, gNo, id, gName, gDate)
+		values( #{no}, #{gNo}, #{id}, #{gName}, now() )
+	</insert>
+	
+	<select id="getStudyCount" resultType="int">
+		select count(*) as count from studyboard
+	</select>
+	
+	<select id="getStudyList" resultType="com.studysiba.domain.study.StudyVO">
+		select studyboard.*, member.nick, coalesce(groupmember.count,0) count from studyboard
+		left join member
+		on studyboard.id = member.id
+		left join (select gno, count(*) as count from groupmember group by gno ) groupmember
+		on studyboard.no = groupmember.gno
+		order by studyboard.rDate desc
+		limit #{startRow},#{pageSize}
+	</select>
+	
+	<insert id="joinGroup">
+		<selectKey keyProperty="no" order="BEFORE" resultType="long">
+			select coalesce(max(no+1),1) as no from groupmember
+		</selectKey>
+		insert into groupmember(no, gNo, id, gDate)
+		values( #{no}, #{gNo}, #{id}, now() )
+	</insert>
+	
+</mapper>

@@ -279,7 +279,7 @@ ul {
 
 .board_searchselect {
     float: left;
-    width: 120px;
+    width: 130px;
     height: 40px;
     border: 1px solid #dddddd;
     margin-left: 6%;
@@ -454,8 +454,9 @@ ul {
 }
 
 .study_subject{
-    width: 25%;
+    width: 50%;
     height: 100%;
+    text-align: left;
 }
 
 .study_restats{
@@ -480,7 +481,7 @@ ul {
 }
 
 .study_subject{
-    text-align: center;
+    text-align: left;
 }
 
 .study_subject span{

@@ -1,8 +1,11 @@
 package com.studysiba.domain.study;
 
-public class StudyVO {
+import com.studysiba.domain.member.MemberVO;
+
+public class StudyVO extends MemberVO {
 
 	private long no;
+	private long gNo;
 	private String id;
 	private String gName;
 	private String divide;
@@ -20,12 +23,21 @@ public class StudyVO {
 	private String available;
 	private String rDate;
 	private String sDate;
+	private String fileName;
+	private int count;
 	
 	public long getNo() {
 		return no;
 	}
 	public void setNo(long no) {
 		this.no = no;
+	}
+	
+	public long getgNo() {
+		return gNo;
+	}
+	public void setgNo(long gNo) {
+		this.gNo = gNo;
 	}
 	public String getId() {
 		return id;
@@ -129,12 +141,24 @@ public class StudyVO {
 	public void setsDate(String sDate) {
 		this.sDate = sDate;
 	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	@Override
 	public String toString() {
-		return "StudyVO : [ no = " + no + " , id = " + id + " , gName = " + gName + " , divide = " + divide + " , title = " + title + " , content = " + content
+		return "StudyVO : [ no = " + no + " , gNo = " + gNo + " , id = " + id + " , gName = " + gName + " , divide = " + divide + " , title = " + title + " , content = " + content
 				+ " , lat = " + lat + " , lng = " + lng + " , area = " + area + " , address = " + address + " , toPer = " + toPer + " , fromPer = " + fromPer  
 				+ " , toTime = " + toTime + " , fromTime = " + fromTime + " , person = " + person + " , available = " + available + " , rDate = " + rDate
-				+ " , sDate = " + sDate + " ] ";
+				+ " , sDate = " + sDate + " , fileName = " + fileName + " , count = " + count + " ] ";
 	}
 	
 }

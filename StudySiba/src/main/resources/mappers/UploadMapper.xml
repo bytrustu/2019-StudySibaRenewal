@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.studysiba.mapper.UploadMapper">
+	<insert id="uploadFile">
+		<selectKey keyProperty="no" order="BEFORE" resultType="long">
+			select coalesce(max(no+1),1) as no from upload
+		</selectKey>
+		insert into upload(no, uNo, id, type, content, uuid, uFile, uDate)
+		values ( #{no}, #{uNo}, #{id}, #{type}, #{content}, #{uuid}, #{uFile}, now() )
+	</insert>
+
+</mapper>

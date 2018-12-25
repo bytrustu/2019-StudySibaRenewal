@@ -12,8 +12,8 @@ import org.springframework.stereotype.Repository;
 import com.studysiba.domain.board.CommentVO;
 import com.studysiba.domain.board.FreeBoardVO;
 import com.studysiba.domain.board.LikeVO;
-import com.studysiba.domain.board.PageDTO;
 import com.studysiba.domain.board.SearchVO;
+import com.studysiba.domain.page.PageDTO;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {

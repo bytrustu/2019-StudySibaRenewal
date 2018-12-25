@@ -65,6 +65,8 @@ function initMap() {
           var lng = places[0].geometry.viewport.fa.j;
           $('.inputs_lat').val(lat);
           $('.inputs_lng').val(lng);
+          $('#pac-input').val(places[0].formatted_address);
+          
           
           places.forEach(function(place) {
             if (!place.geometry) {

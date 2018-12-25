@@ -1,4 +1,6 @@
-package com.studysiba.domain.board;
+package com.studysiba.domain.page;
+
+import com.studysiba.domain.board.SearchVO;
 
 public class PageDTO extends SearchVO{
 
@@ -86,5 +88,14 @@ public class PageDTO extends SearchVO{
 	public void setEndPage(int endPage) {
 		this.endPage = endPage;
 	}
+	
+	@Override
+	public String toString() {
+		return "PageDTO : [ startRow = " + startRow + " , pageSize = " + pageSize + " , count = " + count + " , pageNum = " + pageNum + " , pageCount = " + pageCount 
+				+ " , pageBlock = " + pageBlock + " , startPage = " + startPage + " , endPage = " + endPage + " ] ";
+	}
+	
+	
+	
 
 }

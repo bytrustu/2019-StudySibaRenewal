@@ -63,16 +63,17 @@
 <div class="content_body">
 
     <div class="study_listwarp">
-
+    
+    	<c:forEach items="${list }" var="list">
         <div class="study_list">
             <div class="study_header">
                 <div class="study_divide">
-                    <span>프로그래밍</span>
+                    <span>${list.divide }</span>
                 </div>
 
                 <div class="study_subject">
-                    <span>스프링시바</span>
-                    <span>(캄캄32)</span>
+                    <span>${list.title }</span>
+                    <span>(${list.nick })</span>
                 </div>
 
                 <div class="study_restats">
@@ -84,13 +85,20 @@
                 <div class="study_bodyleft">
                     <div>
                         <img src="/images/sub/startup.png">
-                        <span>단기간 스프링 뽀개기</span>
+                        <span>${list.gName }</span>
                     </div>
                     <div>
                         <img src="/images/sub/networking.png">
                         <span>최대인원</span>
                         <span>(</span>
-                        <span>8</span>
+                        <span>
+                        <c:if test="${list.person eq '99' }">
+	                        	제한없음
+                        </c:if>
+                        <c:if test="${list.person ne '99' }">
+	                        ${list.person }
+                        </c:if>
+                        </span>
                         <span>)</span>
                     </div>
 
@@ -98,190 +106,55 @@
                 <div class="study_bodycenter">
                     <div>
                         <img src="/images/sub/global.png">
-                        <span>서울역 입구 1번 테이블</span>
+                        <span>${list.address }</span>
                     </div>
                     <div>
                         <img src="/images/sub/cooperation.png">
                         <span>참가인원</span>
                         <span>(</span>
-                        <span>2</span>
+                        <span>${list.count }</span>
                         <span>)</span>
                     </div>
-
                 </div>
-
                 <div class="study_bodyright">
                     <div>
                         <img src="/images/sub/circular-clock.png">
-                        <span>18.12.20 ~ 19.01.22일 매일 오후 5시이후</span>
+                        <span>${list.toPer } ~ ${list.fromPer } / ${list.toTime } ~ ${list.fromTime }</span>
                     </div>
                     <div class="study_contentlink">
                         <a hrf="#">[ 자세히보기 ]</a>
                     </div>
-
-
-
                 </div>
-
                 <div class="clear-fix"></div>
-
-
             </div>
         </div>
-
-
-
-
-
-        <div class="study_list">
-            <div class="study_header">
-                <div class="study_divide">
-                    <span>자기계발</span>
-                </div>
-
-                <div class="study_subject">
-                    <span>여친시바</span>
-                    <span>(국비캐궁금)</span>
-                </div>
-
-                <div class="study_restats">
-                    <img src="/images/sub/refresh.png">
-                </div>
-
-            </div>
-            <div class="study_body">
-                <div class="study_bodyleft">
-                    <div>
-                        <img src="/images/sub/startup.png">
-                        <span>연애고자 탈출?</span>
-                    </div>
-                    <div>
-                        <img src="/images/sub/networking.png">
-                        <span>최대인원</span>
-                        <span>(</span>
-                        <span>무제한</span>
-                        <span>)</span>
-                    </div>
-
-                </div>
-                <div class="study_bodycenter">
-                    <div>
-                        <img src="/images/sub/global.png">
-                        <span>서울 가산디지털 인싸거리</span>
-                    </div>
-                    <div>
-                        <img src="/images/sub/cooperation.png">
-                        <span>참가인원</span>
-                        <span>(</span>
-                        <span>10</span>
-                        <span>)</span>
-                    </div>
-
-                </div>
-
-                <div class="study_bodyright">
-                    <div>
-                        <img src="/images/sub/circular-clock.png">
-                        <span>18.12.24 ~ 19.01.30일 매주 일요일 오후 2시</span>
-                    </div>
-                    <div class="study_contentlink">
-                        <a hrf="#">[ 자세히보기 ]</a>
-                    </div>
-
-
-
-                </div>
-
-                <div class="clear-fix"></div>
-
-
-            </div>
-        </div>
-
-
-
-
-
-        <div class="study_list">
-            <div class="study_header">
-                <div class="study_divide">
-                    <span>자격증</span>
-                </div>
-
-                <div class="study_subject">
-                    <span>SQLD시바</span>
-                    <span>(국비지렁이)</span>
-                </div>
-
-                <div class="study_restats">
-                    <img src="/images/sub/refresh.png">
-                </div>
-
-            </div>
-            <div class="study_body">
-                <div class="study_bodyleft">
-                    <div>
-                        <img src="/images/sub/startup.png">
-                        <span>SQLD 자격증 가즈아</span>
-                    </div>
-                    <div>
-                        <img src="/images/sub/networking.png">
-                        <span>최대인원</span>
-                        <span>(</span>
-                        <span>5</span>
-                        <span>)</span>
-                    </div>
-
-                </div>
-                <div class="study_bodycenter">
-                    <div>
-                        <img src="/images/sub/global.png">
-                        <span>서울 강남역 3번출구 노랑통닭</span>
-                    </div>
-                    <div>
-                        <img src="/images/sub/cooperation.png">
-                        <span>참가인원</span>
-                        <span>(</span>
-                        <span>2</span>
-                        <span>)</span>
-                    </div>
-
-                </div>
-
-                <div class="study_bodyright">
-                    <div>
-                        <img src="/images/sub/circular-clock.png">
-                        <span>18.12.20 ~ 19.01.30일 매주 토요일 8시</span>
-                    </div>
-                    <div class="study_contentlink">
-                        <a hrf="#">[ 자세히보기 ]</a>
-                    </div>
-
-
-
-                </div>
-
-                <div class="clear-fix"></div>
-
-
-            </div>
-        </div>
-
-
-
-
-
+		</c:forEach>
 
 
 
 
         <div class="clear-fix"></div>
-        <div class="content_pagenation study_pagenation">
-            <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#">이전</a></li>
-                <li class="page-item"><a class="page-link" href="#">다음</a></li>
-            </ul>
-        </div>
+    <div class="content_pagenation ">
+        <ul class="pagination">
+            <c:if test="${page.startPage > page.pageBlock }">
+                <li class="page-item"><a class="page-link" href="/study/list?pageNum=${page.startPage-1 }">이전</a></li>
+            </c:if>
+            <c:forEach var="i" begin="${page.startPage }" end="${page.endPage }" step="1">
+                <c:if test="${page.pageNum eq i }">
+                    <li class="page-item active"><a class="page-link" href="/study/list?pageNum=${i }">${i }</a></li>
+                </c:if>
+                <c:if test="${page.pageNum ne i }">
+                    <li class="page-item"><a class="page-link" href="/study/list?pageNum=${i }">${i }</a></li>
+                </c:if>
+            </c:forEach>
+            <c:if test="${page.endPage < page.pageCount }">
+                <li class="page-item"><a class="page-link" href="/study/list?pageNum=${page.startPage+page.pageBlock }">다음</a></li>
+            </c:if>
+        </ul>
+    </div>
+        
+        
+        
     </div>
 
 </div>
@@ -303,9 +176,9 @@
             </div>
 
             <div class="modal-body study_modalbody">
+            <form method="POST" action="/study/write" enctype="multipart/form-data" id="studyForm">
                 <div class="study_bodytop">
                     <div class="bodytop_inputs">
-                        <form method="POST" action="/study/write">
 
                             <div class="form-row">
                                 <div class="form-group col-sm-4">
@@ -321,7 +194,7 @@
                                 </div>
                                 <div class="form-group col-sm-8">
                                     <label>스터디명</label>
-                                    <input type="text" class="form-control" name="gName">
+                                    <input type="text" class="form-control inputs_gName" name="gName">
                                 </div>
                             </div>
 
@@ -343,11 +216,11 @@
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <label>시작일자</label>
-                                    <input type="text" class="form-control datepickter" id="datepickter" name="toPer">
+                                    <input type="text" class="form-control datepickter inputs_toPer" name="toPer">
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <label>종료일자</label>
-                                    <input type="text" class="form-control datepickter" name="fromPer">
+                                    <input type="text" class="form-control datepickter inputs_fromPer" name="fromPer">
                                 </div>
                             </div>
 
@@ -383,7 +256,7 @@
 
                                 <div class="form-group col-sm-4">
                                     <label>종료시간</label>
-                                    <select name="formTime" class="form-control">
+                                    <select name="fromTime" class="form-control">
                                         <c:forEach begin="1" end="24" step="1" var="i">
                                             <c:if test="${i < 10 }">
                                                 <option value="0${i }:00">0${i }:00</option>
@@ -404,7 +277,6 @@
                                     <input type="file" class="inputs_file" name="file">
                                 </div>
                             </div>
-                        </form>
                         <!-- end bodytop_inputs -->
                     </div>
 
@@ -419,11 +291,11 @@
                                 <input type="text" class="form-control inputs_lng" name="lng" readonly="true" style="background-color: #ffffff;">
                             </div>
                         </div>
-                        <input type="text" class="form-control" id="pac-input" style="width: 192px;">
+                        <input type="text" class="form-control" id="pac-input" name="address" style="width: 192px;">
                         <div id="map"></div>
 
                     </div>
-
+					
                     <!-- end study_bodytop -->
                 </div>
 
@@ -438,13 +310,13 @@
                         <input type="hidden" class="study_contenttext" name="content">
                     </div>
 
-
                 </div>
+				</form>
                 <!-- end study_modalbody -->
             </div>
 
             <div class="modal-footer">
-                <button class="btn btn-primary study_registerbtn">등록</button>
+                <button class="btn btn-primary boardBtn" data="study_register">등록</button>
             </div>
         </div>
     </div>
