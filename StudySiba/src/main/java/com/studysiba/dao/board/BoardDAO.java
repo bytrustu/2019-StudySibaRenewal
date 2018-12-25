@@ -1,11 +1,13 @@
 package com.studysiba.dao.board;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.studysiba.domain.board.CommentVO;
 import com.studysiba.domain.board.FreeBoardVO;
 import com.studysiba.domain.board.LikeVO;
 import com.studysiba.domain.board.PageDTO;
+import com.studysiba.domain.board.SearchVO;
 
 public interface BoardDAO {
 
@@ -45,6 +47,10 @@ public interface BoardDAO {
 	String modify(FreeBoardVO freeboardVO);
 	// 자유게시판 글 삭제
 	int delete(FreeBoardVO freeboardVO);
+	// 검색한 게시글 숫자 카운트
+	int getSearchCount(SearchVO searchVO);
+	// 검색한 게시글 리스트
+	List<FreeBoardVO> getSearchList(PageDTO page);
 	
 
 

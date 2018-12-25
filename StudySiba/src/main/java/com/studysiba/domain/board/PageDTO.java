@@ -1,6 +1,6 @@
 package com.studysiba.domain.board;
 
-public class PageDTO {
+public class PageDTO extends SearchVO{
 
 	private int startRow;
 	private int pageSize;

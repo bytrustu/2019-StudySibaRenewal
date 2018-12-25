@@ -1,10 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
 <div class="content_subject">
-
     <div class="content_subjectleft">
         <img src="/images/sub/studying.png">
         <span>자유게시판</span>
@@ -61,27 +59,27 @@
             <div class="view_footer">
                 <div class="view_info">
                     <img src="/images/profile/kakao/${view.proFile }">
-                    <span>${view.nick }</span>
+                    <span id="view_nick">${view.nick }</span>
                     <span>[ ${view.id } ]</span>
                 </div>
                 <div class="view_contact">
                     <div class="view_message">
-                        <img src="/images/main/mail.png">
-                        <span>메세지</span>
+                        <img src="/images/main/mail.png" class="modal_open view_messenger" id="messageBtn" data="messageModal">
+                        <span class="modal_open view_messenger" id="messageBtn" data="messageModal">메세지</span>
                     </div>
                     <div class="view_friend">
-                        <img src="/images/main/friendship.png">
-                        <span>친구추가</span>
+                        <img src="/images/main/friendship.png" class="modal_open view_messenger" id="friendBtn" data="messageModal">
+                        <span class="modal_open view_messenger" id="friendBtn" data="messageModal">친구추가</span>
                     </div>
                 </div>
             </div>
 
             <div class="view_button">
-            	<c:if test="${sessionScope.userSession.id eq view.id}">
-            		<button class="btn btn-primary boardBtn" data="content_modify">수정</button>
-            		<button class="btn btn-primary boardBtn" data="content_delete">삭제</button>
-            	</c:if>
-            
+                <c:if test="${sessionScope.userSession.id eq view.id}">
+                    <button class="btn btn-primary boardBtn" data="content_modify">수정</button>
+                    <button class="btn btn-primary boardBtn" data="content_delete">삭제</button>
+                </c:if>
+
                 <button class="btn btn-primary boardBtn" data="content_rewrite">답글쓰기</button>
                 <button class="btn btn-primary boardBtn" data="board_list">목록</button>
             </div>
@@ -96,39 +94,37 @@
                     <button class="btn btn-danger boardBtn" data="comment_write">작성</button>
                 </div>
 
-
-
                 <div class="comment_list">
-                
-                <c:forEach items="${comment }" var="comment">
-                    <div class="comment_content">
-                    <c:if test="${comment.indent > 0 }">
-                		<c:set var="wid" value="${comment.indent*15 }"></c:set>
-                		<img src='<c:url value="/images/sub/level.png"/>' style="width: ${wid}px; margin-right:0;">
-                		<img src='<c:url value="/images/sub/comment.png"/>'style="width: 23px; height: 23px;">
-                	</c:if>
-                        <img src="/images/profile/kakao/kakao-1.png">
-                        <div class="comment_info">
-                            <p>
-                                <span>[${comment.nick }]</span>
-                                <c:if test="${comment.preId ne 'default' }">
-                                	<span class="comment_preId">${comment.preId }</span>
-                                </c:if>
-                                <span>${comment.content }</span>
-                            </p>
-                            <p>${comment.cDate }</p>
+
+                    <c:forEach items="${comment }" var="comment">
+                        <div class="comment_content">
+                            <c:if test="${comment.indent > 0 }">
+                                <c:set var="wid" value="${comment.indent*15 }"></c:set>
+                                <img src='<c:url value="/images/sub/level.png"/>' style="width: ${wid}px; margin-right:0;">
+                                <img src='<c:url value="/images/sub/comment.png"/>' style="width: 23px; height: 23px;">
+                            </c:if>
+                            <img src="/images/profile/kakao/${comment.proFile }">
+                            <div class="comment_info">
+                                <p>
+                                    <span>[${comment.nick }]</span>
+                                    <c:if test="${comment.preId ne 'default' }">
+                                        <span class="comment_preId">${comment.preId }</span>
+                                    </c:if>
+                                    <span>${comment.content }</span>
+                                </p>
+                                <p>${comment.cDate }</p>
+                            </div>
+                            <div class="comment_button btn btn-info" data="close">
+                                답글작성
+                            </div>
+                            <input type="hidden" id="comment_type" value="${comment.type }">
+                            <input type="hidden" id="comment_id" value="${comment.id }">
+                            <input type="hidden" id="comment_gNo" value="${comment.gNo }">
+                            <input type="hidden" id="comment_step" value="${comment.step }">
+                            <input type="hidden" id="comment_indent" value="${comment.indent }">
+                            <div class="comment_rewrite"></div>
                         </div>
-                        <div class="comment_button btn btn-info" data="close">
-                            답글작성
-                        </div>
-                        <input type="hidden" id="comment_type" value="${comment.type }">
-                        <input type="hidden" id="comment_id" value="${comment.id }">
-                        <input type="hidden" id="comment_gNo" value="${comment.gNo }">
-                        <input type="hidden" id="comment_step" value="${comment.step }">
-                        <input type="hidden" id="comment_indent" value="${comment.indent }">
-                        <div class="comment_rewrite"></div>
-                    </div>
-                </c:forEach>
+                    </c:forEach>
 
 
 

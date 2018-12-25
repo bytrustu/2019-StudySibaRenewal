@@ -7,6 +7,7 @@ import com.studysiba.domain.board.CommentVO;
 import com.studysiba.domain.board.FreeBoardVO;
 import com.studysiba.domain.board.LikeVO;
 import com.studysiba.domain.board.PageDTO;
+import com.studysiba.domain.board.SearchVO;
 
 public interface BoardService {
 
@@ -36,5 +37,9 @@ public interface BoardService {
 	String modify(FreeBoardVO freeboardVO);
 	// 자유게시판 글 삭제
 	String delete(FreeBoardVO freeboardVO);
+	// 검색한 게시글 수 조회
+	int getSearchCount(SearchVO searchVO);
+	// 검색한 게시글 리스트
+	List<FreeBoardVO> getSearchList(PageDTO page);
 
 }

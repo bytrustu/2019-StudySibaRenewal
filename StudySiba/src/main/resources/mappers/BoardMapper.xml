@@ -114,5 +114,55 @@
 		update board 
 		set available=1 where id=#{id} AND no=#{no}
 	</update>
+	
+	<select id="getSearchCount" resultType="int">
+		select count(*) from board
+		where type='freeboard'
+		<choose>
+			<when test="searchType != null and searchType.equals('title')">
+				AND title like CONCAT('%', #{searchText}, '%')
+			</when>
+			<when test="searchType != null and searchType.equals('content')">
+				AND content like CONCAT('%', #{searchText}, '%')
+			</when>
+			<when test="searchType != null and searchType.equals('id')">
+				AND id = #{searchText}
+			</when>
+			<when test="searchType != null and searchType.equals('all')">
+				AND ( ( title like CONCAT('%', #{searchText}, '%') )
+				OR ( content like CONCAT('%', #{searchText}, '%') )
+				OR ( id = #{searchText} ) )
+			</when>
+		</choose>
+	</select>
+	
+	<select id="getSearchList" resultType="com.studysiba.domain.board.FreeBoardVO">
+		select no, type, id, title, content, gNo, step, indent, count, available, 
+		DATE_FORMAT(bDate, '%Y년%m월%d일 %H시%i분') as bDate, likes.likecount as likeCount, comment.commentcount as commentCount from board
+		left join (select fNo, coalesce(count(*),0) as likecount from likes group by fNo ) likes
+		on board.no = likes.fNo 
+		left join (select fNo, coalesce(count(*),0) as commentcount from comment group by fNo ) comment
+		on board.no = comment.fNo
+		where board.type = 'freeboard'
+		
+		<choose>
+			<when test="searchType != null and searchType.equals('title')">
+				AND board.title like CONCAT('%', #{searchText}, '%')
+			</when>
+			<when test="searchType != null and searchType.equals('content')">
+				AND board.content like CONCAT('%', #{searchText}, '%')
+			</when>
+			<when test="searchType != null and searchType.equals('id')">
+				AND board.id = #{searchText}
+			</when>
+			<when test="searchType != null and searchType.equals('all')">
+				AND ( ( board.title like CONCAT('%', #{searchText}, '%') )
+				OR ( board.content like CONCAT('%', #{searchText}, '%') )
+				OR ( board.id = #{searchText} ) )
+			</when>
+		</choose>
+		
+		order by gNo desc, step asc limit #{startRow},#{pageSize}
+	</select>
 
 </mapper>

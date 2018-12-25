@@ -47,7 +47,7 @@ public class CommonController {
 
 		if (session.getAttribute("socialInfo") != null) {
 			session.removeAttribute("socialInfo");
-			session.setAttribute("message", "소셜 로그인 가입에 실패 했습니다.");
+			session.setAttribute("error", "소셜 로그인 가입에 실패 했습니다.");
 		}
 
 		// 구글 로그인 API 주소값
@@ -75,7 +75,7 @@ public class CommonController {
 		String path = null;
 		if (session.getAttribute("socialInfo") == null) {
 			path = "redirect:/";
-			session.setAttribute("message", "잘못 된 접근 입니다.");
+			session.setAttribute("error", "잘못 된 접근 입니다.");
 		} else {
 			path = "common/social";
 		}

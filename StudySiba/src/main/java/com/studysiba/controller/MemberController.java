@@ -41,7 +41,7 @@ public class MemberController {
 		String pass = memberVO.getPass();
 
 		if (memberVO == null || id.equals("") || pass.equals("")) {
-			session.setAttribute("message", "로그인 실패 했습니다.");
+			session.setAttribute("error", "로그인 실패 했습니다.");
 		} else {
 			if (id.equals(memberService.valueCheckId(id))) {
 				if (memberService.valueCheckPass(id, pass)) {
@@ -61,10 +61,10 @@ public class MemberController {
 					view.put("userWarp", userWarp);
 					model.addAttribute("view", view);
 				} else {
-					session.setAttribute("message", "비밀번호가 일치하지 않습니다.");
+					session.setAttribute("error", "비밀번호가 일치하지 않습니다.");
 				}
 			} else {
-				session.setAttribute("message", "아이디가 존재하지 않습니다.");
+				session.setAttribute("error", "아이디가 존재하지 않습니다.");
 			}
 		}
 		return "redirect:/";

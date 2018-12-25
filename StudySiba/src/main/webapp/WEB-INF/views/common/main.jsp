@@ -46,6 +46,29 @@
         <c:remove var="message" scope="session" />
     </c:if>
 
+<!--	에러 세션	-->   
+    <c:if test="${sessionScope.error ne null}">
+        <script>
+        $(document).ready(function(){
+        	sessionError();
+        	function sessionError(){
+        		var error = "${sessionScope.error}";
+        		if ( error != '' ) {
+        			Swal({
+  					  position: 'top-end',
+  					  type: 'error',
+  					  title: error,
+  					  showConfirmButton: false,
+  					  timer: 1500
+  					})
+        		}
+        	}
+        });
+        <c:remove var="error" scope="session" />
+        </script>
+    </c:if>
+    
+
 </head>
 
 <body>

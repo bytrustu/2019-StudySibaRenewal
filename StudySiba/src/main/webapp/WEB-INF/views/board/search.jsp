@@ -7,7 +7,7 @@
         <span>자유게시판</span>
     </div>
     <div class="content_subjectright">
-    	<form method="GET" action="/board/search">
+    	<form method="POST" action="/board/search">
         	<select name="searchType" class="form-control board_searchselect">
             	<option value="all">전체</option>
             	<option value="title">제목</option>
@@ -110,7 +110,7 @@
     <div class="content_pagenation ">
         <ul class="pagination">
             <c:if test="${page.startPage > page.pageBlock }">
-                <li class="page-item"><a class="page-link" href="/board/list?pageNum=${page.startPage-1 }">이전</a></li>
+                <li class="page-item"><a class="page-link" href="/board/list?pageNum=${page.startPage-pageBlock }">이전</a></li>
             </c:if>
             <c:forEach var="i" begin="${page.startPage }" end="${page.endPage }" step="1">
                 <c:if test="${page.pageNum eq i }">

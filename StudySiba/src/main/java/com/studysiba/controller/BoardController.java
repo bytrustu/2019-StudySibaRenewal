@@ -23,6 +23,7 @@ import com.studysiba.domain.board.CommentVO;
 import com.studysiba.domain.board.FreeBoardVO;
 import com.studysiba.domain.board.LikeVO;
 import com.studysiba.domain.board.PageDTO;
+import com.studysiba.domain.board.SearchVO;
 import com.studysiba.service.board.BoardService;
 
 @Controller
@@ -36,6 +37,7 @@ public class BoardController {
 	
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public String freeList(Model model, @RequestParam(value="pageNum", defaultValue = "1") int pageNum) {
+		
 		
 		PageDTO page = new PageDTO();
 		page.setPageSize(7);
@@ -199,6 +201,24 @@ public class BoardController {
 		JSONArray json = new JSONArray();
 		json = MakeJSON.change(result);
 		return json.toString();
+	}
+	
+	@RequestMapping(value="search", method = RequestMethod.GET)
+	public String search(Model model, @RequestParam(value="pageNum", defaultValue = "1") int pageNum, SearchVO searchVO) {
+		
+		PageDTO page = new PageDTO();
+		page.setPageSize(7);
+		page.setPageNum(pageNum);
+		page.setCount(boardService.getSearchCount(searchVO));
+		page.setSearchType(searchVO.getSearchType());
+		page.setSearchText(searchVO.getSearchText());
+		
+		List<FreeBoardVO> list = boardService.getSearchList(page);
+		
+		model.addAttribute("list",list);
+		model.addAttribute("page",page);
+		
+		return "board/list";
 	}
 	
 	

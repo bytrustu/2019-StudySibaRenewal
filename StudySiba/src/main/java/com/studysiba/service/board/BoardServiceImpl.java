@@ -12,6 +12,7 @@ import com.studysiba.domain.board.CommentVO;
 import com.studysiba.domain.board.FreeBoardVO;
 import com.studysiba.domain.board.LikeVO;
 import com.studysiba.domain.board.PageDTO;
+import com.studysiba.domain.board.SearchVO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -35,8 +36,6 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public String write(FreeBoardVO freeboardVO) {
 		String result = null;
-		System.out.println("여기야여기"+freeboardVO.toString());
-		System.out.println(freeboardVO.getgNo());
 		if ( freeboardVO.getgNo() == 0) {
 			result = Integer.toString(boardDAO.write(freeboardVO));
 		} else {
@@ -65,6 +64,8 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public List<FreeBoardVO> getBoardList(PageDTO page) {
+		int startRow = (page.getPageNum()-1)*page.getPageSize()+1;
+		page.setStartRow(startRow-1);
 		List<FreeBoardVO> list = boardDAO.getBoardList(page);
 		
 		for ( int i=0; i<list.size(); i++ ) {
@@ -138,6 +139,31 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public String delete(FreeBoardVO freeboardVO) {
 		return Integer.toString(boardDAO.delete(freeboardVO));
+	}
+
+	@Override
+	public int getSearchCount(SearchVO searchVO) {
+		if( searchVO.getSearchType().equals("id") ) {
+			searchVO.setSearchText(memberDAO.getUserId(searchVO.getSearchText()));
+		}
+		return boardDAO.getSearchCount(searchVO);
+	}
+
+	@Override
+	public List<FreeBoardVO> getSearchList(PageDTO page) {
+		if ( page.getSearchType().equals("id")) {
+			page.setSearchText(memberDAO.getUserId(page.getSearchText()));
+		}
+		int startRow = (page.getPageNum()-1)*page.getPageSize()+1;
+		page.setStartRow(startRow-1);
+		List<FreeBoardVO> list = boardDAO.getSearchList(page);
+		
+		for ( int i=0; i<list.size(); i++ ) {
+			list.get(i).setNick(getNick(list.get(i).getId()));
+			list.get(i).setProFile(getProFile(list.get(i).getId()));
+		}
+		
+		return list;
 	}
 	
 	

@@ -1,5 +1,6 @@
 package com.studysiba.dao.board;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -12,6 +13,7 @@ import com.studysiba.domain.board.CommentVO;
 import com.studysiba.domain.board.FreeBoardVO;
 import com.studysiba.domain.board.LikeVO;
 import com.studysiba.domain.board.PageDTO;
+import com.studysiba.domain.board.SearchVO;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -110,6 +112,16 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public int delete(FreeBoardVO freeboardVO) {
 		return sqlSession.update(namespace+".delete", freeboardVO);
+	}
+
+	@Override
+	public int getSearchCount(SearchVO searchVO) {
+		return sqlSession.selectOne(namespace+".getSearchCount", searchVO);
+	}
+
+	@Override
+	public List<FreeBoardVO> getSearchList(PageDTO page) {
+		return sqlSession.selectList(namespace+".getSearchList", page);
 	}
 
 	

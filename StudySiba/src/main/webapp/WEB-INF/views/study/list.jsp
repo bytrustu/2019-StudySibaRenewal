@@ -10,14 +10,18 @@
                 </div>
                 <div class="content_subjectright">
                     <select name="board_search" class="form-control board_searchselect">
-                        <option value="전체">전체</option>
-                        <option value="제목">제목</option>
-                        <option value="내용">내용</option>
-                        <option value="작성자">작성자</option>
+                        <option value="all">전체</option>
+						<option value="programming">프로그래밍</option>
+						<option value="development">자기계발</option>
+						<option value="certificate">자격증</option>
+						<option value="language">외국어</option>
+						<option value="hobby">취미</option>
+						<option value="job">취업</option>
+						<option value="etc">기타</option>
                     </select>
                     <input class="board_searchtext board_searchtext" type="text" name="search" class="form-control" placeholder="내용을 입력하세요">
-                    <button class="btn btn-primary board_searchbtn">검색</button>
-                    <button class="btn btn-warning board_writebtn">글쓰기</button>
+                    <button class="btn btn-primary board_searchbtn ">검색</button>
+                    <button class="btn btn-warning board_writebtn modal_open" data="studyModal">글쓰기</button>
                 </div>
             </div>
 
