@@ -6,7 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.studysiba.domain.page.PageDTO;
+import com.studysiba.domain.common.PageDTO;
+import com.studysiba.domain.common.SearchVO;
 import com.studysiba.domain.study.StudyVO;
 
 @Repository
@@ -44,6 +45,16 @@ public class StudyDAOImpl implements StudyDAO {
 	@Override
 	public int joinGroup(StudyVO studyVO) {
 		return sqlSession.insert(namespace + ".joinGroup", studyVO);
+	}
+
+	@Override
+	public int getSearchCount(SearchVO searchVO) {
+		return sqlSession.selectOne(namespace + ".getSearchCount",searchVO);
+	}
+
+	@Override
+	public List<StudyVO> getSearchList(PageDTO page) {
+		return sqlSession.selectList(namespace + ".getSearchList", page);
 	}
 
 

@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.studysiba.common.FileUpload;
-import com.studysiba.domain.page.PageDTO;
+import com.studysiba.domain.board.FreeBoardVO;
+import com.studysiba.domain.common.PageDTO;
+import com.studysiba.domain.common.SearchVO;
 import com.studysiba.domain.study.StudyVO;
 import com.studysiba.domain.upload.UploadVO;
 import com.studysiba.service.study.StudyService;
@@ -27,6 +29,7 @@ public class StudyController {
 
 	@Autowired
 	private StudyService studyService;
+	
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model, @RequestParam(value="pageNum", defaultValue = "1") int pageNum) {
@@ -91,4 +94,26 @@ public class StudyController {
 
 		return "redirect:/study/list";
 	}
+	
+	
+	@RequestMapping(value="search", method = RequestMethod.GET)
+	public String search(Model model, @RequestParam(value="pageNum", defaultValue = "1") int pageNum, SearchVO searchVO) {
+		
+		PageDTO page = new PageDTO();
+		page.setPageSize(3);
+		page.setPageNum(pageNum);
+		page.setCount(studyService.getSearchCount(searchVO));
+		page.setSearchType(searchVO.getSearchType());
+		page.setSearchText(searchVO.getSearchText());
+		
+		List<StudyVO> list = studyService.getSearchList(page);
+		
+		model.addAttribute("list",list);
+		model.addAttribute("page",page);
+		model.addAttribute("search",searchVO);
+		
+		return "study/search";
+	}
+	
+	
 }

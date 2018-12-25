@@ -7,15 +7,15 @@
         <span>자유게시판</span>
     </div>
     <div class="content_subjectright">
-    	<form method="POST" action="/board/search">
-        	<select name="searchType" class="form-control board_searchselect">
-            	<option value="all">전체</option>
-            	<option value="title">제목</option>
-            	<option value="content">내용</option>
-            	<option value="id">작성자</option>
-        	</select>
-        	<input class="board_searchtext board_searchtext" type="text" name="searchText" class="form-control" placeholder="내용을 입력하세요">
-        	<button class="btn btn-primary board_searchbtn boardBtn" data="board_search">검색</button>
+        <form method="GET" action="/board/search">
+            <select name="searchType" class="form-control board_searchselect">
+                <option value="all">전체</option>
+                <option value="title">제목</option>
+                <option value="content">내용</option>
+                <option value="id">작성자</option>
+            </select>
+            <input class="board_searchtext board_searchtext" type="text" name="searchText" class="form-control" placeholder="내용을 입력하세요">
+            <button class="btn btn-primary board_searchbtn boardBtn" data="board_search">검색</button>
         </form>
         <button class="btn btn-warning board_writebtn boardBtn" data="board_movewrite">글쓰기</button>
     </div>
@@ -110,18 +110,18 @@
     <div class="content_pagenation ">
         <ul class="pagination">
             <c:if test="${page.startPage > page.pageBlock }">
-                <li class="page-item"><a class="page-link" href="/board/list?pageNum=${page.startPage-pageBlock }">이전</a></li>
+                <li class="page-item"><a class="page-link" href="/board/search?pageNum=${page.startPage-1 }&searchType=${search.searchType}&searchText=${search.searchText}">이전</a></li>
             </c:if>
             <c:forEach var="i" begin="${page.startPage }" end="${page.endPage }" step="1">
                 <c:if test="${page.pageNum eq i }">
-                    <li class="page-item active"><a class="page-link" href="/board/list?pageNum=${i }">${i }</a></li>
+                    <li class="page-item active"><a class="page-link" href="/board/search?pageNum=${i }&searchType=${search.searchType}&searchText=${search.searchText}">${i }</a></li>
                 </c:if>
                 <c:if test="${page.pageNum ne i }">
-                    <li class="page-item"><a class="page-link" href="/board/list?pageNum=${i }">${i }</a></li>
+                    <li class="page-item"><a class="page-link" href="/board/search?pageNum=${i }&searchType=${search.searchType}&searchText=${search.searchText}">${i }</a></li>
                 </c:if>
             </c:forEach>
             <c:if test="${page.endPage < page.pageCount }">
-                <li class="page-item"><a class="page-link" href="/board/list?pageNum=${page.startPage+page.pageBlock }">다음</a></li>
+                <li class="page-item"><a class="page-link" href="/board/search?pageNum=${page.startPage+page.pageBlock }&searchType=${search.searchType}&searchText=${search.searchText}">다음</a></li>
             </c:if>
         </ul>
 

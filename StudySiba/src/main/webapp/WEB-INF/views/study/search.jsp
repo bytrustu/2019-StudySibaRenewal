@@ -139,19 +139,19 @@
         <div class="content_pagenation ">
             <ul class="pagination">
                 <c:if test="${page.startPage > page.pageBlock }">
-                    <li class="page-item"><a class="page-link" href="/study/list?pageNum=${page.startPage-1 }">이전</a></li>
+                <li class="page-item"><a class="page-link" href="/study/search?pageNum=${page.startPage-1 }&searchType=${search.searchType}&searchText=${search.searchText}">이전</a></li>
+            </c:if>
+            <c:forEach var="i" begin="${page.startPage }" end="${page.endPage }" step="1">
+                <c:if test="${page.pageNum eq i }">
+                    <li class="page-item active"><a class="page-link" href="/study/search?pageNum=${i }&searchType=${search.searchType}&searchText=${search.searchText}">${i }</a></li>
                 </c:if>
-                <c:forEach var="i" begin="${page.startPage }" end="${page.endPage }" step="1">
-                    <c:if test="${page.pageNum eq i }">
-                        <li class="page-item active"><a class="page-link" href="/study/list?pageNum=${i }">${i }</a></li>
-                    </c:if>
-                    <c:if test="${page.pageNum ne i }">
-                        <li class="page-item"><a class="page-link" href="/study/list?pageNum=${i }">${i }</a></li>
-                    </c:if>
-                </c:forEach>
-                <c:if test="${page.endPage < page.pageCount }">
-                    <li class="page-item"><a class="page-link" href="/study/list?pageNum=${page.startPage+page.pageBlock }">다음</a></li>
+                <c:if test="${page.pageNum ne i }">
+                    <li class="page-item"><a class="page-link" href="/study/search?pageNum=${i }&searchType=${search.searchType}&searchText=${search.searchText}">${i }</a></li>
                 </c:if>
+            </c:forEach>
+            <c:if test="${page.endPage < page.pageCount }">
+                <li class="page-item"><a class="page-link" href="/study/search?pageNum=${page.startPage+page.pageBlock }&searchType=${search.searchType}&searchText=${search.searchText}">다음</a></li>
+            </c:if>
             </ul>
         </div>
 

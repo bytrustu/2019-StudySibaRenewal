@@ -2,6 +2,7 @@
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>스터디시바 : 온라인 스터디 그룹</title>
@@ -36,21 +37,21 @@
                             <input type="text" class="social_input joinmodal_joinnick validation_readonly" id="socialJoinNick" name="nick" placeholder="닉네임 입력" readonly="readonly">
                             <div class="btn btn-warning validation_false" id="nickChecker" data="false">미입력</div>
                         </div>
-                        
+
                         <c:if test="${sessionScope.socialInfo.type eq 'google' || sessionScope.socialInfo.type eq 'kakao'  }">
-                        	<div>
-                        	    <input type="email" class="social_input joinmodal_joinemail validation_readonly" id="socialJoinEmail" name="eMail" placeholder="EXAMPLE@GMAIL.COM" readonly="readonly">
-                       	    	<div type="text" class="btn btn-warning validation_false" id="eMailChecker" data="false">미입력</div>
-                        	</div>
+                            <div>
+                                <input type="email" class="social_input joinmodal_joinemail validation_readonly" id="socialJoinEmail" name="eMail" placeholder="EXAMPLE@GMAIL.COM" readonly="readonly">
+                                <div type="text" class="btn btn-warning validation_false" id="eMailChecker" data="false">미입력</div>
+                            </div>
                         </c:if>
-                        
+
                         <div>
                             <button type="button" class="btn btn-danger joinmodal_joinbtn" data="social">회원가입</button>
                             <div class="btn btn-danger validation_final" data="false">불가</div>
                         </div>
                     </form>
                     <c:if test="${sessionScope.socialInfo ne null }">
-                    	<input id="joinType" type="hidden" value="${sessionScope.socialInfo.type}">
+                        <input id="joinType" type="hidden" value="${sessionScope.socialInfo.type}">
                     </c:if>
                 </div>
             </div>
@@ -58,4 +59,5 @@
     </div>
 
 </body>
+
 </html>

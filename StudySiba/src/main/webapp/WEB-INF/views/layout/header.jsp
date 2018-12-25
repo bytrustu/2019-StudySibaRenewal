@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -20,48 +20,52 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.32.2/dist/sweetalert2.min.js"></script>
     <script src="/js/main.js"></script>
 
-<!--	메세지 세션	-->
+    <!--	메세지 세션	-->
     <c:if test="${sessionScope.message ne null}">
         <script>
-        $(document).ready(function(){
-        	sessionMessage();
-        	function sessionMessage(){
-        		var message = "${sessionScope.message}";
-        		if ( message != '' ) {
-        			Swal({
-  					  position: 'top-end',
-  					  type: 'success',
-  					  title: message,
-  					  showConfirmButton: false,
-  					  timer: 1500
-  					})
-        		}
-        	}
-        });
-        <c:remove var="message" scope="session" />
+            $(document).ready(function() {
+                sessionMessage();
+
+                function sessionMessage() {
+                    var message = "${sessionScope.message}";
+                    if (message != '') {
+                        Swal({
+                            position: 'top-end',
+                            type: 'success',
+                            title: message,
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
+                }
+            });
+
         </script>
+        <c:remove var="message" scope="session" />
     </c:if>
-    
- <!--	에러 세션	-->   
+
+    <!--	에러 세션	-->
     <c:if test="${sessionScope.error ne null}">
         <script>
-        $(document).ready(function(){
-        	sessionError();
-        	function sessionError(){
-        		var error = "${sessionScope.error}";
-        		if ( error != '' ) {
-        			Swal({
-  					  position: 'top-end',
-  					  type: 'error',
-  					  title: error,
-  					  showConfirmButton: false,
-  					  timer: 1500
-  					})
-        		}
-        	}
-        });
-        <c:remove var="error" scope="session" />
+            $(document).ready(function() {
+                sessionError();
+
+                function sessionError() {
+                    var error = "${sessionScope.error}";
+                    if (error != '') {
+                        Swal({
+                            position: 'top-end',
+                            type: 'error',
+                            title: error,
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
+                }
+            });
+
         </script>
+        <c:remove var="error" scope="session" />
     </c:if>
 
 
@@ -126,8 +130,8 @@
                 </li>
             </ul>
         </nav>
-        
+
         <div class="layout-body">
 
 
-        	<div class="content">
+            <div class="content">

@@ -11,8 +11,8 @@ import com.studysiba.dao.member.MemberDAO;
 import com.studysiba.domain.board.CommentVO;
 import com.studysiba.domain.board.FreeBoardVO;
 import com.studysiba.domain.board.LikeVO;
-import com.studysiba.domain.board.SearchVO;
-import com.studysiba.domain.page.PageDTO;
+import com.studysiba.domain.common.PageDTO;
+import com.studysiba.domain.common.SearchVO;
 
 @Service
 public class BoardServiceImpl implements BoardService {

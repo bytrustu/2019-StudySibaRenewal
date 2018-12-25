@@ -27,7 +27,7 @@
     <!--	메세지 세션	-->
     <c:if test="${sessionScope.message ne null}">
         <script>
-        $(document).ready(function(){
+            $(document).ready(function(){
         	sessionMessage();
     		function sessionMessage(){
     			var message = "${sessionScope.message}";
@@ -46,10 +46,10 @@
         <c:remove var="message" scope="session" />
     </c:if>
 
-<!--	에러 세션	-->   
+    <!--	에러 세션	-->
     <c:if test="${sessionScope.error ne null}">
         <script>
-        $(document).ready(function(){
+            $(document).ready(function(){
         	sessionError();
         	function sessionError(){
         		var error = "${sessionScope.error}";
@@ -67,7 +67,7 @@
         <c:remove var="error" scope="session" />
         </script>
     </c:if>
-    
+
 
 </head>
 
@@ -279,14 +279,14 @@
                                 <div class="logininfo_connect">
                                     <span>최종접속시간 : </span>
                                     <span>
-                                    <c:choose>
-                                    	<c:when test="${sessionScope.userSession.cDate eq null}">
-                                    		처음 접속한 회원 입니다. ^^
-                                    	</c:when>
-                                    	<c:otherwise>
-                                    		${sessionScope.userSession.cDate}
-                                    	</c:otherwise>
-                                    </c:choose>
+                                        <c:choose>
+                                            <c:when test="${sessionScope.userSession.cDate eq null}">
+                                                처음 접속한 회원 입니다. ^^
+                                            </c:when>
+                                            <c:otherwise>
+                                                ${sessionScope.userSession.cDate}
+                                            </c:otherwise>
+                                        </c:choose>
                                     </span>
                                 </div>
                             </div>
@@ -451,7 +451,7 @@
 
 
 
-<!--
+    <!--
                 [   모달 창 영역   ]
 -->
 
@@ -630,32 +630,32 @@
             </div>
         </div>
     </div>
-    
+
     <!-- 비밀번호변경 모달 -->
-    <div class="modal fade" id="passModal" tabindex="-1" role="dialog" 	aria-labelledby="modal" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content col-sm-8 passmodal_locate">
-					<div class="modal-header">
-						<h4 class="modal-title" id="modal" style="font-weight: bold;">비밀번호 변경</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<div class="form-group">
-							<label>현재비밀번호</label> <input type="password" name="currPassword" id="currPassword" class="form-control messenger_input" maxlength="15" data="currPass">
-						</div>
-						<div class="form-group">
-							<label>변경비밀번호</label> <input type="password" name="changePassword" id="changePassword" class="form-control messenger_input" maxlength="15" data="changePass">
-						</div>
-						<div class="modal-footer">
-							<button class="btn btn-primary messenger_btn" id="pass_btn" type="button" aria-label="Close" data="changePass">변경</button>
-							<button class="btn btn-danger" data-dismiss="modal" aria-label="Close">취소</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+    <div class="modal fade" id="passModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content col-sm-8 passmodal_locate">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal" style="font-weight: bold;">비밀번호 변경</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>현재비밀번호</label> <input type="password" name="currPassword" id="currPassword" class="form-control messenger_input" maxlength="15" data="currPass">
+                    </div>
+                    <div class="form-group">
+                        <label>변경비밀번호</label> <input type="password" name="changePassword" id="changePassword" class="form-control messenger_input" maxlength="15" data="changePass">
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary messenger_btn" id="pass_btn" type="button" aria-label="Close" data="changePass">변경</button>
+                        <button class="btn btn-danger" data-dismiss="modal" aria-label="Close">취소</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 

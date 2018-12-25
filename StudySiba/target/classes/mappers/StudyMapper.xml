@@ -50,4 +50,73 @@
 		values( #{no}, #{gNo}, #{id}, now() )
 	</insert>
 	
+	<select id="getSearchCount" resultType="int">
+		select count(*) from studyboard
+		where 
+		<choose>
+			<when test="searchType != null and searchType.equals('programming')">
+				divide = '프로그래밍' AND ( gName like CONCAT('%', #{searchText}, '%') OR title like CONCAT('%', #{searchText}, '%') OR content like CONCAT('%', #{searchText}, '%') )
+			</when>
+			<when test="searchType != null and searchType.equals('development')">
+				divide = '자기계발' AND ( gName like CONCAT('%', #{searchText}, '%') OR title like CONCAT('%', #{searchText}, '%') OR content like CONCAT('%', #{searchText}, '%') )
+			</when>
+			<when test="searchType != null and searchType.equals('certificate')">
+				divide = '자격증' AND ( gName like CONCAT('%', #{searchText}, '%') OR title like CONCAT('%', #{searchText}, '%') OR content like CONCAT('%', #{searchText}, '%') )
+			</when>
+			<when test="searchType != null and searchType.equals('language')">
+				divide = '외국어' AND ( gName like CONCAT('%', #{searchText}, '%') OR title like CONCAT('%', #{searchText}, '%') OR content like CONCAT('%', #{searchText}, '%') )
+			</when>
+			<when test="searchType != null and searchType.equals('hobby')">
+				divide = '취미' AND ( gName like CONCAT('%', #{searchText}, '%') OR title like CONCAT('%', #{searchText}, '%') OR content like CONCAT('%', #{searchText}, '%') )
+			</when>
+			<when test="searchType != null and searchType.equals('job')">
+				divide = '취업' AND ( gName like CONCAT('%', #{searchText}, '%') OR title like CONCAT('%', #{searchText}, '%') OR content like CONCAT('%', #{searchText}, '%') )
+			</when>
+			<when test="searchType != null and searchType.equals('etc')">
+				divide = '기타' AND ( gName like CONCAT('%', #{searchText}, '%') OR title like CONCAT('%', #{searchText}, '%') OR content like CONCAT('%', #{searchText}, '%') )
+			</when>
+			<when test="searchType != null and searchType.equals('all')">
+				gName like CONCAT('%', #{searchText}, '%') OR title like CONCAT('%', #{searchText}, '%') OR content like CONCAT('%', #{searchText}, '%')
+			</when>
+		</choose>
+	</select>
+	
+	
+	<select id="getSearchList" resultType="com.studysiba.domain.study.StudyVO">
+		select studyboard.*, member.nick, coalesce(groupmember.count,0) count from studyboard
+		left join member
+		on studyboard.id = member.id
+		left join (select gno, count(*) as count from groupmember group by gno ) groupmember
+		on studyboard.no = groupmember.gno
+		where
+		<choose>
+			<when test="searchType != null and searchType.equals('programming')">
+				divide = '프로그래밍' AND ( gName like CONCAT('%', #{searchText}, '%') OR title like CONCAT('%', #{searchText}, '%') OR content like CONCAT('%', #{searchText}, '%') )
+			</when>
+			<when test="searchType != null and searchType.equals('development')">
+				divide = '자기계발' AND ( gName like CONCAT('%', #{searchText}, '%') OR title like CONCAT('%', #{searchText}, '%') OR content like CONCAT('%', #{searchText}, '%') )
+			</when>
+			<when test="searchType != null and searchType.equals('certificate')">
+				divide = '자격증' AND ( gName like CONCAT('%', #{searchText}, '%') OR title like CONCAT('%', #{searchText}, '%') OR content like CONCAT('%', #{searchText}, '%') )
+			</when>
+			<when test="searchType != null and searchType.equals('language')">
+				divide = '외국어' AND ( gName like CONCAT('%', #{searchText}, '%') OR title like CONCAT('%', #{searchText}, '%') OR content like CONCAT('%', #{searchText}, '%') )
+			</when>
+			<when test="searchType != null and searchType.equals('hobby')">
+				divide = '취미' AND ( gName like CONCAT('%', #{searchText}, '%') OR title like CONCAT('%', #{searchText}, '%') OR content like CONCAT('%', #{searchText}, '%') )
+			</when>
+			<when test="searchType != null and searchType.equals('job')">
+				divide = '취업' AND ( gName like CONCAT('%', #{searchText}, '%') OR title like CONCAT('%', #{searchText}, '%') OR content like CONCAT('%', #{searchText}, '%') )
+			</when>
+			<when test="searchType != null and searchType.equals('etc')">
+				divide = '기타' AND ( gName like CONCAT('%', #{searchText}, '%') OR title like CONCAT('%', #{searchText}, '%') OR content like CONCAT('%', #{searchText}, '%') )
+			</when>
+			<when test="searchType != null and searchType.equals('all')">
+				gName like CONCAT('%', #{searchText}, '%') OR title like CONCAT('%', #{searchText}, '%') OR content like CONCAT('%', #{searchText}, '%')
+			</when>
+		</choose>
+		order by studyboard.rDate desc
+		limit #{startRow},#{pageSize}
+	</select>
+	
 </mapper>

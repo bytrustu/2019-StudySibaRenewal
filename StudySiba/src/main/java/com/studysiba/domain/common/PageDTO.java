@@ -1,6 +1,4 @@
-package com.studysiba.domain.page;
-
-import com.studysiba.domain.board.SearchVO;
+package com.studysiba.domain.common;
 
 public class PageDTO extends SearchVO{
 

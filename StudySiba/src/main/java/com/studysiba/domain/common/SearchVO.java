@@ -1,4 +1,4 @@
-package com.studysiba.domain.board;
+package com.studysiba.domain.common;
 
 public class SearchVO {
 
