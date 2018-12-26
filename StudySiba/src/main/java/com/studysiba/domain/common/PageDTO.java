@@ -10,6 +10,7 @@ public class PageDTO extends SearchVO{
 	private int pageBlock;
 	private int startPage;
 	private int endPage;
+	private String id;
 
 	public int getStartRow() {
 		return startRow;
@@ -87,6 +88,14 @@ public class PageDTO extends SearchVO{
 		this.endPage = endPage;
 	}
 	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
 		return "PageDTO : [ startRow = " + startRow + " , pageSize = " + pageSize + " , count = " + count + " , pageNum = " + pageNum + " , pageCount = " + pageCount 

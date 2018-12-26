@@ -45,42 +45,10 @@ $(document).ready(function () {
     viewMessengerBtn();
     // 스터디룸 스터디장 버튼 클릭시
     groupLeaderBtn();
-    
-    $('.roomheader_group').on('click', function(){
-    	var value = $(this).attr('data');
-    	if ( value == 'close' ) {
-    		errorAlert('참여인원수를 초과하여 참여가 불가 합니다.');
-    	} else if ( value == 'join' ) {
-    		errorAlert('이미 참여 중인 스터디 입니다.');
-    	} else if ( value == 'unjoin' ) {
-    		var no = $('#room_no').val();
-    		var check = false;
-    		$.ajax({
-    			type : 'POST',
-    			url : '/study/joinGroup',
-    			data : {
-    				gNo : no
-    			},
-    			dataType : 'json',
-    			success : function(response) {
-    				if ( response > 0 ) {
-    					console.log(response);
-    					check = true;
-    				}
-    			},
-    			error : function(){
-    				check = false;
-    			},
-    			complete : function(){
-    				if ( check == true ) {
-    					timerAlert('참가신청중','해당 스터디에 참여 신청 중 입니다.', '/study/view?no='+no);
-    				} else {
-    					errorAlert('관리자에게 문의 바랍니다.');
-    				}
-    			}
-    		});
-    	}
-    });
+    // 스터디룸 참여 회원 클릭시
+    groupJoinerBtn();
+    // 스터디룸 참여 버튼 클릭시
+    groupJoinBtnFunc();
 
 });
 
@@ -162,13 +130,13 @@ function modalShow() {
             $('.joinmodal_joinid').focus();
             swing();
         } else if (value == 'loginModal') {
-        	setTimeout(function(){
-        		$('.loginmodal_loginid').focus();
-        	}, 500);
+            setTimeout(function () {
+                $('.loginmodal_loginid').focus();
+            }, 500);
         } else if (value == 'modifyModal') {
-        	setTimeout(function(){
-        		$('.modifymodal_nick').focus();
-        	}, 500);
+            setTimeout(function () {
+                $('.modifymodal_nick').focus();
+            }, 500);
         } else if (value == 'messageModal') {
             messengerOpen();
             getMessengerUserList();
@@ -610,8 +578,8 @@ function messengerBtn() {
         } else if (data == 'friend') {
             var friendVal = $c('#friend_text').val();
             checkFriendStatus(friendVal);
-        } else if ( data == 'changePass' ) {
-        	var currPass = $('#currPassword').val();
+        } else if (data == 'changePass') {
+            var currPass = $('#currPassword').val();
             var changePass = $('#changePassword').val();
             changPasswrod(currPass, changePass);
         }
@@ -1102,7 +1070,7 @@ function acceptFriend(no, nick) {
 
 // 친구 변경 로직
 function changPasswrod(currPass, changePass) {
-	var type = false;
+    var type = false;
     $.ajax({
         type: 'POST',
         url: '/member/changPasswrod',
@@ -1110,32 +1078,32 @@ function changPasswrod(currPass, changePass) {
             currPass: currPass,
             changePass: changePass
         },
-        dataType : 'json',
+        dataType: 'json',
         success: function (response) {
-        	console.log(response);
-        	 if ( response == 'success' ) {
-             	type = true;
-             }
+            console.log(response);
+            if (response == 'success') {
+                type = true;
+            }
             passwordAlert(response);
         },
         error: function () {
             Swal('비밀번호변경오류', '관리자에게 문의 해 주세요.', 'error');
         },
         complete: function () {
-        	if ( type ) {
-        		$('#passModal').modal('hide');
-        	} else {
-        		$c('#currPassword').val('');
-        		$c('#changePassword').val('');
-        		$c('#currPassword').focus();
-        	}
+            if (type) {
+                $('#passModal').modal('hide');
+            } else {
+                $c('#currPassword').val('');
+                $c('#changePassword').val('');
+                $c('#currPassword').focus();
+            }
         }
     });
 }
 
 // 패스워드 변경 처리에 따른 alert
 function passwordAlert(response) {
-	if (response == 'success') {
+    if (response == 'success') {
         Swal('비밀번호변경', '비밀번호가 변경 되었습니다.', 'success');
     } else if (response == 'empty') {
         Swal('비밀번호변경오류', '비밀번호를 입력 해 주세요.', 'error');
@@ -1143,7 +1111,7 @@ function passwordAlert(response) {
         Swal('비밀번호변경오류', '비밀번호는 4글자이상 필수 사항 입니다.', 'error');
     } else if (response == 'equal') {
         Swal('비밀번호변경오류', '현재 비밀번호와 동일 합니다.', 'error');
-    }  else if (response == 'currpass') {
+    } else if (response == 'currpass') {
         Swal('비밀번호변경오류', '현재 비밀번호가 올바르지 않습니다.', 'error');
     } else {
         Swal('비밀번호변경오류', '관리자에게 문의 해 주세요.', 'error');
@@ -1152,511 +1120,612 @@ function passwordAlert(response) {
 
 // 접속 회원 목록 버튼 클릭시
 function connecticonBtn() {
-	$('.content_connecticon').on('click', function(){
-		var data = $(this).attr('id');
-		var nick = $(this).parent('.content_connect').children('span').html();
-		setTimeout(function(){
-			if ( data == 'messageBtn' ) {
-				findUser(nick);
-			} else if ( data == 'friendBtn' ) {
-				viewMessage(nick);
-				checkFriendStatus(nick);
-			}
-		}, 500);
-	});
+    $('.content_connecticon').on('click', function () {
+        var data = $(this).attr('id');
+        var nick = $(this).parent('.content_connect').children('span').html();
+        setTimeout(function () {
+            if (data == 'messageBtn') {
+                findUser(nick);
+            } else if (data == 'friendBtn') {
+                viewMessage(nick);
+                checkFriendStatus(nick);
+            }
+        }, 500);
+    });
 }
 
 // 접속 기록 55초마다 갱신
-function statusConnect(){
-	addConnect();
-	setInterval(function(){
-		addConnect();
-	}, 55000);
+function statusConnect() {
+    addConnect();
+    setInterval(function () {
+        addConnect();
+    }, 55000);
 }
 
 // 접속 기록 갱신
 function addConnect() {
-	$.ajax({
-		type : 'POST',
-		url : '/member/addConnect',
-		dataType : 'json',
-		success : function(response) {
-			if ( response == 'true' ) {
-				console.log('접속 시간 갱신');
-			}
-		},
-		error : function(){
-			Swal('접속로그오류', '관리자에게 문의 해 주세요.', 'error');
-		},
-		complete : function(){
-		}
-	});
+    $.ajax({
+        type: 'POST',
+        url: '/member/addConnect',
+        dataType: 'json',
+        success: function (response) {
+            if (response == 'true') {
+                console.log('접속 시간 갱신');
+            }
+        },
+        error: function () {
+            Swal('접속로그오류', '관리자에게 문의 해 주세요.', 'error');
+        },
+        complete: function () {}
+    });
 }
 
 // 우측 메뉴바 메뉴 클릭시 이동 경로
-function viewActive(){
-	var subject = $c('.content_subjectleft').children('span').html();
-	if ( subject == '자유게시판' ) {
-		$('.fa-edit').addClass('menu_active');
-		$('.rightmenu_list:nth-of-type(1)').addClass('rightmenu_active');
-	} else if ( subject == '스터디룸' ) {
-		$('.fa-book').addClass('menu_active');
-		$('.rightmenu_list:nth-of-type(2)').addClass('rightmenu_active');
-	} else if ( subject == '스터디그룹' ) {
-		$('.fa-user-plus').addClass('menu_active');
-		$('.rightmenu_list:nth-of-type(3)').addClass('rightmenu_active');
-	}
+function viewActive() {
+    var subject = $c('.content_subjectleft').children('span').html();
+    if (subject == '자유게시판') {
+        $('.fa-edit').addClass('menu_active');
+        $('.rightmenu_list:nth-of-type(1)').addClass('rightmenu_active');
+    } else if (subject == '스터디룸') {
+        $('.fa-book').addClass('menu_active');
+        $('.rightmenu_list:nth-of-type(2)').addClass('rightmenu_active');
+    } else if (subject == '스터디그룹') {
+        $('.fa-user-plus').addClass('menu_active');
+        $('.rightmenu_list:nth-of-type(3)').addClass('rightmenu_active');
+    }
 }
 
 // 상단 메뉴바 아이콘 클릭시 이동 경로
-function menuLink(){
-	$('.rightmenu_list').on('click', function(){
-		var value = $(this).attr('data');
-		var path = '';
-		if ( value == 'freeboard' ) {
-			path = '/board/list';
-		} else if ( value == 'study' ) {
-			path = '/study/list';
-		} else if ( value == 'group' ) {
-			path = '/group/list';
-		} else if ( value == 'home') {
-			return; 
-		}
-		location.href=path;
-	});
+function menuLink() {
+    $('.rightmenu_list').on('click', function () {
+        var value = $(this).attr('data');
+        var path = '';
+        if (value == 'freeboard') {
+            path = '/board/list';
+        } else if (value == 'study') {
+            path = '/study/list';
+        } else if (value == 'group') {
+            path = '/group/list';
+        } else if (value == 'home') {
+            return;
+        }
+        location.href = path;
+    });
 }
 
 // 자유게시판 버튼 클릭시 로직
-function boardBtn(){
-	$('.boardBtn').on('click', function(){
-		var value = $(this).attr('data');
-		var text = $(this);
-		var check = false;
-		if ( value == 'board_movewrite' ) {
-			movePath('/board/write');
-		} else if ( value == 'board_write' ) {
-			var content = $('#summernote').summernote('code');
-			var title = $('#board_subjecttext').val();
-			var gNo = $('#view_gNo').val();
-			var step = $('#view_step').val();
-			var indent = $('#view_indent').val();
-			var path = '/board/list';
-			contentWriteAction(title, content, gNo, step, indent, path);
-		} else if ( value == 'content_rewrite' ) {
-			var gNo = $('#view_gNo').val();
-			var step = $('#view_step').val();
-			var indent = $('#view_indent').val();
-			location.href='/board/rewrite?gNo='+gNo+'&&step='+step+'&&indent='+indent;
-		} else if ( value == 'board_cancel' ) {
-			history.back();
-		} else if ( value == 'comment_write' ) {
-			var no = $('#view_no').val();
-			var content = $('.comment_text').val();
-			commentWriteAction(no,content);
-		} else if ( value == 'board_list' ) {
-			location.href='/board/list';
-		} else if ( value == 'board_modify' ) {
-			var no = $('#view_no').val();
-			var title = $('#board_subjecttext').val();
-			var content = $('#summernote').summernote('code');
-			contentModifyAction(no,title,content);
-		} else if ( value == 'content_modify' ) {
-			var no = $('#view_no').val();
-			location.href='/board/modify?no='+no;
-		} else if ( value == 'content_delete' ) {
-			var no = $('#view_no').val();
-			contentDeleteAction(no);
-		} else if ( value == 'study_register' ){
-			var content = $('#study_contenttext').summernote('code');
-	    	$('.study_contenttext').val(content);
-	    	var gName = $('.inputs_gName').val();
-	    	var toPer = $('.inputs_toPer').val();
-	    	var fromPer = $('.inputs_fromPer').val();
-	    	var lat = $('.inputs_lat').val();
-	    	var lng = $('.inputs_lng').val();
-	    	var title = $('.inputs_title').val();
-	    	var text = '';
-	    	var check = false;
-	    	var file = $('.inputs_file').val();
-	    	
-	    	if ( gName == '' || gName == null ) {
-	    		text = '스터디명을 입력 해 주세요.';
-	    	} else if ( toPer == '' || toPer == null || fromPer == '' || fromPer == null ) {
-	    		text = '일자를 확인 해 주세요.';
-	    	} else if ( lat == '' || lng == null || lat == '' || lng == null ) {
-	    		text = '스터디 위치를 검색 해 주세요.';
-	    	} else if ( title == '' || title == null || content == '' || content == null ) {
-	    		text = '세부사항을 입력 해 주세요.';
-	    	} else if ( file == '' || file == null ) {
-	    		text = '그룹사진은 필수조건 입니다.';
-	    	} else {
-	    		check = true;
-	    	}
-	    	
-	    	if ( check == false ) {
-	    		errorAlert(text);
-	    	} else {
-	    		$('#studyForm').submit();
-	    	}
-		}
-	    	
-	});
+function boardBtn() {
+    $('.boardBtn').on('click', function () {
+        var value = $(this).attr('data');
+        var text = $(this);
+        var check = false;
+        if (value == 'board_movewrite') {
+            movePath('/board/write');
+        } else if (value == 'board_write') {
+            var content = $('#summernote').summernote('code');
+            var title = $('#board_subjecttext').val();
+            var gNo = $('#view_gNo').val();
+            var step = $('#view_step').val();
+            var indent = $('#view_indent').val();
+            var path = '/board/list';
+            contentWriteAction(title, content, gNo, step, indent, path);
+        } else if (value == 'content_rewrite') {
+            var gNo = $('#view_gNo').val();
+            var step = $('#view_step').val();
+            var indent = $('#view_indent').val();
+            location.href = '/board/rewrite?gNo=' + gNo + '&&step=' + step + '&&indent=' + indent;
+        } else if (value == 'board_cancel') {
+            history.back();
+        } else if (value == 'comment_write') {
+            var no = $('#view_no').val();
+            var content = $('.comment_text').val();
+            commentWriteAction(no, content);
+        } else if (value == 'board_list') {
+            location.href = '/board/list';
+        } else if (value == 'board_modify') {
+            var no = $('#view_no').val();
+            var title = $('#board_subjecttext').val();
+            var content = $('#summernote').summernote('code');
+            contentModifyAction(no, title, content);
+        } else if (value == 'content_modify') {
+            var no = $('#view_no').val();
+            location.href = '/board/modify?no=' + no;
+        } else if (value == 'content_delete') {
+            var no = $('#view_no').val();
+            contentDeleteAction(no);
+        } else if (value == 'study_register') {
+            var content = $('#study_contenttext').summernote('code');
+            $('.study_contenttext').val(content);
+            var gName = $('.inputs_gName').val();
+            var toPer = $('.inputs_toPer').val();
+            var fromPer = $('.inputs_fromPer').val();
+            var lat = $('.inputs_lat').val();
+            var lng = $('.inputs_lng').val();
+            var title = $('.inputs_title').val();
+            var text = '';
+            var check = false;
+            var file = $('.inputs_file').val();
+
+            if (gName == '' || gName == null) {
+                text = '스터디명을 입력 해 주세요.';
+            } else if (toPer == '' || toPer == null || fromPer == '' || fromPer == null) {
+                text = '일자를 확인 해 주세요.';
+            } else if (lat == '' || lng == null || lat == '' || lng == null) {
+                text = '스터디 위치를 검색 해 주세요.';
+            } else if (title == '' || title == null || content == '' || content == null) {
+                text = '세부사항을 입력 해 주세요.';
+            } else if (file == '' || file == null) {
+                text = '그룹사진은 필수조건 입니다.';
+            } else {
+                check = true;
+            }
+
+            if (check == false) {
+                errorAlert(text);
+            } else {
+                $('#studyForm').submit();
+            }
+        } else if ( value == 'refreshStudy' ) {
+        	var no = $(this).parent('.study_restats').attr('data');
+        	refreshStudy(no);
+        }
+    });
 }
 
 
 // 게시글 작성 시 
-function contentWriteAction(title, content, gNo, step, indent, path){
-	var check = false;
-	$.ajax({
-		type : 'POST',
-		url : '/board/write',
-		data : {
-			title : title,
-			content : content,
-			gNo : gNo,
-			step : step,
-			indent : indent
-		},
-		dataType : 'json',
-		success : function(response){
-			if ( response == 1 ) {
-				check = true;
-			}
-		},
-		error : function(){
-			check = false;
-		},
-		complete : function(){
-			$('.board_wrtiebtn').html('등록중');
-			completeAlert(check,'게시판 글 등록','작성하신 게시글이 등록 중 입니다.',path);
-		}
-	});
+function contentWriteAction(title, content, gNo, step, indent, path) {
+    var check = false;
+    $.ajax({
+        type: 'POST',
+        url: '/board/write',
+        data: {
+            title: title,
+            content: content,
+            gNo: gNo,
+            step: step,
+            indent: indent
+        },
+        dataType: 'json',
+        success: function (response) {
+            if (response == 1) {
+                check = true;
+            }
+        },
+        error: function () {
+            check = false;
+        },
+        complete: function () {
+            $('.board_wrtiebtn').html('등록중');
+            completeAlert(check, '게시판 글 등록', '작성하신 게시글이 등록 중 입니다.', path);
+        }
+    });
 }
 
 // 댓글 작성 시
-function commentWriteAction(no,content){
-	var check = false;
-	$.ajax({
-		type : 'POST',
-		url : '/board/writeComment',
-		data : {
-			fNo : no,
-			content : content
-		},
-		dataType : 'json',
-		success : function(response){
-			if ( response == 1 ) {
-				check = true;
-			}
-		},
-		error : function(){
-			check = false;
-		},
-		complete : function(){
-			if ( check == true ) {
-				location.reload();
-			} else {
-				Swal('오류', '관리자에게 문의 해 주세요.', 'error');
-			}
-		}
-	});
+function commentWriteAction(no, content) {
+    var check = false;
+    $.ajax({
+        type: 'POST',
+        url: '/board/writeComment',
+        data: {
+            fNo: no,
+            content: content
+        },
+        dataType: 'json',
+        success: function (response) {
+            if (response == 1) {
+                check = true;
+            }
+        },
+        error: function () {
+            check = false;
+        },
+        complete: function () {
+            if (check == true) {
+                location.reload();
+            } else {
+                Swal('오류', '관리자에게 문의 해 주세요.', 'error');
+            }
+        }
+    });
 }
 
 // 게시글 수정 시
-function contentModifyAction(no,title,content){
-	var check = false;
-	$.ajax({
-		type : 'POST',
-		url : '/board/modify',
-		data : {
-			title : title,
-			content : content,
-			no : no
-		},
-		dataType : 'json',
-		success : function(response){
-			if ( response == 1 ) {
-				check = true;
-			}
-		},
-		error : function(){
-			check = false;
-		},
-		complete : function(){
-			if ( check == true ) {
-				location.href='/board/view?no='+no;
-			} else {
-				Swal('오류', '관리자에게 문의 해 주세요.', 'error');
-			}
-		}
-	});
+function contentModifyAction(no, title, content) {
+    var check = false;
+    $.ajax({
+        type: 'POST',
+        url: '/board/modify',
+        data: {
+            title: title,
+            content: content,
+            no: no
+        },
+        dataType: 'json',
+        success: function (response) {
+            if (response == 1) {
+                check = true;
+            }
+        },
+        error: function () {
+            check = false;
+        },
+        complete: function () {
+            if (check == true) {
+                location.href = '/board/view?no=' + no;
+            } else {
+                Swal('오류', '관리자에게 문의 해 주세요.', 'error');
+            }
+        }
+    });
 }
 
 
 // 게시글 삭제 시
-function contentDeleteAction(no){
-	var check = false;
-	$.ajax({
-		type : 'POST',
-		url : '/board/delete',
-		data : {
-			no : no
-		},
-		success : function(response){
-			check = true;
-		},
-		error : function(){
-			check = false;
-		},
-		complete : function(){
-			if ( check == true ) {
-				location.href='/board/list';
-			} else {
-				Swal('오류', '관리자에게 문의 해 주세요.', 'error');
-			}
-		}
-	});
+function contentDeleteAction(no) {
+    var check = false;
+    $.ajax({
+        type: 'POST',
+        url: '/board/delete',
+        data: {
+            no: no
+        },
+        success: function (response) {
+            check = true;
+        },
+        error: function () {
+            check = false;
+        },
+        complete: function () {
+            if (check == true) {
+                location.href = '/board/list';
+            } else {
+                Swal('오류', '관리자에게 문의 해 주세요.', 'error');
+            }
+        }
+    });
 }
 
 
 
 // 자유게시판 제목 클릭시 글 조회
-function boardSelect(){
-	$('.content_boardtext').on('click',function(){
-		var no = $(this).find('span:nth-of-type(1)').attr('data');
-		location.href='/board/view?no='+no;
-	});
+function boardSelect() {
+    $('.content_boardtext').on('click', function () {
+        var no = $(this).find('span:nth-of-type(1)').attr('data');
+        location.href = '/board/view?no=' + no;
+    });
 }
 
 // 좋아요 처리 로직
-function likeFunc(){
-	$('.view_like').on('click',function(){
-		var no = $('#view_no').val();
-		var check = false;
-		var data = $(this).attr('data');
-			$.ajax({
-				type : 'POST',
-				url : '/board/likeFunc',
-				data : {
-					no : no,
-					type : data
-				},
-				dataType : 'json',
-				success : function(response){
-					if ( response > 0 ) {
-						check = true;
-					}
-				},
-				error : function(){
-					check = false;
-				},
-				complete : function(){
-					if ( check == true && data == 'unlike' ) {
-						$('.view_like').attr('data','like');
-						$('.view_like').find('img').attr('src','/images/sub/like.png');
-						getLike(no);
-						sAlert('좋아요가 등록 되었습니다.');
-					} else if ( check == true && data == 'like' ) {
-						getLike(no);
-						$('.view_like').attr('data','unlike');
-						$('.view_like').find('img').attr('src','/images/sub/unlike.png');
-						sAlert('좋아요가 삭제 되었습니다.')
-					} else {
-						Swal('오류', '관리자에게 문의 해 주세요.', 'error');
-					}
-				}
-			});
-	});
+function likeFunc() {
+    $('.view_like').on('click', function () {
+        var no = $('#view_no').val();
+        var check = false;
+        var data = $(this).attr('data');
+        $.ajax({
+            type: 'POST',
+            url: '/board/likeFunc',
+            data: {
+                no: no,
+                type: data
+            },
+            dataType: 'json',
+            success: function (response) {
+                if (response > 0) {
+                    check = true;
+                }
+            },
+            error: function () {
+                check = false;
+            },
+            complete: function () {
+                if (check == true && data == 'unlike') {
+                    $('.view_like').attr('data', 'like');
+                    $('.view_like').find('img').attr('src', '/images/sub/like.png');
+                    getLike(no);
+                    sAlert('좋아요가 등록 되었습니다.');
+                } else if (check == true && data == 'like') {
+                    getLike(no);
+                    $('.view_like').attr('data', 'unlike');
+                    $('.view_like').find('img').attr('src', '/images/sub/unlike.png');
+                    sAlert('좋아요가 삭제 되었습니다.')
+                } else {
+                    Swal('오류', '관리자에게 문의 해 주세요.', 'error');
+                }
+            }
+        });
+    });
 }
 
 // 좋아요 수 조회
-function getLike(no){
-	var count;
-	var check = false;
-	$.ajax({
-		type : 'POST',
-		url : '/board/getLike',
-		data : {
-			no : no
-		},
-		dataType : 'json',
-		success : function(response){
-			console.log(response);
-			if ( response >= 0 ) {
-				count = response;
-				check = true;
-			}
-		},
-		error : function(){
-			check = false;
-		},
-		complete : function(){
-			if ( check == true ) {
-				$('.view_like').find('span:nth-of-type(2)').html(count);
-			} else {
-				Swal('오류', '관리자에게 문의 해 주세요.', 'error');
-			}
-		}
-	});
+function getLike(no) {
+    var count;
+    var check = false;
+    $.ajax({
+        type: 'POST',
+        url: '/board/getLike',
+        data: {
+            no: no
+        },
+        dataType: 'json',
+        success: function (response) {
+            console.log(response);
+            if (response >= 0) {
+                count = response;
+                check = true;
+            }
+        },
+        error: function () {
+            check = false;
+        },
+        complete: function () {
+            if (check == true) {
+                $('.view_like').find('span:nth-of-type(2)').html(count);
+            } else {
+                Swal('오류', '관리자에게 문의 해 주세요.', 'error');
+            }
+        }
+    });
 }
 
 // 댓글작성 버튼 클릭시 댓글 입력창 생성
-function commentBtn(){
-	$('.comment_button').on('click', function(){
-    	var data = $(this).attr('data');
-    	if ( data == 'close' ) {
-    		$(this).attr('data','open');
-    		$(this).parent('.comment_content').children('.comment_rewrite').css('margin-top','10px');
-        	$(this).parent('.comment_content').children('.comment_rewrite').append(
-        			'<div class="comment_inputwarp">'
-        			+'<input type="text" class="comment_retext">'
-        			+'<button class="btn btn-danger comment_rewrite" onclick="reWriteComment()">작성</button>'
-        			+'</div>'
-        			);
-    	} else {
-    		$(this).attr('data','close');
-    		$(this).parent('.comment_content').children('.comment_rewrite').css('margin-top','0');
-    		$(this).parent('.comment_content').children('.comment_rewrite').html('');
-    	}
+function commentBtn() {
+    $('.comment_button').on('click', function () {
+        var data = $(this).attr('data');
+        if (data == 'close') {
+            $(this).attr('data', 'open');
+            $(this).parent('.comment_content').children('.comment_rewrite').css('margin-top', '10px');
+            $(this).parent('.comment_content').children('.comment_rewrite').append(
+                '<div class="comment_inputwarp">' +
+                '<input type="text" class="comment_retext">' +
+                '<button class="btn btn-danger comment_rewrite" onclick="reWriteComment()">작성</button>' +
+                '</div>'
+            );
+        } else {
+            $(this).attr('data', 'close');
+            $(this).parent('.comment_content').children('.comment_rewrite').css('margin-top', '0');
+            $(this).parent('.comment_content').children('.comment_rewrite').html('');
+        }
     });
 }
 
 
 // 대댓글 작성 로직
-function reWriteComment(){
-	$('.comment_rewrite').on('click',function(){
-		var fNo = $('#view_no').val();
-		var type = $(this).parent('.comment_content').children('#comment_type').val();
-		var preId = $(this).parent('.comment_content').children('#comment_id').val();
-		var gNo = $(this).parent('.comment_content').children('#comment_gNo').val();
-		var step = $(this).parent('.comment_content').children('#comment_step').val();
-		var indent = $(this).parent('.comment_content').children('#comment_indent').val();
-		var content = $('.comment_retext').val();
-		reWriteCommentAction(fNo, type, preId, gNo, step, indent, content);
-	});
+function reWriteComment() {
+    $('.comment_rewrite').on('click', function () {
+        var fNo = $('#view_no').val();
+        var type = $(this).parent('.comment_content').children('#comment_type').val();
+        var preId = $(this).parent('.comment_content').children('#comment_id').val();
+        var gNo = $(this).parent('.comment_content').children('#comment_gNo').val();
+        var step = $(this).parent('.comment_content').children('#comment_step').val();
+        var indent = $(this).parent('.comment_content').children('#comment_indent').val();
+        var content = $('.comment_retext').val();
+        reWriteCommentAction(fNo, type, preId, gNo, step, indent, content);
+    });
 }
 
 //  대댓글 작성 등록
-function reWriteCommentAction(fNo, type, preId, gNo, step, indent, content){
-	var check = false;
-	$.ajax({
-		type : 'POST',
-		url : '/board/reWriteComment',
-		data : {
-			fNo : fNo,
-			type : type,
-			preId : preId,
-			gNo : gNo,
-			step : step,
-			indent : indent,
-			content : content
-		},
-		dataType : 'json',
-		success: function(response){
-			if ( response == 1 ) {
-				check = true;
-			}
-		},
-		error : function(){
-			check = false;
-		},
-		complete : function(){
-			if ( check == true ) {
-				location.reload();
-			} else {
-				Swal('오류', '관리자에게 문의 해 주세요.', 'error');
-			}
-		}
-	});
+function reWriteCommentAction(fNo, type, preId, gNo, step, indent, content) {
+    var check = false;
+    $.ajax({
+        type: 'POST',
+        url: '/board/reWriteComment',
+        data: {
+            fNo: fNo,
+            type: type,
+            preId: preId,
+            gNo: gNo,
+            step: step,
+            indent: indent,
+            content: content
+        },
+        dataType: 'json',
+        success: function (response) {
+            if (response == 1) {
+                check = true;
+            }
+        },
+        error: function () {
+            check = false;
+        },
+        complete: function () {
+            if (check == true) {
+                location.reload();
+            } else {
+                Swal('오류', '관리자에게 문의 해 주세요.', 'error');
+            }
+        }
+    });
 }
 
 // 게시글 메신저 버튼 클릭시
 function viewMessengerBtn() {
-	$('.view_messenger').on('click', function(){
-		var data = $(this).attr('id');
-		var nick = $('#view_nick').html();
-		console.log(data + " : " + nick);
-		setTimeout(function(){
-			if ( data == 'messageBtn' ) {
-				findUser(nick);
-			} else if ( data == 'friendBtn' ) {
-				viewMessage(nick);
-				checkFriendStatus(nick);
-			}
-		}, 500);
-	});
+    $('.view_messenger').on('click', function () {
+        var data = $(this).attr('id');
+        var nick = $('#view_nick').html();
+        console.log(data + " : " + nick);
+        setTimeout(function () {
+            if (data == 'messageBtn') {
+                findUser(nick);
+            } else if (data == 'friendBtn') {
+                viewMessage(nick);
+                checkFriendStatus(nick);
+            }
+        }, 500);
+    });
+}
+
+// 스터디룸 그룹 참여 버튼 클릭시
+function groupJoinBtnFunc() {
+    $('.roomheader_group').on('click', function () {
+        var value = $(this).attr('data');
+        if (value == 'close') {
+            errorAlert('참여인원수를 초과하여 참여가 불가 합니다.');
+        } else if (value == 'join') {
+            errorAlert('이미 참여 중인 스터디 입니다.');
+        } else if (value == 'unjoin') {
+            var no = $('#room_no').val();
+            var check = false;
+            $.ajax({
+                type: 'POST',
+                url: '/study/joinGroup',
+                data: {
+                    gNo: no
+                },
+                dataType: 'json',
+                success: function (response) {
+                    if (response > 0) {
+                        console.log(response);
+                        check = true;
+                    }
+                },
+                error: function () {
+                    check = false;
+                },
+                complete: function () {
+                    if (check == true) {
+                        timerAlert('참가신청중', '해당 스터디에 참여 신청 중 입니다.', '/study/view?no=' + no);
+                    } else {
+                        errorAlert('관리자에게 문의 바랍니다.');
+                    }
+                }
+            });
+        }
+    });
+}
+
+
+// 스터디 재등록
+function refreshStudy(no){
+	Swal({
+		  title: '재등록',
+		  text: "해당 스터디룸을 재등록 하시겠습니까 ?",
+		  type: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  confirmButtonText: '네',
+		  cancelButtonText: '아니요'
+			  
+		}).then((result) => {
+		  if (result.value) {
+			  var check = false;
+			  $.ajax({
+				 type : 'POST',
+				 url : '/study/refreshStudy',
+				 data : {
+					 no : no
+				 },
+				 dataType : 'json',
+				 success : function(response){
+					 if ( response = 1 ) {
+						 check = true;
+					 }
+				 },
+				 error : function(){
+					 check = false;
+				 },
+				 complete : function(){
+					 if ( check == true ) {
+						 timerAlert('재등록','해당 스터디룸을 재등록 중입니다', '/study/list');
+					 } else {
+						 errorAlert('관리자에게 문의 바랍니다.');
+					 }
+				 }
+			  })
+		  }
+		})
+}
+
+
+
+
+
+
+
+
+
+//스터디룸 상단 아이콘 클릭시
+function groupLeaderBtn() {
+    $('.roomheader_message').on('click', function () {
+        var nick = $(this).parent('.roomheader_leader').children('span').html();
+        var data = $(this).attr('id');
+        setTimeout(function () {
+            if (data == 'messageBtn') {
+                findUser(nick);
+            } else if (data == 'friendBtn') {
+                viewMessage(nick);
+                checkFriendStatus(nick);
+            }
+        }, 500);
+    });
+}
+
+// 스터디룸 참여 회원 클릭시
+function groupJoinerBtn() {
+    $('.roomfooter_info').on('click', function () {
+        var nick = $(this).children('p').html();
+        setTimeout(function () {
+            findUser(nick);
+        }, 500);
+    });
 }
 
 
 //ajax complete 로직
-function completeAlert(check,title,content,path){
-	if ( check == true ) {
-		timerAlert(title,content,path);
-	} else {
-		Swal('오류', '관리자에게 문의 해 주세요.', 'error');
-	}
+function completeAlert(check, title, content, path) {
+    if (check == true) {
+        timerAlert(title, content, path);
+    } else {
+        Swal('오류', '관리자에게 문의 해 주세요.', 'error');
+    }
 }
 
 // SweetAlert 우측상단 메세지
-function sAlert(text){
-	Swal({
-		  position: 'top-end',
-		  type: 'success',
-		  title: text,
-		  showConfirmButton: false,
-		  timer: 1500
-		})
+function sAlert(text) {
+    Swal({
+        position: 'top-end',
+        type: 'success',
+        title: text,
+        showConfirmButton: false,
+        timer: 1500
+    })
 }
 
-function errorAlert(text){
-	Swal({
-		  position: 'top-end',
-		  type: 'error',
-		  title: text,
-		  showConfirmButton: false,
-		  timer: 1500
-		})
+function errorAlert(text) {
+    Swal({
+        position: 'top-end',
+        type: 'error',
+        title: text,
+        showConfirmButton: false,
+        timer: 1500
+    })
 }
 
 // SweetAlert 타이머메세지
-function timerAlert(title,content,path){
-	let timerInterval
-	Swal({
-	  title: title,
-	  html: content,
-	  timer: 1500,
-	  onBeforeOpen: () => {
-	    Swal.showLoading()
-	    timerInterval = setInterval(() => {
-	      /*Swal.getContent().querySelector('strong')
-	        .textContent = Swal.getTimerLeft()*/
-	    }, 100)
-	  },
-	  onClose: () => {
-	    clearInterval(timerInterval)
-	  }
-	}).then((result) => {
-	  if (
-	    // Read more about handling dismissals
-	    result.dismiss === Swal.DismissReason.timer
-	  ) {
-		  movePath(path);
-	  }
-	})
-}
-
-//접속 회원 목록 버튼 클릭시
-function groupLeaderBtn() {
-	$('.roomheader_message').on('click', function(){
-		var nick = $(this).parent('.roomheader_leader').children('span').html();
-		var data = $(this).attr('id');
-		setTimeout(function(){
-			if ( data == 'messageBtn' ) {
-				findUser(nick);
-			} else if ( data == 'friendBtn' ) {
-				viewMessage(nick);
-				checkFriendStatus(nick);
-			}
-		}, 500);
-	});
+function timerAlert(title, content, path) {
+    let timerInterval
+    Swal({
+        title: title,
+        html: content,
+        timer: 1500,
+        onBeforeOpen: () => {
+            Swal.showLoading()
+            timerInterval = setInterval(() => {
+                /*Swal.getContent().querySelector('strong')
+                  .textContent = Swal.getTimerLeft()*/
+            }, 100)
+        },
+        onClose: () => {
+            clearInterval(timerInterval)
+        }
+    }).then((result) => {
+        if (
+            // Read more about handling dismissals
+            result.dismiss === Swal.DismissReason.timer
+        ) {
+            movePath(path);
+        }
+    })
 }

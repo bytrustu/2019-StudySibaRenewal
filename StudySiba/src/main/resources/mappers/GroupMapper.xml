@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.studysiba.mapper.GroupMapper">
+
+	<select id="getGroupCount" resultType="int">
+		select count(*) from groupmember where id=#{id}
+	</select>
+	
+	<select id="getGroupList" resultType="com.studysiba.domain.group.GroupVO">
+		select groupmember.no, groupmember.gNo, groupmember.id, studyboard.gName, studyboard.divide, studyboard.address, studyboard.toPer, studyboard.fromPer, studyboard.toTime, studyboard.fromTime, studyboard.person, groupCount.count, upload.uuid as fileName  from groupmember
+		left join studyboard
+		on groupmember.gno = studyboard.no
+		left join member
+		on groupmember.id = member.id
+		left join ( select gNo, count(*) as count from groupmember group by gNo ) groupCount
+		on groupcount.gNo = groupmember.gNo
+		left join (select * from upload where type="study") upload
+		on upload.uNo = groupmember.gNo
+		where groupmember.id=#{id}
+		order by groupmember.gDate DESC
+		limit #{startRow},#{pageSize}
+	</select>
+	
+</mapper>

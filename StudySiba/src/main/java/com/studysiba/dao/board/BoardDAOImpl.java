@@ -22,7 +22,6 @@ public class BoardDAOImpl implements BoardDAO {
 	private SqlSession sqlSession;
 	
 	private static final String namespace="com.studysiba.mapper.BoardMapper";
-	private static final Logger logger = LoggerFactory.getLogger(BoardDAOImpl.class);
 	
 	@Override
 	public int write(FreeBoardVO freeboardVO) {

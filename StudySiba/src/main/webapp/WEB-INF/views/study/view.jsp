@@ -36,15 +36,17 @@
 
 
 <div class="content_subject">
-    <img src="/images/sub/reading.png">
-    <span>스터디룸</span>
+    <div class="content_subjectleft">
+        <img src="/images/sub/reading.png">
+        <span>스터디룸</span>
+    </div>
 </div>
 
 
 <div class="content_room">
     <div class="room_header">
         <div class="roomheader_left">
-            <img src="/images/sub/spring.png">
+            <img src="/local_upload/study/${view.fileName }">
         </div>
         <div class="roomheader_right">
         	<input type="hidden" id="room_no" value="${view.no }">
@@ -143,19 +145,19 @@
 
 
         <div class="col-sm-2 roomfooter_list">
-            <div class="roomfooter_info">
+            <div class="roomfooter_info modal_open" data="messageModal">
                 <img class="rounded-circle" src="/images/profile/kakao/${view.proFile }">
                 <p>${view.nick }</p>
-                <p>스터디장</p>
+                <span>스터디장</span>
             </div>
         </div>
 
         <c:forEach items="${userList}" var="userList">
             <div class="col-sm-2 roomfooter_list">
-                <div class="roomfooter_info">
+                <div class="roomfooter_info modal_open" data="messageModal">
                     <img class="rounded-circle" src="/images/profile/kakao/${userList.proFile }">
                     <p>${userList.nick }</p>
-                    <p>회원</p>
+                    <span>회원</span>
                 </div>
             </div>
         </c:forEach>

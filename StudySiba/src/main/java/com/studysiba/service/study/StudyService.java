@@ -30,5 +30,7 @@ public interface StudyService {
 	int groupCount(long gNo);
 	// 스터디 그룹 참여
 	String joinGroup(StudyGroup studyGroup);
+	// 게시글 재 등록
+	String studyRefresh(StudyVO studyVO);
 
 }

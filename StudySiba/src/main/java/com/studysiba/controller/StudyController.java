@@ -43,13 +43,10 @@ public class StudyController {
 		page.setPageSize(3);
 		page.setPageNum(pageNum);
 		page.setCount(studyService.getStudyCount());
-		System.out.println(studyService.getStudyCount());
 		List<StudyVO> list = studyService.getStudyList(page);
 		
 		model.addAttribute("list",list);
 		model.addAttribute("page",page);
-		
-		System.out.println(page.toString());
 		
 		return "study/list";
 	}
@@ -152,6 +149,22 @@ public class StudyController {
 			session.setAttribute("message", "스터디에 참여 되었습니다.");
 		}
 		JSONArray json = MakeJSON.change(result);
+		return json.toString();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="refreshStudy", method = RequestMethod.POST)
+	public String refreshStudy(StudyVO studyVO, HttpSession session) {
+		String id = ((HashMap<String, String>) session.getAttribute("userSession")).get("id");
+		studyVO.setId(id);
+		String result = studyService.studyRefresh(studyVO);
+		if ( result.equals("1") ) {
+			session.setAttribute("message", "해당 스터디가 재등록 되었습니다.");
+		} else {
+			session.setAttribute("error", "잘못된 접근 입니다.");
+		}
+		JSONArray json = new JSONArray();
+		json = MakeJSON.change(result);
 		return json.toString();
 	}
 	

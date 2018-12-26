@@ -34,5 +34,7 @@ public interface StudyDAO {
 	int isGroup(StudyGroup studyGroup);
 	// 스터디 참여 인원 수
 	int groupCount(long gNo);
+	// 스터디룸 재등록
+	int studyRefresh(StudyVO studyVO);
 
 }

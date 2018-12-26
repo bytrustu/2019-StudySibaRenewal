@@ -78,6 +78,11 @@ public class StudyDAOImpl implements StudyDAO {
 		return sqlSession.selectOne(namespace + ".groupCount", gNo);
 	}
 
+	@Override
+	public int studyRefresh(StudyVO studyVO) {
+		return sqlSession.update(namespace+".studyRefresh",studyVO);
+	}
+
 	
 
 

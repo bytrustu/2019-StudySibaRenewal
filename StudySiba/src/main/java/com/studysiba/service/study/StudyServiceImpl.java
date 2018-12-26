@@ -115,6 +115,11 @@ public class StudyServiceImpl implements StudyService {
 		}
 		return result;
 	}
+
+	@Override
+	public String studyRefresh(StudyVO studyVO) {
+		return Integer.toString(studyDAO.studyRefresh(studyVO));
+	}
 	
 	
 

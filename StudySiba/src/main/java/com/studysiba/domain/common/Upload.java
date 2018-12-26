@@ -1,7 +1,6 @@
 package com.studysiba.domain.common;
 
 public class Upload {
-
 	private long no;
 	private long uNo;
 	private String type;

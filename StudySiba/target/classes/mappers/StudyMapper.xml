@@ -120,9 +120,11 @@
 	</select>
 	
 	<select id="view" resultType="com.studysiba.domain.study.StudyVO">
-		select studyboard.*, member.nick, member.proFile from studyboard
+		select studyboard.*, member.nick, member.proFile, upload.uuid as fileName from studyboard
 		left join member
 		on studyboard.id = member.id
+		left join ( select * from upload where type='study' ) upload
+		on studyboard.no = upload.uNo
 		where studyboard.no = #{no}
 	</select>
 	
@@ -143,6 +145,11 @@
 		select count(*) from groupmember
 		where gNo = #{gNo}
 	</select>
+	
+	<update id="studyRefresh">
+		update studyboard
+		set rDate = now() where no = #{no} AND id = #{id}
+	</update>
 	
 	
 	

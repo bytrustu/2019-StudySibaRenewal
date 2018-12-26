@@ -78,8 +78,10 @@
                         <span>(${list.nick })</span>
                     </div>
 
-                    <div class="study_restats">
-                        <img src="/images/sub/refresh-page-option.png">
+                    <div class="study_restats" data="${list.no }">
+                    	<c:if test="${list.id eq sessionScope.userSession.id }">
+                        	<img class="boardBtn" src="/images/sub/refresh-page-option.png" data="refreshStudy">
+                    	</c:if>
                     </div>
 
                 </div>
