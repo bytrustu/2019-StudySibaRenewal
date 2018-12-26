@@ -12,7 +12,7 @@
 
 	<c:forEach items="${list }" var="list">
 	
-    <div class="form-row contentgroup_list">
+    <div class="form-row contentgroup_list" data="${list.gNo }">
         <div class="form-gorup col-sm-3 contentgroup_groupimg">
             <img src="/local_upload/study/${list.fileName }">
         </div>

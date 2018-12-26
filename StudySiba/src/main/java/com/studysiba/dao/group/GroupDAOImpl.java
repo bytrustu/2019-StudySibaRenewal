@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.studysiba.domain.common.PageDTO;
 import com.studysiba.domain.group.GroupVO;
+import com.studysiba.domain.upload.UploadVO;
 
 @Repository
 public class GroupDAOImpl implements GroupDAO {
@@ -26,6 +27,11 @@ public class GroupDAOImpl implements GroupDAO {
 	public List<GroupVO> getGroupList(PageDTO page) {
 		return sqlSession.selectList(namespace+".getGroupList", page);
 	}
-	
+
+	@Override
+	public GroupVO view(GroupVO groupVO) {
+		return sqlSession.selectOne(namespace+".view",groupVO);
+	}
+
 	
 }

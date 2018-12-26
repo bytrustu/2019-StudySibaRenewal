@@ -304,6 +304,37 @@
 </div>
 
 
+
+<!-- 업로드 모달 -->
+<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content col-sm-8">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal" style="font-weight: bold;">첨부파일</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="/group/upload" id="groupUpload" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>내용</label> <input type="text" name="comment" class="form-control" maxlength="15">
+                    </div>
+                    <div class="form-group">
+                        <label>첨부파일</label> <input type="file" name="file" id="friend_text" class="form-control messenger_input" maxlength="15" data="friend">
+                    </div>
+                    <div class="modal-footer">
+                    	<input type="hidden" name="gNo" id="modal_gNo">
+                        <button class="btn btn-danger boardBtn" data-dismiss="modal" aria-label="Close" data="groupUpload">등록</button>
+                        <button class="btn btn-default" data-dismiss="modal" aria-label="Close">취소</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 </div>
 
 

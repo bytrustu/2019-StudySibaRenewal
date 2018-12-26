@@ -11,5 +11,17 @@
 		insert into upload(no, uNo, id, type, content, uuid, uFile, uDate)
 		values ( #{no}, #{uNo}, #{id}, #{type}, #{content}, #{uuid}, #{uFile}, now() )
 	</insert>
+	
+	<select id="getUploadCount" resultType="int">
+		select count(*) from upload
+		where type = #{type} AND uNo = #{uNo}
+	</select>
+	
+	<select id="getUploadList" resultType="com.studysiba.domain.upload.UploadVO">
+		select no, uNo, id, type, content, uuid, uFile, DATE_FORMAT(uDate, '%Y/%m/%d') as uDate from upload
+		where type = #{type} AND uNo = #{uNo}
+		order by uDate DESC
+		limit #{startRow},#{pageSize}
+	</select>
 
 </mapper>

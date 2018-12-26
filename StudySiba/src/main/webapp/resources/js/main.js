@@ -49,7 +49,8 @@ $(document).ready(function () {
     groupJoinerBtn();
     // 스터디룸 참여 버튼 클릭시
     groupJoinBtnFunc();
-
+    // 스터디그룹 목록 클릭시
+    moveGroupView();
 });
 
 
@@ -155,6 +156,8 @@ function modalShow() {
             setTimeout(function () {
                 $c('#currPassword').focus();
             }, 500);
+        } else if ( value == '"uploadModal"' ) {
+        	
         }
     });
 }
@@ -1268,6 +1271,10 @@ function boardBtn() {
         } else if ( value == 'refreshStudy' ) {
         	var no = $(this).parent('.study_restats').attr('data');
         	refreshStudy(no);
+        } else if ( value == 'groupUpload' ) {
+        	var gNo = $('#group_gNo').val();
+        	$('#modal_gNo').val(gNo);
+        	$('#groupUpload').submit();
         }
     });
 }
@@ -1635,11 +1642,16 @@ function refreshStudy(no){
 				 }
 			  })
 		  }
-		})
+	})
 }
 
 
-
+function moveGroupView(){
+	$('.contentgroup_list').on('click',function(){
+		gNo = $(this).attr('data');
+		movePath('/group/view?gNo='+gNo);
+	});
+}
 
 
 

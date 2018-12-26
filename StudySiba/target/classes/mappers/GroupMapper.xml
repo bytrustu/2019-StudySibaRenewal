@@ -24,4 +24,15 @@
 		limit #{startRow},#{pageSize}
 	</select>
 	
+	<select id="view" resultType="com.studysiba.domain.group.GroupVO">
+		select groupmember.no, groupmember.gNo, groupmember.gDate, 
+		studyboard.id, studyboard.gName, studyboard.lat, studyboard.lng, studyboard.address, studyboard.toPer, studyboard.fromPer, 
+		studyboard.toTime, studyboard.fromTime, member.nick  from groupmember
+		left join studyboard
+		on groupmember.gNo = studyboard.no
+		left join member
+		on studyboard.id = member.id
+		where groupmember.id=#{id} AND groupmember.gNo = #{gNo}
+	</select>
+	
 </mapper>

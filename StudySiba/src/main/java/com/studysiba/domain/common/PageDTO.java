@@ -11,6 +11,8 @@ public class PageDTO extends SearchVO{
 	private int startPage;
 	private int endPage;
 	private String id;
+	private String type;
+	private long uNo;
 
 	public int getStartRow() {
 		return startRow;
@@ -94,6 +96,22 @@ public class PageDTO extends SearchVO{
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public long getuNo() {
+		return uNo;
+	}
+
+	public void setuNo(long uNo) {
+		this.uNo = uNo;
 	}
 
 	@Override
