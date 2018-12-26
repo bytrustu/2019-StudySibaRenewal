@@ -2,23 +2,28 @@ package com.studysiba.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.studysiba.common.FileUpload;
+import com.studysiba.common.MakeJSON;
 import com.studysiba.domain.board.FreeBoardVO;
 import com.studysiba.domain.common.PageDTO;
 import com.studysiba.domain.common.SearchVO;
+import com.studysiba.domain.study.StudyGroup;
 import com.studysiba.domain.study.StudyVO;
 import com.studysiba.domain.upload.UploadVO;
 import com.studysiba.service.study.StudyService;
@@ -113,6 +118,41 @@ public class StudyController {
 		model.addAttribute("search",searchVO);
 		
 		return "study/search";
+	}
+	
+	@RequestMapping(value="view", method = RequestMethod.GET)
+	public String view(@RequestParam("no") int no, Model model, HttpSession session) {
+		StudyVO studyVO = new StudyVO();
+		studyVO = studyService.view(no);
+		
+		StudyGroup studyGroup = new StudyGroup();
+		studyGroup.setgNo(no);
+		studyGroup.setId(studyVO.getId());
+		List<StudyGroup> userList = studyService.getUserList(studyGroup);
+		
+		studyGroup.setId(((HashMap<String, String>) session.getAttribute("userSession")).get("id"));
+		boolean isGroup = studyService.isGroup(studyGroup);
+		int groupCount = studyService.groupCount(studyGroup.getgNo());
+		
+		model.addAttribute("view", studyVO);
+		model.addAttribute("userList", userList);
+		model.addAttribute("isGroup", isGroup);
+		model.addAttribute("groupCount", groupCount);
+		
+		return "study/view";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="joinGroup", method = RequestMethod.POST)
+	public String joinGroup(StudyGroup studyGroup, HttpSession session) {
+		String id = ((HashMap<String, String>) session.getAttribute("userSession")).get("id");
+		studyGroup.setId(id);
+		String result = studyService.joinGroup(studyGroup);
+		if ( result.equals("1") ) {
+			session.setAttribute("message", "스터디에 참여 되었습니다.");
+		}
+		JSONArray json = MakeJSON.change(result);
+		return json.toString();
 	}
 	
 	

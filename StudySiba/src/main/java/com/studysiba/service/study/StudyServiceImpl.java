@@ -11,6 +11,7 @@ import com.studysiba.dao.upload.UploadDAO;
 import com.studysiba.domain.board.FreeBoardVO;
 import com.studysiba.domain.common.PageDTO;
 import com.studysiba.domain.common.SearchVO;
+import com.studysiba.domain.study.StudyGroup;
 import com.studysiba.domain.study.StudyVO;
 import com.studysiba.domain.upload.UploadVO;
 
@@ -32,7 +33,10 @@ public class StudyServiceImpl implements StudyService {
 			studyVO.setgNo(no);
 			result = studyDAO.makeGroup(studyVO);
 			if ( result == 1 ) {
-				result = studyDAO.joinGroup(studyVO);
+				StudyGroup studyGroup = new StudyGroup();
+				studyGroup.setgNo(studyVO.getNo());
+				studyGroup.setId(studyVO.getId());
+				result = studyDAO.joinGroup(studyGroup);
 			}
 		} else {
 			return result;
@@ -73,6 +77,43 @@ public class StudyServiceImpl implements StudyService {
 		page.setStartRow(startRow-1);
 		List<StudyVO> list = studyDAO.getSearchList(page);
 		return list;
+	}
+
+	@Override
+	public StudyVO view(int no) {
+		return studyDAO.view(no);
+	}
+
+	@Override
+	public List<StudyGroup> getUserList(StudyGroup studyGroup) {
+		return studyDAO.getUserList(studyGroup);
+	}
+
+	@Override
+	public boolean isGroup(StudyGroup studyGroup) {
+		int isGroup = studyDAO.isGroup(studyGroup);
+		boolean result = false;
+		if ( isGroup > 0 ) {
+			result = true;
+		}
+		return result;
+	}
+
+	@Override
+	public int groupCount(long gNo) {
+		return studyDAO.groupCount(gNo);
+	}
+
+	@Override
+	public String joinGroup(StudyGroup studyGroup) {
+		int checkJoin = studyDAO.isGroup(studyGroup);
+		String result = null;
+		if ( checkJoin == 0 ) {
+			result = Integer.toString(studyDAO.joinGroup(studyGroup));
+		} else {
+			result = "0";
+		}
+		return result;
 	}
 	
 	

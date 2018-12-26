@@ -43,6 +43,44 @@ $(document).ready(function () {
     commentBtn();
     // 뷰 메신저 버튼 클릭시
     viewMessengerBtn();
+    // 스터디룸 스터디장 버튼 클릭시
+    groupLeaderBtn();
+    
+    $('.roomheader_group').on('click', function(){
+    	var value = $(this).attr('data');
+    	if ( value == 'close' ) {
+    		errorAlert('참여인원수를 초과하여 참여가 불가 합니다.');
+    	} else if ( value == 'join' ) {
+    		errorAlert('이미 참여 중인 스터디 입니다.');
+    	} else if ( value == 'unjoin' ) {
+    		var no = $('#room_no').val();
+    		var check = false;
+    		$.ajax({
+    			type : 'POST',
+    			url : '/study/joinGroup',
+    			data : {
+    				gNo : no
+    			},
+    			dataType : 'json',
+    			success : function(response) {
+    				if ( response > 0 ) {
+    					console.log(response);
+    					check = true;
+    				}
+    			},
+    			error : function(){
+    				check = false;
+    			},
+    			complete : function(){
+    				if ( check == true ) {
+    					timerAlert('참가신청중','해당 스터디에 참여 신청 중 입니다.', '/study/view?no='+no);
+    				} else {
+    					errorAlert('관리자에게 문의 바랍니다.');
+    				}
+    			}
+    		});
+    	}
+    });
 
 });
 
@@ -1289,7 +1327,7 @@ function contentWriteAction(title, content, gNo, step, indent, path){
 			check = false;
 		},
 		complete : function(){
-			text.html('등록중');
+			$('.board_wrtiebtn').html('등록중');
 			completeAlert(check,'게시판 글 등록','작성하신 게시글이 등록 중 입니다.',path);
 		}
 	});
@@ -1586,7 +1624,7 @@ function timerAlert(title,content,path){
 	Swal({
 	  title: title,
 	  html: content,
-	  timer: 1000,
+	  timer: 1500,
 	  onBeforeOpen: () => {
 	    Swal.showLoading()
 	    timerInterval = setInterval(() => {
@@ -1605,4 +1643,20 @@ function timerAlert(title,content,path){
 		  movePath(path);
 	  }
 	})
+}
+
+//접속 회원 목록 버튼 클릭시
+function groupLeaderBtn() {
+	$('.roomheader_message').on('click', function(){
+		var nick = $(this).parent('.roomheader_leader').children('span').html();
+		var data = $(this).attr('id');
+		setTimeout(function(){
+			if ( data == 'messageBtn' ) {
+				findUser(nick);
+			} else if ( data == 'friendBtn' ) {
+				viewMessage(nick);
+				checkFriendStatus(nick);
+			}
+		}, 500);
+	});
 }

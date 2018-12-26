@@ -468,6 +468,7 @@ ul {
     margin-right: 10px;
     margin-top: 8px;
     width: 24px;
+    cursor: pointer;
 }
 
 .study_divide , .study_subject{
@@ -951,3 +952,134 @@ ul {
     margin-right: 17px;
 }
 
+
+
+/* 
+ * 스터디룸 게시글 뷰 
+ */
+
+ .content_room{
+    width: 100%;
+    height: auto;
+    padding-top: 20px;
+}
+
+.room_header{
+    width: 119.5%;
+    height: 250px;
+    margin-left: -10%;
+    background-color: white;
+}
+
+.roomheader_left{
+    width: 50%;
+    height: 100%;
+    text-align: right;
+    padding: 25px 50px 0 0;
+}
+
+.roomheader_right{
+    width: 50%;
+    height: 100%;
+    padding: 25px 0 0 50px;
+}
+
+.roomheader_left, .roomheader_right {
+    float: left;
+}
+
+.roomheader_left img{
+    width: 300px;
+    height: 200px;
+    border-radius: 10px;
+}
+
+.roomheader_title h2{
+    font-weight: bold;
+}
+
+.roomheader_img img{
+    width: 70px;
+    height: 70px;
+}
+
+.roomheader_leader span:nth-of-type(1){
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: darkcyan;
+}
+
+.roomheader_leader img{
+	width: 30px;
+	height : 30px;	
+	margin-left: 15px;
+	margin-top: 3px;
+	cursor: pointer;
+}
+
+.roomheader_button button {
+    /* font-weight: bold; */
+}
+
+.room_body{
+    height: auto;
+}
+
+.roombody_info{
+    background-color: white;
+    width: 100%;
+    height: 400px;
+    border-radius: 30px;
+}
+
+.roombody_map{
+    margin-left: 6px;
+    width: 341px;
+    height: 180px;
+}
+
+.roombody_period{
+    position: absolute;
+    top: 250px;
+    left: 10%;
+    width: 80%;
+}
+
+.roombody_text{
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.room_footer{
+    height: auto;
+}
+
+.roomfooter_list{
+    height: 200px;
+    padding: 15px;
+    float: left;
+}
+
+.roomfooter_info{
+    height: 100%;
+    width: 100%;
+    border-radius: 15px;
+    background-color: white;
+    text-align: center;
+}
+
+.roomfooter_info img{
+    width: 60%;
+    height: auto;
+    margin: 15% 0 5% 0;
+}
+
+.roomfooter_info p{
+    margin: 0;
+    font-weight: bold;
+}
+
+.roomfooter_info span{
+    color: darkcyan;
+    font-weight: bold;
+}

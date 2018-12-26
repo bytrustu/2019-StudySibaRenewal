@@ -119,4 +119,31 @@
 		limit #{startRow},#{pageSize}
 	</select>
 	
+	<select id="view" resultType="com.studysiba.domain.study.StudyVO">
+		select studyboard.*, member.nick, member.proFile from studyboard
+		left join member
+		on studyboard.id = member.id
+		where studyboard.no = #{no}
+	</select>
+	
+	<select id="getUserList" resultType="com.studysiba.domain.study.StudyGroup">
+		select groupmember.*, member.nick, member.proFile from groupmember
+		left join member
+		on groupmember.id = member.id
+		where groupmember.gNo = #{gNo} AND groupmember.id != #{id}
+		order by groupmember.gDate asc
+	</select>
+	
+	<select id="isGroup" resultType="int">
+		select count(*) from groupmember
+		where id=#{id} AND gNo = #{gNo}
+	</select>
+	
+	<select id="groupCount" resultType="int">
+		select count(*) from groupmember
+		where gNo = #{gNo}
+	</select>
+	
+	
+	
 </mapper>

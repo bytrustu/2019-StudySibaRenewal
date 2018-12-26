@@ -1,6 +1,8 @@
 package com.studysiba.domain.study;
 
-public class StudyGroup {
+import com.studysiba.domain.member.MemberVO;
+
+public class StudyGroup extends MemberVO {
 
 	private long no;
 	private long gNo;
