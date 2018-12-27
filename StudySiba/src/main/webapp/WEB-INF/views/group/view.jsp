@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<script src="/js/groupmessage.js"></script>
+
 <div class="content_subject">
     <div class="content_subjectleft">
         <img src="/images/sub/search.png">
@@ -13,6 +15,12 @@
     <div class="form-row mb-sm-4 group_title">
         <img src="/images/sub/siba-default.png">
         <span>${view.gName }</span>
+        <c:if test="${view.id eq sessionScope.userSession.id }">
+        	<button class="btn btn-danger group_deleteBtn">그룹삭제</button>
+        </c:if>
+        <c:if test="${view.id ne sessionScope.userSession.id }">
+        	<button class="btn btn-danger group_outBtn">그룹탈퇴</button>
+        </c:if>
     </div>
 
     <div class="form-row">
@@ -91,29 +99,30 @@
                     <span>그룹대화함</span>
                 </div>
                 <div class="messenger_body">
-                    <div class="messenger_message">
-                        <img class="rounded-circle" src="/images/profile/kakao/kakao-5.png">
-
-                        <div class="messeger_messagewarp">
-                            <div class="messenger_messagetop">
-                                <div>
-                                    복실복실
+                    <c:forEach items="${message }" var="message">
+                        <div class="messenger_message">
+                            <img class="rounded-circle" src="/images/profile/kakao/${message.proFile }">
+                            <div class="messeger_messagewarp">
+                                <div class="messenger_messagetop">
+                                    <div>
+                                        ${message.nick }
+                                    </div>
+                                    <div>
+                                        ${message.gDate }
+                                    </div>
                                 </div>
-                                <div>
-                                    2018-10-24 12:32
+                                <div class="clear-fix"></div>
+                                <div class="messenger_messagebottom">
+                                    ${message.content }
                                 </div>
-                            </div>
-                            <div class="clear-fix"></div>
-                            <div class="messenger_messagebottom">
-                                ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
                             </div>
                         </div>
-                    </div>
+                    </c:forEach>
 
                 </div>
                 <div class="form-row messenger_footer">
-                    <input type="text" maxlength="25">
-                    <button class="btn btn-primary"> 전송</button>
+                    <input type="text" class="groupMessageText" maxlength="25">
+                    <button class="btn btn-primary groupMessageBtn" data="open">전송</button>
                 </div>
             </div>
         </div>

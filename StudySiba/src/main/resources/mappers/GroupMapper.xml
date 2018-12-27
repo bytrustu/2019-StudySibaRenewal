@@ -35,4 +35,40 @@
 		where groupmember.id=#{id} AND groupmember.gNo = #{gNo}
 	</select>
 	
+	<select id="getGroupMessageList" resultType="com.studysiba.domain.group.GroupMessageVO">
+		select groupmessage.no, groupmessage.gNo, groupmessage.id, groupmessage.content, date_format(groupmessage.gDate, '%Y-%m%d %H:%i') as gDate,
+		member.nick, member.proFile from groupmessage
+		left join member
+		on groupmessage.id = member.id
+		where groupmessage.gNo = #{gNo}
+		order by groupmessage.gDate ASC
+	</select>
+	
+	<insert id="sendGroupMessage">
+		<selectKey keyProperty="no" order="BEFORE" resultType="long">
+			select coalesce(max(no+1),1) as no from groupmessage
+		</selectKey>
+		insert into groupmessage(no, gNo, id, content, gDate)
+		values ( #{no}, #{gNo}, #{id}, #{content}, now() )
+	</insert>
+	
+	<select id="viewGroupMessage" resultType="com.studysiba.domain.group.GroupMessageVO">
+		select groupmessage.no, groupmessage.gNo, groupmessage.id, groupmessage.content, date_format(groupmessage.gDate, '%Y-%m%d %H:%i') as gDate,
+		member.nick, member.proFile from groupmessage
+		left join member
+		on groupmessage.id = member.id
+		where gNo = #{gNo}
+		order by gDate ASC
+	</select>
+	
+	<delete id="secession">
+		delete from groupmember
+		where id=#{id} AND gNo=#{gNo}
+	</delete>
+	
+	<delete id="delete">
+		delete from studyboard
+		where id=#{id} AND no=#{gNo}
+	</delete>
+	
 </mapper>

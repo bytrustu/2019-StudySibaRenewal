@@ -321,7 +321,7 @@
                         <label>내용</label> <input type="text" name="comment" class="form-control" maxlength="15">
                     </div>
                     <div class="form-group">
-                        <label>첨부파일</label> <input type="file" name="file" id="friend_text" class="form-control messenger_input" maxlength="15" data="friend">
+                        <label>첨부파일</label> <input type="file" name="file" id="groupUploadFile" class="form-control messenger_input" maxlength="15" data="friend">
                     </div>
                     <div class="modal-footer">
                     	<input type="hidden" name="gNo" id="modal_gNo">

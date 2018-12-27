@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.studysiba.dao.group.GroupDAO;
 import com.studysiba.dao.upload.UploadDAO;
 import com.studysiba.domain.common.PageDTO;
+import com.studysiba.domain.group.GroupMessageVO;
 import com.studysiba.domain.group.GroupVO;
 import com.studysiba.domain.upload.UploadVO;
 
@@ -59,12 +60,35 @@ public class GroupServiceImpl implements GroupService {
 		int startRow = (page.getPageNum()-1)*page.getPageSize()+1;
 		page.setStartRow(startRow-1);
 		List<UploadVO> list = uploadDAO.getUploadList(page);
-		for(int i=0; i<list.size(); i++) {
-			System.out.println(list.get(i).toString());
-		}
 		return list;
 	}
 
+	@Override
+	public List<GroupMessageVO> getGroupMessageList(long gNo) {
+		return groupDAO.getGroupMessageList(gNo);
+	}
+
+	@Override
+	public String sendGroupMessage(GroupMessageVO groupMessageVO) {
+		return Integer.toString(groupDAO.sendGroupMessage(groupMessageVO));
+	}
+
+	@Override
+	public List<GroupMessageVO> viewGroupMessage(long gNo) {
+		return groupDAO.viewGroupMessage(gNo);
+	}
+
+	@Override
+	public String secession(GroupVO groupVO) {
+		return Integer.toString(groupDAO.secession(groupVO));
+	}
+
+	@Override
+	public String delete(GroupVO groupVO) {
+		return Integer.toString(groupDAO.delete(groupVO));
+	}
+
+	
 	
 	
 	

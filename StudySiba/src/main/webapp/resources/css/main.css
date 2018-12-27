@@ -13,9 +13,10 @@
     padding-right: 0px !important;
 }
 
-.modal-nooverflow{
-	overflow-y: auto !important;
+.modal-nooverflow {
+    overflow-y: auto !important;
 }
+
 /*
 **      최상단 흰여백
 */
@@ -58,8 +59,9 @@
     color: #9a9da0;
 }
 
-.menu-icon:hover, .menu-title:hover span:nth-of-type(1){
-	color: white;
+.menu-icon:hover,
+.menu-title:hover span:nth-of-type(1) {
+    color: white;
 }
 
 .menu-dropicon {
@@ -458,11 +460,12 @@ ul.navbar-nav > li.nav-item {
     cursor: pointer;
 }
 
-.content_modalsocialwarp{
-	margin-bottom: 3%;
+.content_modalsocialwarp {
+    margin-bottom: 3%;
 }
+
 .content_modalsocial {
-	margin: 0;
+    margin: 0;
 }
 
 .content_marginfix {
@@ -665,8 +668,8 @@ ul.navbar-nav > li.nav-item {
 }
 
 .footer-icons:nth-of-type(1) {
-	margin-right: 35%;
-	margin-top: 10.5%;
+    margin-right: 35%;
+    margin-top: 10.5%;
 }
 
 
@@ -674,8 +677,8 @@ ul.navbar-nav > li.nav-item {
 **    모달창 : 회원 로그인
 */
 
-.modal-margin{
-	margin-left: 40%;
+.modal-margin {
+    margin-left: 40%;
 }
 
 .loginmodal_warp {
@@ -719,14 +722,14 @@ ul.navbar-nav > li.nav-item {
 }
 
 .loginmodal_loginbtn:hover {
-	color: #fff;
+    color: #fff;
     background-color: #213c6f;
     border-color: #213c6f;
 }
 
 
 .loginmodal_resize {
-	width: 80%;
+    width: 80%;
 }
 
 
@@ -734,7 +737,7 @@ ul.navbar-nav > li.nav-item {
 **    소셜로그인
 */
 
-.social_warp{
+.social_warp {
     position: absolute;
     background-image: url("/images/main/social-back.jpg");
     background-size: cover;
@@ -742,7 +745,7 @@ ul.navbar-nav > li.nav-item {
     height: 100%;
 }
 
-.sociallogin_warp{
+.sociallogin_warp {
     margin: 8% 37%;
     width: 26%;
     border: 1px solid black;
@@ -802,8 +805,8 @@ ul.navbar-nav > li.nav-item {
     font-size: 1rem;
 }
 
-.joinmodal_joinpass-fix{
-	margin-left: -18%;
+.joinmodal_joinpass-fix {
+    margin-left: -18%;
 }
 
 .joinmodal_joinbtn {
@@ -841,24 +844,28 @@ ul.navbar-nav > li.nav-item {
 /*
 **    모달창 : 정보 수정
 */
-.modifymodal_resize{
+.modifymodal_resize {
     width: 80%;
 }
-.modifymodal_retop{
-	top: -9%;
-	left: 2.5%;
+
+.modifymodal_retop {
+    top: -9%;
+    left: 2.5%;
 }
-.modifymodal_title{
+
+.modifymodal_title {
     font-weight: bold;
 }
-.modifymodal_nick{
+
+.modifymodal_nick {
     text-align: center;
     width: 60%;
     padding: 1.5% 3%;
     border-radius: 10px;
     border: 1px solid #b7b7b7;
 }
-.modifymodal_modifybtn{
+
+.modifymodal_modifybtn {
     width: 60%;
     padding: 1%;
     font-weight: bold;
@@ -866,21 +873,23 @@ ul.navbar-nav > li.nav-item {
     margin-top: 3%;
     background-color: #3c578e;
 }
+
 .modifymodal_modifybtn:hover {
-	color: #fff;
+    color: #fff;
     background-color: #213c6f;
     border-color: #213c6f;
 }
 
-.modal_menu:hover{
-	background-color: #fecc84;
+.modal_menu:hover {
+    background-color: #fecc84;
 }
 
-.passmodal_locate{
-	top: 12rem;
+.passmodal_locate {
+    top: 12rem;
     left: 5.5rem;
 }
 
-.content_user, .content_rankimage{
-	border-radius: 5px;
+.content_user,
+.content_rankimage {
+    border-radius: 5px;
 }

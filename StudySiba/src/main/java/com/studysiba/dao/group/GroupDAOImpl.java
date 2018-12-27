@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.studysiba.domain.common.PageDTO;
+import com.studysiba.domain.group.GroupMessageVO;
 import com.studysiba.domain.group.GroupVO;
 import com.studysiba.domain.upload.UploadVO;
 
@@ -31,6 +32,31 @@ public class GroupDAOImpl implements GroupDAO {
 	@Override
 	public GroupVO view(GroupVO groupVO) {
 		return sqlSession.selectOne(namespace+".view",groupVO);
+	}
+
+	@Override
+	public List<GroupMessageVO> getGroupMessageList(long gNo) {
+		return sqlSession.selectList(namespace+".getGroupMessageList",gNo);
+	}
+
+	@Override
+	public int sendGroupMessage(GroupMessageVO groupMessageVO) {
+		return sqlSession.insert(namespace+".sendGroupMessage",groupMessageVO);
+	}
+
+	@Override
+	public List<GroupMessageVO> viewGroupMessage(long gNo) {
+		return sqlSession.selectList(namespace+".viewGroupMessage",gNo);
+	}
+
+	@Override
+	public int secession(GroupVO groupVO) {
+		return sqlSession.delete(namespace+".secession",groupVO);
+	}
+
+	@Override
+	public int delete(GroupVO groupVO) {
+		return sqlSession.delete(namespace+".delete",groupVO);
 	}
 
 	

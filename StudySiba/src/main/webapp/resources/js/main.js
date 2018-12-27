@@ -51,6 +51,8 @@ $(document).ready(function () {
     groupJoinBtnFunc();
     // 스터디그룹 목록 클릭시
     moveGroupView();
+    // 스터디그룹 탈퇴
+    groupOutBtn();
 });
 
 
@@ -156,8 +158,8 @@ function modalShow() {
             setTimeout(function () {
                 $c('#currPassword').focus();
             }, 500);
-        } else if ( value == '"uploadModal"' ) {
-        	
+        } else if (value == '"uploadModal"') {
+
         }
     });
 }
@@ -747,6 +749,7 @@ function viewMessage(nick) {
     });
 }
 
+
 // 메신져 유저 리스트 조회
 function getMessengerUserList() {
     $.ajax({
@@ -1083,7 +1086,6 @@ function changPasswrod(currPass, changePass) {
         },
         dataType: 'json',
         success: function (response) {
-            console.log(response);
             if (response == 'success') {
                 type = true;
             }
@@ -1153,7 +1155,7 @@ function addConnect() {
         dataType: 'json',
         success: function (response) {
             if (response == 'true') {
-                console.log('접속 시간 갱신');
+                //console.log('접속 시간 갱신');
             }
         },
         error: function () {
@@ -1268,13 +1270,14 @@ function boardBtn() {
             } else {
                 $('#studyForm').submit();
             }
-        } else if ( value == 'refreshStudy' ) {
-        	var no = $(this).parent('.study_restats').attr('data');
-        	refreshStudy(no);
-        } else if ( value == 'groupUpload' ) {
-        	var gNo = $('#group_gNo').val();
-        	$('#modal_gNo').val(gNo);
-        	$('#groupUpload').submit();
+        } else if (value == 'refreshStudy') {
+            var no = $(this).parent('.study_restats').attr('data');
+            refreshStudy(no);
+        } else if (value == 'groupUpload') {
+            var gNo = $('#group_gNo').val();
+            var fileName = $('#groupUploadFile').val();
+            $('#modal_gNo').val(gNo);
+            $('#groupUpload').submit();
         }
     });
 }
@@ -1457,7 +1460,6 @@ function getLike(no) {
         },
         dataType: 'json',
         success: function (response) {
-            console.log(response);
             if (response >= 0) {
                 count = response;
                 check = true;
@@ -1551,7 +1553,6 @@ function viewMessengerBtn() {
     $('.view_messenger').on('click', function () {
         var data = $(this).attr('id');
         var nick = $('#view_nick').html();
-        console.log(data + " : " + nick);
         setTimeout(function () {
             if (data == 'messageBtn') {
                 findUser(nick);
@@ -1583,7 +1584,6 @@ function groupJoinBtnFunc() {
                 dataType: 'json',
                 success: function (response) {
                     if (response > 0) {
-                        console.log(response);
                         check = true;
                     }
                 },
@@ -1604,58 +1604,54 @@ function groupJoinBtnFunc() {
 
 
 // 스터디 재등록
-function refreshStudy(no){
-	Swal({
-		  title: '재등록',
-		  text: "해당 스터디룸을 재등록 하시겠습니까 ?",
-		  type: 'warning',
-		  showCancelButton: true,
-		  confirmButtonColor: '#3085d6',
-		  cancelButtonColor: '#d33',
-		  confirmButtonText: '네',
-		  cancelButtonText: '아니요'
-			  
-		}).then((result) => {
-		  if (result.value) {
-			  var check = false;
-			  $.ajax({
-				 type : 'POST',
-				 url : '/study/refreshStudy',
-				 data : {
-					 no : no
-				 },
-				 dataType : 'json',
-				 success : function(response){
-					 if ( response = 1 ) {
-						 check = true;
-					 }
-				 },
-				 error : function(){
-					 check = false;
-				 },
-				 complete : function(){
-					 if ( check == true ) {
-						 timerAlert('재등록','해당 스터디룸을 재등록 중입니다', '/study/list');
-					 } else {
-						 errorAlert('관리자에게 문의 바랍니다.');
-					 }
-				 }
-			  })
-		  }
-	})
+function refreshStudy(no) {
+    Swal({
+        title: '재등록',
+        text: "해당 스터디룸을 재등록 하시겠습니까 ?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '네',
+        cancelButtonText: '아니요'
+
+    }).then((result) => {
+        if (result.value) {
+            var check = false;
+            $.ajax({
+                type: 'POST',
+                url: '/study/refreshStudy',
+                data: {
+                    no: no
+                },
+                dataType: 'json',
+                success: function (response) {
+                    if (response = 1) {
+                        check = true;
+                    }
+                },
+                error: function () {
+                    check = false;
+                },
+                complete: function () {
+                    if (check == true) {
+                        timerAlert('재등록', '해당 스터디룸을 재등록 중입니다', '/study/list');
+                    } else {
+                        errorAlert('관리자에게 문의 바랍니다.');
+                    }
+                }
+            })
+        }
+    })
 }
 
-
-function moveGroupView(){
-	$('.contentgroup_list').on('click',function(){
-		gNo = $(this).attr('data');
-		movePath('/group/view?gNo='+gNo);
-	});
+// 스터디그룹 리스트 클릭시 페이지 이동
+function moveGroupView() {
+    $('.contentgroup_list').on('click', function () {
+        gNo = $(this).attr('data');
+        movePath('/group/view?gNo=' + gNo);
+    });
 }
-
-
-
-
 
 
 //스터디룸 상단 아이콘 클릭시
@@ -1682,6 +1678,99 @@ function groupJoinerBtn() {
             findUser(nick);
         }, 500);
     });
+}
+
+// 그룹 탈퇴 버튼 클릭시
+function groupOutBtn(){
+	var gNo = $('#group_gNo').val();
+	var type='';
+	var text='';
+	$('.group_outBtn').on('click',function(){
+		type='out';
+		text='탈퇴';
+		groupAlert(type,text);
+	});
+	$('.group_deleteBtn').on('click',function(){
+		type='delete';
+		text='삭제';
+		groupAlert(type,text);
+	});
+	function groupAlert(type,text){
+		Swal({
+	        title: '그룹'+text,
+	        text: "해당 스터디를 "+ text +" 하시겠습니까 ?",
+	        type: 'warning',
+	        showCancelButton: true,
+	        confirmButtonColor: '#3085d6',
+	        cancelButtonColor: '#d33',
+	        confirmButtonText: '네',
+	        cancelButtonText: '아니요'
+
+	    }).then((result) => {
+	        if (result.value) {
+	        	if ( type == 'out' ) {
+	        		groupOutFunc(gNo);
+	        	} else if ( type == 'delete' ) {
+	        		groupDeleteFunc(gNo);
+	        	}
+	        }
+	    })
+	}
+}
+
+
+function groupOutFunc(gNo){
+	var check = false;
+    $.ajax({
+        type: 'POST',
+        url: '/group/secession',
+        data: {
+            gNo: gNo
+        },
+        dataType: 'json',
+        success: function (response) {
+            if (response = 1) {
+                check = true;
+            }
+        },
+        error: function () {
+            check = false;
+        },
+        complete: function () {
+            if (check == true) {
+                timerAlert('그룹탈퇴', '해당 스터디를 탈퇴 중입니다', '/group/list');
+            } else {
+                errorAlert('관리자에게 문의 바랍니다.');
+            }
+        }
+    })
+}
+
+function groupDeleteFunc(gNo){
+	var check = false;
+    $.ajax({
+        type: 'POST',
+        url: '/group/delete',
+        data: {
+            gNo: gNo
+        },
+        dataType: 'json',
+        success: function (response) {
+            if (response = 1) {
+                check = true;
+            }
+        },
+        error: function () {
+            check = false;
+        },
+        complete: function () {
+            if (check == true) {
+                timerAlert('그룹삭제', '해당 스터디를 삭제 중입니다', '/group/list');
+            } else {
+                errorAlert('관리자에게 문의 바랍니다.');
+            }
+        }
+    })
 }
 
 

@@ -1,5 +1,5 @@
 html {
-	background-color: #e7ebed;
+    background-color: #e7ebed;
 }
 
 /* 상단 메뉴 수정 */
@@ -19,8 +19,8 @@ html {
 
 /* 바디 영역 레이아웃 */
 
-.layout-body{
-	height: 843px;
+.layout-body {
+    height: 843px;
 }
 
 .content {
@@ -425,41 +425,41 @@ ul {
     margin: 20% 7% 0 7%;
 }
 
-.study_listwarp:nth-of-type(1){
+.study_listwarp:nth-of-type(1) {
     margin-top: 0;
 }
 
-.study_list{
+.study_list {
     border: 1px solid #ccc;
     border-radius: 10px 10px 0 0;
     height: 25%;
     margin-top: 4%;
 }
 
-.study_list:nth-of-type(1){
+.study_list:nth-of-type(1) {
     margin-top: 0;
 }
 
-.study_header{
+.study_header {
     border-bottom: 1px solid #ccc;
     height: 42px;
     background-color: #dee2e6;
     border-radius: 10px 10px 0 0;
 }
 
-.study_divide{
+.study_divide {
     width: 25%;
     height: 100%;
     text-align: center;
 }
 
-.study_subject{
+.study_subject {
     width: 50%;
     height: 100%;
     text-align: left;
 }
 
-.study_restats{
+.study_restats {
     height: 100%;
 }
 
@@ -471,157 +471,181 @@ ul {
     cursor: pointer;
 }
 
-.study_divide , .study_subject{
-	float: left;
+.study_divide,
+.study_subject {
+    float: left;
 }
 
-.study_divide span{
+.study_divide span {
     display: block;
     margin-top: 10px;
     font-weight: bold;
 }
 
-.study_subject{
+.study_subject {
     text-align: left;
 }
 
-.study_subject span{
+.study_subject span {
     display: inline-block;
     margin-top: 10px;
     font-weight: bold;
 }
-.study_subject span:nth-of-type(2){
+
+.study_subject span:nth-of-type(2) {
     font-size: 0.8rem;
     color: darkcyan;
 }
 
-.study_body{
+.study_body {
     background-color: white;
     height: 124px;
-    
+
 }
 
-.study_bodyleft{
+.study_bodyleft {
     width: 25%;
     height: 60%;
 }
 
-.study_bodycenter{
+.study_bodycenter {
     width: 75%;
     height: 60%;
 }
 
-.study_bodyright{
+.study_bodyright {
     width: 100%;
     height: 40%;
 }
 
-.study_bodyleft , .study_bodycenter, .study_bodyright{
+.study_bodyleft,
+.study_bodycenter,
+.study_bodyright {
     float: left;
 }
-.study_bodyleft div, .study_bodycenter div, .study_bodyright div{
+
+.study_bodyleft div,
+.study_bodycenter div,
+.study_bodyright div {
     margin: 10px 0 0 20px;
 }
-.study_bodyleft div:nth-of-type(1), .study_bodycenter div:nth-of-type(1), .study_bodyright div:nth-of-type(1){
+
+.study_bodyleft div:nth-of-type(1),
+.study_bodycenter div:nth-of-type(1),
+.study_bodyright div:nth-of-type(1) {
     margin-top: 17px;
 }
 
-.study_bodyleft img, .study_bodycenter img, .study_bodyright img{
+.study_bodyleft img,
+.study_bodycenter img,
+.study_bodyright img {
     width: 25px;
     height: 25px;
     margin-right: 10px;
 }
-.study_bodyleft div span:nth-of-type(1), .study_bodycenter div span:nth-of-type(1), .study_bodyright div span:nth-of-type(1){
+
+.study_bodyleft div span:nth-of-type(1),
+.study_bodycenter div span:nth-of-type(1),
+.study_bodyright div span:nth-of-type(1) {
     font-weight: bold;
     font-size: 0.9rem;
 }
 
-.study_bodyleft div span:nth-of-type(2), .study_bodyleft div span:nth-of-type(4) ,.study_bodycenter div span:nth-of-type(2), .study_bodycenter div span:nth-of-type(4) ,.study_bodyright div span:nth-of-type(2), .study_bodyright div span:nth-of-type(4) {
+.study_bodyleft div span:nth-of-type(2),
+.study_bodyleft div span:nth-of-type(4),
+.study_bodycenter div span:nth-of-type(2),
+.study_bodycenter div span:nth-of-type(4),
+.study_bodyright div span:nth-of-type(2),
+.study_bodyright div span:nth-of-type(4) {
     font-size: 0.7rem;
     font-weight: bold;
 }
 
-.study_bodyleft div span:nth-of-type(3), .study_bodycenter div span:nth-of-type(3) , .study_bodyright div span:nth-of-type(3){
+.study_bodyleft div span:nth-of-type(3),
+.study_bodycenter div span:nth-of-type(3),
+.study_bodyright div span:nth-of-type(3) {
     font-weight: bold;
     color: red;
 }
 
 
-.study_bodyright div:nth-of-type(2) img{
+.study_bodyright div:nth-of-type(2) img {
     width: 23px;
     height: 23px;
     margin-top: 3px;
     margin-right: 2px;
 }
 
-.study_pagenation{
+.study_pagenation {
     margin-top: 3.5%;
 }
 
-.study_joiner{
+.study_joiner {
     margin-top: 15px;
     padding-top: 5px;
     padding-left: 20px;
     border-top: 1px solid #ccc;
 }
 
-.study_joiner img{
+.study_joiner img {
     width: 25px;
     height: 25px;
     margin-right: 5px;
 }
 
-.study_bodyright div:nth-of-type(1){
+.study_bodyright div:nth-of-type(1) {
     margin-top: 15px;
     float: left;
     width: 82%;
 }
 
-.study_bodyright div:nth-of-type(2){
+.study_bodyright div:nth-of-type(2) {
     float: left;
     margin-top: 16px;
 }
 
-.study_bodyright div:nth-of-type(2) a{
+.study_bodyright div:nth-of-type(2) a {
     font-weight: bold;
     color: #0069d9;
     cursor: pointer;
 }
 
-.study_bodyright div:nth-of-type(2) a:hover{
-    color: #0069d9;    
+.study_bodyright div:nth-of-type(2) a:hover {
+    color: #0069d9;
 }
 
-.board_wrtiewarp{
+.board_wrtiewarp {
     padding: 3% 5% 3% 10%;
 }
 
-.board_writesubject{
+.board_writesubject {
     margin-bottom: 3%;
 }
 
-.board_writesubtop span{
+.board_writesubtop span {
     font-weight: bold;
     margin-right: 3%;
 }
 
-.board_writesubtop input{
+.board_writesubtop input {
     width: 85%;
     padding-left: 1%;
 }
 
-.board_writesubbottom span{
+.board_writesubbottom span {
     margin-left: 60px;
     font-size: 0.9rem;
     color: #6c757d;
 }
 
-#board_wrtiebtn, #board_wrtiecancel, #board_modifybtn{
+#board_wrtiebtn,
+#board_wrtiecancel,
+#board_modifybtn {
     float: right;
     margin-top: 20px;
 }
 
-#board_wrtiecancel{
+#board_wrtiecancel {
     margin-right: 70px;
     margin-left: 5px;
 }
@@ -631,62 +655,59 @@ ul {
  *         글 보기 뷰
 */
 
-.content_warp{
+.content_warp {
     height: auto;
     padding: 1% 5% 3% 5%;
 }
 
-.content_view{
+.content_view {
     border: 1px solid #e6e6e6;
     border-radius: 10px;
 }
 
-.view_header{
+.view_header {
     height: 80px;
     background-color: #e2e9ed;
-    border-radius : 10px 10px 0 0;
+    border-radius: 10px 10px 0 0;
     border-bottom: 1px solid #ccc;
     padding: 15px 30px 0 30px;
 }
 
-.view_subject{
-    
-}
+.view_subject {}
 
-.view_subject span{
+.view_subject span {
     font-weight: bold;
     color: #495057;
 }
 
-.view_contentinfo{
-}
+.view_contentinfo {}
 
 
-.view_infoleft{
+.view_infoleft {
     float: left;
 }
 
-.view_infoleft span{
+.view_infoleft span {
     font-size: 0.9rem;
     color: #117a8b;
 }
 
-.view_inforight{
+.view_inforight {
     float: right;
 }
 
-.view_inforight span{
+.view_inforight span {
     font-size: 0.9rem;
     color: #6d6b6b;
 }
 
-.view_body{
+.view_body {
     min-height: 100px;
     padding: 15px 30px 0 30px;
     border-bottom: 1px dotted #ccc;
 }
 
-.view_like{
+.view_like {
     margin-top: 30px;
     padding: 15px;
     border: 1px solid #bfbfbf;
@@ -699,114 +720,120 @@ ul {
     background-color: #eee;
 }
 
-.view_like:hover, .view_like:hover span{
+.view_like:hover,
+.view_like:hover span {
     background-color: rgba(199, 75, 53, 1);
     color: white;
     cursor: pointer;
 }
 
-.view_like img{
+.view_like img {
     width: 20px;
     height: 20px;
 }
 
-.view_like span{
+.view_like span {
     font-weight: bold;
     color: #5d5b5b;
 }
 
-.view_footer{
+.view_footer {
     min-height: 100px;
     padding: 20px 30px 0 30px;
     border-bottom: 1px solid #ccc;
 }
 
-.view_info>img{
+.view_info > img {
     width: 60px;
     border-radius: 20px;
 }
 
-.view_info{
+.view_info {
     float: left;
 }
-.view_contact{
+
+.view_contact {
     float: right;
 }
 
-.view_info>span:nth-of-type(1){
+.view_info > span:nth-of-type(1) {
     margin-left: 20px;
     font-weight: bold;
     color: #117a8b;
 }
-.view_info>span:nth-of-type(2){
+
+.view_info > span:nth-of-type(2) {
     margin-left: 5px;
 }
 
-.view_message, .view_friend{
+.view_message,
+.view_friend {
     float: left;
     margin: 20px 30px 0 0;
     cursor: pointer;
 }
 
-.view_message img, .view_friend img {
+.view_message img,
+.view_friend img {
     width: 30px;
 }
 
-.view_message span, .view_friend span {
+.view_message span,
+.view_friend span {
     vertical-align: middle;
     font-weight: bold;
     color: #656565;
 }
 
-.view_button{
+.view_button {
     padding: 20px 20px 20px 20px;
     text-align: right;
     margin-bottom: 20px;
 }
 
-.view_comment{
+.view_comment {
     padding: 0px 20px 20px 20px;
 }
 
-.comment_subject{
-	padding: 0 0 10px 10px;
+.comment_subject {
+    padding: 0 0 10px 10px;
 }
 
-.comment_subject span:nth-of-type(1){
+.comment_subject span:nth-of-type(1) {
     font-weight: bold;
     font-size: 1.4rem;
     color: #117a8b;
 }
 
-.comment_subject span:nth-of-type(2){
+.comment_subject span:nth-of-type(2) {
     font-size: 0.9rem;
 }
 
-.comment_inputwarp{
+.comment_inputwarp {
     padding: 10px;
     background-color: #e8e8e8;
 }
 
-.comment_inputwarp input{
+.comment_inputwarp input {
     padding: 10px 20px 10px 20px;
     width: 89%;
     border-radius: 10px;
     border: 1px solid #ccc;
 }
 
-.comment_inputwarp button{
+.comment_inputwarp button {
     height: 48px;
     width: 80px;
     font-weight: bold;
     margin-left: 5px;
 }
 
-.comment_list{
+.comment_list {
     margin-top: 30px;
-     padding: 10px 20px 10px 20px;
+    padding: 10px 20px 10px 20px;
 }
 
-.comment_content{
+.comment_content {
     height: auto;
     border-top: 1px solid #ccc;
     padding: 15px 15px 15px 15px;
@@ -819,37 +846,39 @@ ul {
     margin-right: 20px;
 }
 
-.comment_content img, .comment_info, .comment_button {
+.comment_content img,
+.comment_info,
+.comment_button {
     display: inline-block;
     vertical-align: middle;
 }
 
-.comment_info p:nth-of-type(1){
+.comment_info p:nth-of-type(1) {
     margin: 0;
     font-size: 1.1rem;
 }
 
-.comment_info p:nth-of-type(1) span:nth-of-type(1){
+.comment_info p:nth-of-type(1) span:nth-of-type(1) {
     font-weight: bold;
     color: #117a8b;
     font-size: 0.9rem;
 }
 
-.comment_info p:nth-of-type(1) span:nth-of-type(2){
+.comment_info p:nth-of-type(1) span:nth-of-type(2) {
     font-size: 0.9rem;
 }
 
-.comment_info p:nth-of-type(1) span:nth-of-type(3){
+.comment_info p:nth-of-type(1) span:nth-of-type(3) {
     font-size: 0.9rem;
 }
 
-.comment_info p:nth-of-type(2){
+.comment_info p:nth-of-type(2) {
     margin: 0;
     font-size: 0.8rem;
     color: #656565;
 }
 
-.comment_button{
+.comment_button {
     float: right;
     padding: 5px 15px 5 15px;
     border-radius: 8px;
@@ -857,78 +886,79 @@ ul {
     margin-top: 5px;
 }
 
-.comment_preId{
-	color: #dc3545;
+.comment_preId {
+    color: #dc3545;
     margin: 0 1px 0 1px;
     font-size: 0.9rem;
     font-weight: bold;
 }
 
-.study_modallayout{
+.study_modallayout {
     width: 1000px;
     height: auto;
     left: -210px;
     top: 50px;
 }
 
-.study_modalimg{
-	margin: 2px 20px 0 10px;
+.study_modalimg {
+    margin: 2px 20px 0 10px;
 }
 
-.study_modaltitle{
+.study_modaltitle {
     font-weight: bold;
 }
 
-.study_modalbody{
+.study_modalbody {
     height: 710px;
     padding: 30px;
 }
 
-.study_bodytop{
+.study_bodytop {
     width: 100%;
     height: 380px;
 }
 
-.study_bodybottom{
+.study_bodybottom {
     width: 100%;
     height: 270px;
 }
 
-.bodytop_inputs{
+.bodytop_inputs {
     width: 50%;
     height: 100%;
 }
 
-.bodytop_locate{
+.bodytop_locate {
     width: 50%;
     height: 100%;
     padding: 0 0 0 30px;
 }
 
-.bodytop_inputs, .bodytop_locate{
+.bodytop_inputs,
+.bodytop_locate {
     float: left;
 }
 
-#map{
+#map {
     width: 100%;
     height: 75%;
 }
 
-#pac-input{
+#pac-input {
     width: 192px;
     margin-top: 11px;
 }
 
-.pac-container{
+.pac-container {
     z-index: 9999;
 }
 
-.inputs_image{
+.inputs_image {
     height: 110px;
     text-align: right;
 }
 
-.inputs_file{
+.inputs_file {
     border: 1px solid #ced4da;
     width: 468px;
     height: 80px;
@@ -936,7 +966,7 @@ ul {
     padding: 10px;
 }
 
-.inputs_image img{
+.inputs_image img {
     width: 150px;
     height: 68px;
     border-radius: 10px;
@@ -944,11 +974,11 @@ ul {
     margin-left: -45px;
 }
 
-.inputs_title{
+.inputs_title {
     width: 940px;
 }
 
-.study_registerbtn{
+.study_registerbtn {
     margin-right: 17px;
 }
 
@@ -958,109 +988,110 @@ ul {
  * 스터디룸 게시글 뷰 
  */
 
- .content_room{
+.content_room {
     width: 100%;
     height: auto;
     padding-top: 20px;
 }
 
-.room_header{
+.room_header {
     width: 119.5%;
     height: 250px;
     margin-left: -10%;
     background-color: white;
 }
 
-.roomheader_left{
+.roomheader_left {
     width: 50%;
     height: 100%;
     text-align: right;
     padding: 25px 50px 0 0;
 }
 
-.roomheader_right{
+.roomheader_right {
     width: 50%;
     height: 100%;
     padding: 25px 0 0 50px;
 }
 
-.roomheader_left, .roomheader_right {
+.roomheader_left,
+.roomheader_right {
     float: left;
 }
 
-.roomheader_left img{
+.roomheader_left img {
     width: 300px;
     height: 200px;
     border-radius: 10px;
 }
 
-.roomheader_title h2{
+.roomheader_title h2 {
     font-weight: bold;
 }
 
-.roomheader_img img{
+.roomheader_img img {
     width: 70px;
     height: 70px;
 }
 
-.roomheader_leader span:nth-of-type(1){
+.roomheader_leader span:nth-of-type(1) {
     font-weight: bold;
     font-size: 1.5rem;
     color: darkcyan;
 }
 
-.roomheader_leader img{
-	width: 30px;
-	height : 30px;	
-	margin-left: 15px;
-	margin-top: 3px;
-	cursor: pointer;
+.roomheader_leader img {
+    width: 30px;
+    height: 30px;
+    margin-left: 15px;
+    margin-top: 3px;
+    cursor: pointer;
 }
 
 .roomheader_button button {
     /* font-weight: bold; */
 }
 
-.room_body{
+.room_body {
     height: auto;
 }
 
-.roombody_info{
+.roombody_info {
     background-color: white;
     width: 100%;
     height: 400px;
     border-radius: 30px;
 }
 
-.roombody_map{
+.roombody_map {
     margin-left: 6px;
     width: 341px;
     height: 180px;
 }
 
-.roombody_period{
+.roombody_period {
     position: absolute;
     top: 250px;
     left: 10%;
     width: 80%;
 }
 
-.roombody_text{
+.roombody_text {
     font-weight: bold;
     font-size: 0.9rem;
 }
 
-.room_footer{
+.room_footer {
     height: auto;
 }
 
-.roomfooter_list{
+.roomfooter_list {
     height: 200px;
     padding: 15px;
     float: left;
 }
 
-.roomfooter_info{
+.roomfooter_info {
     height: 100%;
     width: 100%;
     border-radius: 15px;
@@ -1069,19 +1100,19 @@ ul {
     cursor: pointer;
 }
 
-.roomfooter_info img{
+.roomfooter_info img {
     width: 60%;
     height: auto;
     margin: 15% 0 5% 0;
 }
 
-.roomfooter_info p{
+.roomfooter_info p {
     margin: 0;
     font-weight: bold;
     font-size: 0.9rem;
 }
 
-.roomfooter_info span{
+.roomfooter_info span {
     color: darkcyan;
     font-weight: bold;
 }
@@ -1093,11 +1124,11 @@ ul {
  *   그룹 리스트 뷰
 */
 
-.content_group{
+.content_group {
     padding: 15px 70px 20px 70px;
 }
 
-.contentgroup_list{
+.contentgroup_list {
     border: 1px solid #ccc;
     height: 100px;
     border-radius: 15px;
@@ -1106,61 +1137,61 @@ ul {
     cursor: pointer;
 }
 
-.contentgroup_groupimg img{
+.contentgroup_groupimg img {
     width: 80%;
     height: 100%;
     margin-left: 20%;
 }
 
-.contentgroup_divide{
+.contentgroup_divide {
     padding: 12px 0 0 0;
     margin-left: 40px;
 }
 
-.contentgroup_divide div{
-	margin-bottom: 10px;
+.contentgroup_divide div {
+    margin-bottom: 10px;
 }
 
-.contentgroup_divide img{
+.contentgroup_divide img {
     width: 25px;
     height: 25px;
     margin-top: 5px;
 }
 
-.contentgroup_divide span{
+.contentgroup_divide span {
     margin-left: 8px;
     margin-top: 8px;
     font-weight: bold;
     font-size: 0.9rem;
-    
+
 }
 
-.contentgroup_info{
+.contentgroup_info {
     margin-left: 30px;
 }
 
-.contentgroup_info img{
+.contentgroup_info img {
     width: 25px;
     height: 25px;
 }
 
-.contentgroup_info span{
+.contentgroup_info span {
     font-weight: bold;
     font-size: 0.8rem;
     margin-left: 10px;
     margin-top: 6px;
 }
 
-.contentgroup_info div{
+.contentgroup_info div {
     margin-top: 6px;
 }
 
-.contentgroup_joiner{
+.contentgroup_joiner {
     text-align: center;
     padding-top: 35px;
 }
 
-.contentgroup_joiner img{
+.contentgroup_joiner img {
     width: 32px;
     height: 32px;
     margin-right: 10px;
@@ -1179,35 +1210,40 @@ ul {
  *  스터디 그룹 뷰
 */
 
-.group_warp{
+.group_warp {
     margin-top: 30px;
     padding: 0 50px 0 50px;
 }
 
-.group_title img{
+.group_title{
+	position: relative;
+}
+
+.group_title img {
     width: 60px;
     height: 60px;
 }
 
-.group_title span{
+.group_title span {
     color: darkcyan;
     font-weight: bold;
     font-size: 1.5rem;
     margin: 13px 0 0 20px;
 }
 
-.group_ltwarp, .group_lbwarp {
+.group_ltwarp,
+.group_lbwarp {
     border: 1px solid #ccc;
     height: 250px;
     border-radius: 20px;
     background-color: white;
 }
 
-.group_rtwarp{
+.group_rtwarp {
     height: 520px;
 }
 
-.group_messenger{
+.group_messenger {
     width: 90%;
     height: 100%;
     float: right;
@@ -1216,7 +1252,7 @@ ul {
     background-color: white;
 }
 
-.messenger_top{
+.messenger_top {
     border-bottom: 1px solid #ccc;
     height: 60px;
     width: 100%;
@@ -1226,26 +1262,26 @@ ul {
     border-radius: 20px 20px 0 0;
 }
 
-.messenger_top img{
+.messenger_top img {
     width: 32px;
     height: 32px;
 }
 
-.messenger_top span{
+.messenger_top span {
     font-weight: bold;
     font-size: 1.2rem;
     margin-left: 20px;
     color: white;
 }
 
-.messenger_body{
+.messenger_body {
     margin-left: 0.5px;
     width: 100%;
     height: 389px;
     overflow-y: scroll;
 }
 
-.messenger_footer{
+.messenger_footer {
     margin-left: 0.5px;
     width: 100%;
     height: 70px;
@@ -1269,7 +1305,7 @@ ul {
     margin: 15px 0 0 10px;
 }
 
-.messenger_message{
+.messenger_message {
     height: 50px;
     width: 95%;
     margin: 10px 0 0 20px;
@@ -1277,50 +1313,50 @@ ul {
     border-bottom: 1px solid #ccc;
 }
 
-.messenger_message img{
+.messenger_message img {
     width: 50px;
     height: 50px;
     float: left;
 }
 
-.messeger_messagewarp{
+.messeger_messagewarp {
     float: left;
 }
 
-.messenger_messagetop{
+.messenger_messagetop {
     width: 330px;
     height: 30px;
 }
 
-.messenger_messagetop div:nth-of-type(1){
+.messenger_messagetop div:nth-of-type(1) {
     float: left;
     margin-left: 15px;
     font-weight: bold;
 }
 
-.messenger_messagetop div:nth-of-type(2){
+.messenger_messagetop div:nth-of-type(2) {
     float: right;
     margin-right: 10px;
     font-weight: bold;
     font-size: 0.9rem;
 }
 
-.messenger_messagebottom{
+.messenger_messagebottom {
     margin-left: 15px;
     font-size: 0.8rem;
 }
 
-.lbwarp_top{
+.lbwarp_top {
     width: 100%;
     height: 50px;
 }
 
-.lbwarp_top button{
+.lbwarp_top button {
     float: right;
     margin: 15px 35px 0 0;
 }
 
-.lbwarp_title{
+.lbwarp_title {
     font-weight: bold;
     padding-bottom: 6px;
     border-bottom: 1px solid black;
@@ -1329,20 +1365,20 @@ ul {
     float: left;
 }
 
-.lbwarp_bottom{
+.lbwarp_bottom {
     height: 180px;
     width: 100%;
     padding: 10px 50px 0 50px;
-    
+
 }
 
-.lbwarp_title span{
+.lbwarp_title span {
     margin-left: 4px;
     font-weight: bold;
     font-size: 1.2rem;
 }
 
-.lbwarp_list{
+.lbwarp_list {
     border: 1px solid #ccc;
     width: 100%;
     height: 35px;
@@ -1350,50 +1386,69 @@ ul {
     margin-bottom: 10px;
 }
 
-.ltwarp_map{
+.ltwarp_map {
     padding: 20px 15px 15px 15px;
 }
 
-.ltwrp_mapview{
+.ltwrp_mapview {
     height: 210px;
     width: 210px;
     margin-left: 20px;
 }
 
-.ltwarp_info{
+.ltwarp_info {
     border: 1px solid red;
     padding-top: 20px 0 0 0;
 }
 
-.ltwarp_address{
+.ltwarp_address {
     margin: 20px 0 0 10px;
 }
 
-.ltwarp_address span{
+.ltwarp_address span {
     font-weight: bold;
     margin: 3px 0 0 10px;
 }
 
-.ltwarp_address img{
+.ltwarp_address img {
     width: 32px;
     height: 32px;
 }
 
-.ltwarp_address p{
+.ltwarp_address p {
     font-weight: bold;
     font-size: 0.8rem;
 }
 
-.lbwarp_list div{
+.lbwarp_list div {
     font-weight: bold;
     font-size: 0.7rem;
     margin-top: 10px;
 }
 
-.lbwarp_list div:nth-of-type(1){
+.lbwarp_list div:nth-of-type(1) {
     text-align: center;
 }
 
-.group_page{
-	margin-top: -1%;
+.group_page {
+    margin-top: -1%;
+}
+
+.groupMessageText {
+    padding-left: 20px;
+}
+
+.messenger_input {
+    height: 50px;
+}
+
+.group_outBtn, .group_deleteBtn{
+	height: 40px;
+	position: absolute;
+	right: 0;
+	top: 10px;
+}
+
+#uploadModal{
+	top: 220px;
 }
