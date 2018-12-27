@@ -78,12 +78,15 @@
 	</insert>
 	
 	<select id="getCommentList" resultType="com.studysiba.domain.board.CommentVO">
-		select comment.no, comment.fNo, comment.type, comment.id, comment.preId, comment.content, comment.gNo, comment.step, 
+		select comment.no, comment.fNo, comment.type, comment.id, premember.nick as preId, comment.content, comment.gNo, comment.step, 
 		comment.indent, comment.available, DATE_FORMAT(comment.cDate,'%Y.%m.%d %H:%i') as cDate, member.nick, member.proFile  from 
 		( select * from comment where fNo = #{no} order by gNo ASC, step ASC ) comment
 		left join 
 		( select id, nick, proFile from member ) member
 		on comment.id = member.id
+		left join
+		( select id, nick from member ) premember
+		on comment.preId = premember.id
 		order by comment.gNo ASC, comment.step ASC
 	</select> 
 	
@@ -163,6 +166,16 @@
 		</choose>
 		
 		order by gNo desc, step asc limit #{startRow},#{pageSize}
+	</select>
+	
+	<select id="getBoardCountById" resultType="int">
+		select count(*) from board 
+		where type='freeboard' AND id=#{id}
+	</select>
+
+	<select id="getCommentCountById" resultType="int">
+		select count(*) from comment 
+		where type='freeboard' AND id=#{id}
 	</select>
 
 </mapper>

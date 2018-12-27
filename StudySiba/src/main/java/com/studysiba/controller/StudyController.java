@@ -67,7 +67,7 @@ public class StudyController {
 			uploadVO.setuFile(file.getOriginalFilename());
 		}
 		
-		String uploadPath = "C:/upload/study/";
+		String uploadPath = "/home/hosting_users/bytrustu/tomcat/webapps/uploads/study/";
 		File destdir = new File(uploadPath); 
 	    if(!destdir.exists()){
 	         destdir.mkdirs();

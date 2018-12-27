@@ -58,7 +58,7 @@
             </div>
             <div class="view_footer">
                 <div class="view_info">
-                    <img src="/images/profile/kakao/${view.proFile }">
+                    <img src="/local_upload/profile/${view.proFile }">
                     <span id="view_nick">${view.nick }</span>
                     <span>[ ${view.id } ]</span>
                 </div>
@@ -103,7 +103,7 @@
                                 <img src='<c:url value="/images/sub/level.png"/>' style="width: ${wid}px; margin-right:0;">
                                 <img src='<c:url value="/images/sub/comment.png"/>' style="width: 23px; height: 23px;">
                             </c:if>
-                            <img src="/images/profile/kakao/${comment.proFile }">
+                            <img src="/local_upload/profile/${comment.proFile }">
                             <div class="comment_info">
                                 <p>
                                     <span>[${comment.nick }]</span>

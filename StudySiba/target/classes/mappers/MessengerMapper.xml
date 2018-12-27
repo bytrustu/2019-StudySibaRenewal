@@ -31,7 +31,7 @@
 		on message.id = my.id
 		join member other
 		on message.toId = other.id
-		order by message.mDate ASC
+		order by message.no ASC
   	</select>
   	
   	<select id="getMessengerUserList" resultType="com.studysiba.domain.messenger.UserListVO">
@@ -40,7 +40,7 @@
   		coalesce(unread.unread,0) as unRead from 
 		( select * from message where id=#{id} OR toId=#{id} group by roomId ) message
 		left join 
-		( select roomId,count(*) as unread from message where toId=#{id} group by roomId ) unread
+		( select roomId,count(*) as unread from message where toId=#{id} AND mRead=0 group by roomId ) unread
 		on message.roomId = unread.roomId
 		left join
 		member myInfo
@@ -80,5 +80,14 @@
   	<update id="acceptFriend">
   		update friend set request=1 where id = #{id} AND fId = #{fId} 
   	</update>
+  	
+  	<update id="setReadMessage">
+		update message set mRead=1 where id=#{toId} and toId=#{id}  	
+  	</update>
+  	
+  	<select id="messageCounter" resultType="int">
+  		select count(*) from message 
+  		where toId=#{id} AND mRead=0
+  	</select>
   	
   </mapper>

@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.studysiba.common.MakeJSON;
 import com.studysiba.domain.messenger.MessageVO;
 import com.studysiba.service.member.MemberService;
 import com.studysiba.service.messenger.MessengerService;
@@ -121,6 +123,21 @@ public class MessengerController {
 		String id = ((HashMap<String, String>) session.getAttribute("userSession")).get("id");
 		String result = messengerService.acceptFriend(no, id, nick);
 		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="messageCounter", method = RequestMethod.POST)
+	public String messageCounter(HttpSession session) {
+		String result = null;
+		if ( session.getAttribute("userSession") == null ) {
+			result = "noconnect";
+		} else {
+			String id = ((HashMap<String, String>) session.getAttribute("userSession")).get("id");
+			result = messengerService.messageCounter(id);
+		}
+		JSONArray json = new JSONArray();
+		json = MakeJSON.change(result);
+		return json.toString();
 	}
 	
 	

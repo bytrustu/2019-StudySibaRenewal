@@ -123,6 +123,16 @@ public class BoardDAOImpl implements BoardDAO {
 		return sqlSession.selectList(namespace+".getSearchList", page);
 	}
 
+	@Override
+	public int getBoardCountById(String id) {
+		return sqlSession.selectOne(namespace+".getBoardCountById",id);
+	}
+
+	@Override
+	public int getCommentCountById(String id) {
+		return sqlSession.selectOne(namespace+".getCommentCountById",id);
+	}
+
 	
 
 }

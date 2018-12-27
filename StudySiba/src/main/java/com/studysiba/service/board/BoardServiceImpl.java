@@ -165,6 +165,16 @@ public class BoardServiceImpl implements BoardService {
 		
 		return list;
 	}
+
+	@Override
+	public int getBoardCountById(String id) {
+		return boardDAO.getBoardCountById(id);
+	}
+
+	@Override
+	public int getCommentCountById(String id) {
+		return boardDAO.getCommentCountById(id);
+	}
 	
 	
 	

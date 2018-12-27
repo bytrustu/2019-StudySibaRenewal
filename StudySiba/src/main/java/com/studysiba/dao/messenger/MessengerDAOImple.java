@@ -77,4 +77,16 @@ public class MessengerDAOImple implements MessengerDAO {
 		return Integer.toString(sqlSession.update(namespace + ".acceptFriend", friendVO));
 	}
 
+	@Override
+	public void setReadMessage(MessageVO messageVO) {
+		sqlSession.update(namespace+".setReadMessage",messageVO);
+	}
+
+	@Override
+	public int messageCounter(String id) {
+		return sqlSession.selectOne(namespace+".messageCounter", id);
+	}
+	
+	
+
 }

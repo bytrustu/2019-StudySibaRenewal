@@ -67,6 +67,15 @@
         </script>
         <c:remove var="error" scope="session" />
     </c:if>
+    
+    <!-- 접속현황 -->
+    <c:if test="${sessionScope.userSession ne null }">
+    	<script>
+    		$(document).ready(function(){
+    			statusConnect();
+    		});
+    	</script>
+    </c:if>
 
 
 </head>
@@ -120,8 +129,6 @@
                         <i class="fa fa-cog fa-spin fa-fw menu-icon"></i>
                     </a>
                     <div class="dropdown-menu menu-dropmenu">
-                        <a class="dropdown-item modal_open modal_menu" data="loginModal" href="#">로그인</a>
-                        <a class="dropdown-item modal_open modal_menu" data="joinModal" href="#">회원가입</a>
                         <a class="dropdown-item modal_open modal_menu" data="modifyModal" href="#">정보수정</a>
                         <a class="dropdown-item modal_open modal_menu" data="passModal" href="#">비밀번호변경</a>
                         <a class="dropdown-item modal_open modal_menu" data="logoutModal" href="<c:url value='/member/logout'/>">로그아웃</a>

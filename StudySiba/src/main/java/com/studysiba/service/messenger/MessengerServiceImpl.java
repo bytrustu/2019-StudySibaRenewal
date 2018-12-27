@@ -29,7 +29,6 @@ public class MessengerServiceImpl implements MessengerService {
 		MemberVO memberVO = new MemberVO();
 		memberVO.setId(id);
 		memberVO = memberDAO.getUserInfomation(memberVO);
-		System.out.println("sessionNick : " + memberVO.getNick() + " , nick : " + nick);
 		if (nick == null || nick.equals("")) {
 			result = "error";
 		} else {
@@ -88,6 +87,7 @@ public class MessengerServiceImpl implements MessengerService {
 		messageVO.setToId(toId);
 		List<MessageVO> list = new ArrayList<MessageVO>();
 		list = messengerDAO.getMessage(messageVO);
+		messengerDAO.setReadMessage(messageVO);
 		String myNick = memberDAO.getUserNick(id);
 		JSONObject result = new JSONObject();
 		JSONArray array = new JSONArray();
@@ -216,4 +216,11 @@ public class MessengerServiceImpl implements MessengerService {
 		}
 		return acceptResult;
 	}
+
+	@Override
+	public String messageCounter(String id) {
+		return Integer.toString(messengerDAO.messageCounter(id));
+	}
+	
+	
 }

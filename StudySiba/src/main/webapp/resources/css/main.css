@@ -87,6 +87,23 @@ ul.navbar-nav > li.nav-item {
     background-color: #fecc84;
 }
 
+.message_counter{
+	width: 30px;
+	height: 25px;
+	border-radius: 5px;
+	background-color: red;
+	z-index: 9999;
+	position: absolute;
+	top: 33px;
+	left: 622px;
+	color: white;
+	text-align: center;
+	font-weight: bold;
+	font-size: 1.1rem;
+	vertical-align: middle;
+	visibility: hidden;
+}
+
 
 /*
 **      중앙 배경 및 그림부분
@@ -506,8 +523,6 @@ ul.navbar-nav > li.nav-item {
 
 .content_meettitle {
     height: 38%;
-    background-image: url("/images/main/test3.jpg");
-    background-size: cover;
 }
 
 .content_date {

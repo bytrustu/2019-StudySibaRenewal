@@ -33,7 +33,7 @@
                     <div class="content_list">
                         <div class="content_userimg">
                             <div class="content_layoutimg">
-                                <img src="/images/profile/kakao/${list.proFile }">
+                                <img src="/local_upload/profile/${list.proFile }">
                             </div>
                         </div>
                         <div class="content_boardview">

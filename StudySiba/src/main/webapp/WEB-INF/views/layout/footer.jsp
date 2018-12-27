@@ -9,8 +9,8 @@
         <div class="modal-content modifymodal_resize">
             <div class="modal-body loginmodal_body">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <img class="rounded-circle loginmodal_image" id="profileImage" src="/images/main/siba_login.gif">
-                <p class="modifymodal_title">사진을 원안으로 넣어 주세요</p>
+                <img class="rounded-circle loginmodal_image" id="profileImage" src="/local_upload/profile/${sessionScope.userSession.proFile }">
+                <p class="modifymodal_title">변경할 사진을 원안으로 넣어 주세요</p>
                 <form method="POST" id="nickForm" action="<c:url value='/member/changeNick'/>">
                     <input type="hidden" name="id" value="${sessionScope.userSession.id }">
                     <input type="hidden" name="type" value="nick">

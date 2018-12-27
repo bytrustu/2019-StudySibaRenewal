@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import com.studysiba.domain.member.MemberVO;
 import com.studysiba.domain.member.SubInfoVO;
+import com.studysiba.domain.messenger.MessageVO;
 import com.studysiba.service.member.MemberServiceImpl;
 
 @Repository
@@ -117,5 +118,6 @@ public class MemberDaoImpl implements MemberDAO {
 	public SubInfoVO getSubInfo(String id) {
 		return sqlSession.selectOne(namespace + ".getSubInfo", id);
 	}
+
 
 }

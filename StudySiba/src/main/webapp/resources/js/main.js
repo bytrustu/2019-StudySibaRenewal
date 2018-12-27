@@ -53,7 +53,21 @@ $(document).ready(function () {
     moveGroupView();
     // 스터디그룹 탈퇴
     groupOutBtn();
+    // 메인페이지 좋아요 게시글 클릭시
+    mainLikeFunc();
+    // 메인페이지 스터디 게시글 클릭시
+    mainStudyFunc();
+    // 메신저 모달 종료시
+    messengerModalClose();
+    // 메세지 카운터
+    messageCounterFunc();
 });
+
+var messageRepeat;
+var memberListRepeat;
+var connectRepeat;
+var messageCounterRepeat;
+
 
 
 
@@ -143,6 +157,7 @@ function modalShow() {
         } else if (value == 'messageModal') {
             messengerOpen();
             getMessengerUserList();
+            memberListRepeat = setInterval( "getMessengerUserList()", 3000 );
         } else if (value == 'searchModal') {
             $('#search_text').val('');
             setTimeout(function () {
@@ -162,6 +177,14 @@ function modalShow() {
 
         }
     });
+}
+
+function messengerModalClose(){
+	$('#messageModal').on('hide.bs.modal', function(e){
+		clearInterval(messageRepeat);
+		clearInterval(memberListRepeat);
+		e.stopImmediatePropagation();
+	});
 }
 
 // 모달종료시 액션
@@ -472,6 +495,7 @@ function validationCheck(type, value) {
 // 닉네임변경
 function nickCheck() {
     $('.modifymodal_modifybtn').on('click', function () {
+    	var check = false;
         var nick = $('.modifymodal_nick').val();
         $.ajax({
             type: 'POST',
@@ -482,11 +506,20 @@ function nickCheck() {
             success: function (response) {
                 if (response == 'false') {
                     $('#nickForm').submit();
+                    check = true;
                 } else if (response == 'true') {
                     Swal('사용불가', '이미 사용중인 닉네임 입니다.', 'error');
                 } else if (response == 'emptyValue') {
                     Swal('사용불가', '닉네임을 입력 해 주세요.', 'error');
                 }
+            },
+            error : function(){
+            	Swal('오류', '관리자에게 문의 해 주세요.', 'error');
+            },
+            complete : function(){
+            	if ( check == true ){
+            		$('#logininfo_nick').text(nick);
+            	}
             }
         });
     });
@@ -542,11 +575,34 @@ function uploadFile(file, type) {
         contentType: false,
         success: function (response) {
             $("#profileImage").attr('src', '/local_upload/' + type + '/' + response);
+            $(".logininfo_image, .rightmenu_img").attr('src', '/local_upload/' + type + '/' + response);
             Swal('정보변경', '프로필 사진이 변경 되었습니다.', 'success');
         }
     });
 }
 
+// 메인페이지 좋아요 게시글 클릭시
+function mainLikeFunc(){
+	$('.content_rank').on('click', function(){
+		var data = $(this).attr('data');
+		var path = '/board/view?no='+data;
+		movePath(path);
+	});
+}
+
+// 메인페이지 스터디 게시글 클릭시
+function mainStudyFunc(){
+	$('.main_studylist').on('click', function(){
+		var data = $(this).attr('data');
+		var path = '/study/view?no='+data;
+		movePath(path);
+	});
+	
+	$('.main_moveStudy').on('click', function(){
+		var path = 'study/list';
+		movePath(path);
+	});
+}
 
 
 // 메신저 모달 호출 시
@@ -573,7 +629,7 @@ function messengerBtn() {
     $('.messenger_btn').on('click', function () {
         var data = $(this).attr('data');
         if (data == 'message') {
-            var nick = $c('#message_title_text').attr('data');
+            var nick = $('#message_title_text').attr('data');
             var content = $c('#message_input').val();
             var type = data;
             sendMessage(nick, type, content);
@@ -642,6 +698,9 @@ function findUser(value) {
                 Swal('검색 성공', value + '님과 대화를 시작 합니다.', 'success');
                 $('#searchModal').modal('hide');
                 successSearch(value);
+                clearInterval(messageRepeat);
+                viewMessage(value);
+                messageRepeat = setInterval(function(){viewMessage(value);},3000);
             } else if (response == 'false') {
                 Swal('검색 실패', '존재하지 않는 닉네임 입니다.', 'error');
                 return;
@@ -669,7 +728,8 @@ function successSearch(value) {
                 '<img class="rounded-circle message_userimage" src="/local_upload/profile/' + response + '">' +
                 '<span id="message_title_text" data="' + value + '">' + value + '</span>'
             );
-            viewMessage(value);
+            clearInterval(messageRepeat);
+            messageRepeat = setInterval(function(){viewMessage(value);},3000);
         }
     });
 }
@@ -775,7 +835,10 @@ function getMessengerUserList() {
 function userClick() {
     $('.message_listimage').on('click', function () {
         var nick = $(this).parent('.message_profile').children('.message_nickname').find('span').html();
+        getMessengerUserList();
+        clearInterval(messageRepeat);
         viewMessage(nick);
+        messageRepeat = setInterval(function(){viewMessage(nick);},3000);
         successSearch(nick);
     });
 }
@@ -934,6 +997,7 @@ function deleteMessage(nick) {
             Swal('삭제오류', '관리자에게 문의 해 주세요.', 'error');
         },
         complete: function () {
+        	clearInterval(messageRepeat);
             getMessengerUserList();
             messengerOpen();
         }
@@ -1130,9 +1194,11 @@ function connecticonBtn() {
         var nick = $(this).parent('.content_connect').children('span').html();
         setTimeout(function () {
             if (data == 'messageBtn') {
+            	clearInterval(messageRepeat);
                 findUser(nick);
             } else if (data == 'friendBtn') {
-                viewMessage(nick);
+            	clearInterval(messageRepeat);
+            	messageRepeat = setInterval(function(){viewMessage(nick);},3000);
                 checkFriendStatus(nick);
             }
         }, 500);
@@ -1142,7 +1208,7 @@ function connecticonBtn() {
 // 접속 기록 55초마다 갱신
 function statusConnect() {
     addConnect();
-    setInterval(function () {
+    connectRepeat = setInterval(function () {
         addConnect();
     }, 55000);
 }
@@ -1557,7 +1623,8 @@ function viewMessengerBtn() {
             if (data == 'messageBtn') {
                 findUser(nick);
             } else if (data == 'friendBtn') {
-                viewMessage(nick);
+            	clearInterval(messageRepeat);
+            	messageRepeat = setInterval(function(){viewMessage(nick);},3000);
                 checkFriendStatus(nick);
             }
         }, 500);
@@ -1663,7 +1730,8 @@ function groupLeaderBtn() {
             if (data == 'messageBtn') {
                 findUser(nick);
             } else if (data == 'friendBtn') {
-                viewMessage(nick);
+            	clearInterval(messageRepeat);
+            	messageRepeat = setInterval(function(){viewMessage(nick);},3000);
                 checkFriendStatus(nick);
             }
         }, 500);
@@ -1771,6 +1839,34 @@ function groupDeleteFunc(gNo){
             }
         }
     })
+}
+
+function messageCounter(){
+	$.ajax({
+		type : 'POST',
+		url : '/messenger/messageCounter',
+		dataType: 'json',
+		success : function(response){
+			if ( response == 0 ) {
+				$('.message_counter').css('visibility', 'hidden');
+			} else if ( response > 0 ) {
+				$('.message_counter').css('visibility', 'visible');
+				$('.message_counter').html(response);
+			} else if ( response == 'noconnect' ) {
+				clearInterval(messageCounterRepeat);
+			}
+		},
+		error : function(){
+			
+		},
+		complete : function(){
+			
+		}
+	});
+}
+
+function messageCounterFunc(){
+	messageCounterRepeat = setInterval( "messageCounter()", 3000 );
 }
 
 

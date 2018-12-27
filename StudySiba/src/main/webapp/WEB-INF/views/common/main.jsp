@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html>
 
 <head>
@@ -19,6 +20,7 @@
     <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
     <script src="/js/sociallogin.js"></script>
     <script src="/js/main.js"></script>
+    <script src="/js/notice.js"></script>
 
     <!--	소셜 세션	-->
     <c:if test="${sessionScope.socialInfo ne null }">
@@ -67,6 +69,22 @@
         <c:remove var="error" scope="session" />
         </script>
     </c:if>
+    
+    <!-- 접속현황 -->
+    <c:if test="${sessionScope.userSession ne null }">
+    	<script>
+    		$(document).ready(function(){
+    			statusConnect();
+    		});
+    	</script>
+    </c:if>
+    <c:if test="${sessionScope.userSession eq null }">
+    	<script>
+    		$(document).ready(function(){
+    			clearInterval(connectRepeat);
+    		});
+    	</script>
+    </c:if>
 
 
 </head>
@@ -100,15 +118,17 @@
                         <i class="fas fa-book menu-icon"></i>
                     </a>
                 </li>
-                <c:if test="${userSession ne null }">
+                
                     <li class="nav-item">
                         <a class="nav-link" href='<c:url value="/group/list"/>'>
                             <i class="fa fa-user-plus menu-icon"></i>
                         </a>
                     </li>
+                    <c:if test="${userSession ne null }">
                     <li class="nav-item">
                         <a class="nav-link" href="#">
                             <i class="fa fa-envelope menu-icon modal_open" data=messageModal></i>
+                            <div class="message_counter"></div>
                         </a>
                     </li>
                 </c:if>
@@ -156,6 +176,7 @@
                         <span class="content_toptext">사이트 현황</span>
                     </div>
                     <div class="content_body">
+                    	<div id="chart_div" style="width: 280px; height: 200px;"></div>
                     </div>
                 </div>
 
@@ -168,29 +189,16 @@
                     </div>
                     <div class="content_body">
 
-                        <div class="content_rank">
-                            <img class="content_ranknum" src="/images/main/rank1.png">
-                            <img class="content_rankimage" src="/local_upload/profile/kakao-1.png">
-                            <img class="content_like" src="/images/main/like.png">
-                            <span class="content_liketext">15</span>
-                            <span class="content_boardtitle">월요일싫어요월요...</span>
-                        </div>
+						<c:forEach items="${like }" var="like" varStatus="i">
+                        	<div class="content_rank" data="${like.no }">
+                            	<img class="content_ranknum" src="/images/main/rank${i.count }.png">
+                            	<img class="content_rankimage" src="/local_upload/profile/${like.proFile }">
+                            	<img class="content_like" src="/images/main/like.png">
+                            	<span class="content_liketext">${like.count }</span>
+                            	<span class="content_boardtitle">${like.title }</span>
+                        	</div>
+                        </c:forEach>
 
-                        <div class="content_rank content_rank2">
-                            <img class="content_ranknum" src="/images/main/rank2.png">
-                            <img class="content_rankimage" src="/local_upload/profile/kakao-2.png">
-                            <img class="content_like" src="/images/main/like.png">
-                            <span class="content_liketext">8</span>
-                            <span class="content_boardtitle">화요일싫어요화요...</span>
-                        </div>
-
-                        <div class="content_rank content_rank3">
-                            <img class="content_ranknum" src="/images/main/rank3.png">
-                            <img class="content_rankimage" src="/local_upload/profile/kakao-3.png">
-                            <img class="content_like" src="/images/main/like.png">
-                            <span class="content_liketext">5</span>
-                            <span class="content_boardtitle">수요일싫어요수요...</span>
-                        </div>
 
                     </div>
                 </div>
@@ -199,44 +207,21 @@
                     <div class="content_titletext">
                         <img class="content_icon" src="/images/main/location.png">
                         <span class="content_toptext">접속중 회원</span>
-                        <span class="content_toptext content_textmiddle">3</span>
+                        <span class="content_toptext content_textmiddle">${fn:length(connect) }</span>
                         <span class="content_toptext">명</span>
                     </div>
                     <div class="content_connectbody">
-                        <div class="content_connect">
-                            <img class="content_user" src="/local_upload/profile/kakao-1.png">
-                            <span>테스트1</span>
-                            <img class="content_connecticon modal_open" id="friendBtn" src="/images/main/friendship.png" data="messageModal">
-                            <img class="content_connecticon modal_open" id="messageBtn" src="/images/main/mail.png" data="messageModal">
-                        </div>
-
-                        <div class="content_connect">
-                            <img class="content_user" src="/local_upload/profile/kakao-2.png">
-                            <span>테스트2</span>
-                            <img class="content_connecticon modal_open" id="friendBtn" src="/images/main/friendship.png" data="messageModal">
-                            <img class="content_connecticon modal_open" id="messageBtn" src="/images/main/mail.png" data="messageModal">
-                        </div>
-
-                        <div class="content_connect">
-                            <img class="content_user" src="/local_upload/profile/kakao-3.png">
-                            <span>테스트3</span>
-                            <img class="content_connecticon modal_open" id="friendBtn" src="/images/main/friendship.png" data="messageModal">
-                            <img class="content_connecticon modal_open" id="messageBtn" src="/images/main/mail.png" data="messageModal">
-                        </div>
-
-                        <div class="content_connect">
-                            <img class="content_user" src="/local_upload/profile/kakao-2.png">
-                            <span>하하호호</span>
-                            <img class="content_connecticon modal_open" id="friendBtn" src="/images/main/friendship.png" data="messageModal">
-                            <img class="content_connecticon modal_open" id="messageBtn" src="/images/main/mail.png" data="messageModal">
-                        </div>
-
-                        <div class="content_connect">
-                            <img class="content_user" src="/local_upload/profile/kakao-3.png">
-                            <span>관리자</span>
-                            <img class="content_connecticon" src="/images/main/friendship.png" data="message">
-                            <img class="content_connecticon" src="/images/main/mail.png" data="friend">
-                        </div>
+                    
+                    	<c:forEach items="${connect }" var="connect">
+                        	<div class="content_connect">
+                            	<img class="content_user" src="/local_upload/profile/${connect.proFile }">
+                            	<span>${connect.nick }</span>
+                            	<c:if test="${sessionScope.userSession ne null }">
+	                            	<img class="content_connecticon modal_open" id="friendBtn" src="/images/main/friendship.png" data="messageModal">
+	                            	<img class="content_connecticon modal_open" id="messageBtn" src="/images/main/mail.png" data="messageModal">
+                            	</c:if>
+                        	</div>
+                        </c:forEach>
 
                     </div>
                 </div>
@@ -272,8 +257,8 @@
                         <div class="content_container">
                             <div class="logininfo_top">
                                 <div class="logininfo_profile">
-                                    <img src="/local_upload/profile/${sessionScope.userSession.proFile }">
-                                    <span>${sessionScope.userSession.nick }</span>
+                                    <img class="logininfo_image" src="/local_upload/profile/${sessionScope.userSession.proFile }">
+                                    <span id="logininfo_nick">${sessionScope.userSession.nick }</span>
                                     <span>님</span>
                                 </div>
                                 <div class="logininfo_connect">
@@ -332,91 +317,38 @@
                     <p>진행중인 스터디</p>
                 </div>
                 <div class="content_allview">
-                    <button class="btn btn-danger">전체보기</button>
+                    <button class="btn btn-danger main_moveStudy">전체보기</button>
                 </div>
-                <div class="content_container content_first content_marginfix">
-                    <div class="content_titletext content_meettitle test1">
-                        <div class="content_date">
-                            <p class="content_month">12월</p>
-                            <p class="content_day">5일</p>
-                        </div>
-                    </div>
-                    <div class="content_meetbody">
-                        <p class="content_meetsubject">씨샾 스터디 개발자 모임</p>
-                        <div class="content_meetinfo">
-                            <img class="rounded-circle" src="/local_upload/profile/kakao-2.png">
-                            <div class="content_groupleader">
-                                <span>그룹장 : </span> <span>복실이</span>
-                            </div>
-                            <div class="content_groupname">
-                                <span>그룹명 : </span> <span>씨샾시바</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
+                <c:forEach items="${study }" var="study" varStatus="i">
+                	
+                		<div class="content_container 
+                			<c:if test="${i.count eq '1' }">
+                				content_first 
+                			</c:if>
+                		content_marginfix main_studylist" data="${study.no }">
+                	
+	                    <div class="content_titletext content_meettitle" style="background-image: url('/local_upload/study/${study.fileName}');background-size: cover;">
+	                        <div class="content_date">
+	                            <p class="content_month">${study.rDate }</p>
+	                            <p class="content_day">${study.sDate }</p>
+	                        </div>
+	                    </div>
+	                    <div class="content_meetbody">
+	                        <p class="content_meetsubject">${study.title }</p>
+	                        <div class="content_meetinfo">
+	                            <img class="rounded-circle" src="/local_upload/profile/${study.proFile }">
+	                            <div class="content_groupleader">
+	                                <span>그룹장 : </span> <span>${study.nick }</span>
+	                            </div>
+	                            <div class="content_groupname">
+	                                <span>그룹명 : </span> <span>${study.gName }</span>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+                </c:forEach>
 
-                <div class="content_container content_marginfix">
-                    <div class="content_titletext content_meettitle test2">
-                        <div class="content_date">
-                            <p class="content_month">12월</p>
-                            <p class="content_day">13일</p>
-                        </div>
-                    </div>
-                    <div class="content_meetbody">
-                        <p class="content_meetsubject">영어 스터디 정기 모임</p>
-                        <div class="content_meetinfo">
-                            <img class="rounded-circle" src="/local_upload/profile/kakao-2.png">
-                            <div class="content_groupleader">
-                                <span>그룹장 : </span> <span>복실이</span>
-                            </div>
-                            <div class="content_groupname">
-                                <span>그룹명 : </span> <span>영어마스터즈</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="content_container content_marginfix">
-                    <div class="content_titletext content_meettitle test3">
-                        <div class="content_date">
-                            <p class="content_month">12월</p>
-                            <p class="content_day">18일</p>
-                        </div>
-                    </div>
-                    <div class="content_meetbody">
-                        <p class="content_meetsubject">오라클 스터디 개발자 모임</p>
-                        <div class="content_meetinfo">
-                            <img class="rounded-circle" src="/local_upload/profile/kakao-2.png">
-                            <div class="content_groupleader">
-                                <span>그룹장 : </span> <span>복실이</span>
-                            </div>
-                            <div class="content_groupname">
-                                <span>그룹명 : </span> <span>오라클시바</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="content_container content_marginfix">
-                    <div class="content_titletext content_meettitle test4">
-                        <div class="content_date">
-                            <p class="content_month">12월</p>
-                            <p class="content_day">24일</p>
-                        </div>
-                    </div>
-                    <div class="content_meetbody">
-                        <p class="content_meetsubject">자바 스터디 개발자 모임</p>
-                        <div class="content_meetinfo">
-                            <img class="rounded-circle" src="/local_upload/profile/kakao-2.png">
-                            <div class="content_groupleader">
-                                <span>그룹장 : </span> <span>복실이</span>
-                            </div>
-                            <div class="content_groupname">
-                                <span>그룹명 : </span> <span>자바시바</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -523,8 +455,8 @@
             <div class="modal-content modifymodal_resize">
                 <div class="modal-body loginmodal_body">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <img class="rounded-circle loginmodal_image" id="profileImage" src="/images/main/siba_login.gif">
-                    <p class="modifymodal_title">사진을 원안으로 넣어 주세요</p>
+                    <img class="rounded-circle loginmodal_image" id="profileImage" src="/local_upload/profile/${sessionScope.userSession.proFile }">
+                    <p class="modifymodal_title">변경할 사진을 원안으로 넣어 주세요</p>
                     <form method="POST" id="nickForm" action="<c:url value='/member/changeNick'/>">
                         <input type="hidden" name="id" value="${sessionScope.userSession.id }">
                         <input type="hidden" name="type" value="nick">
@@ -656,6 +588,55 @@
             </div>
         </div>
     </div>
+    
+    
+    
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawVisualization);
+
+      function drawVisualization() {
+        // Some raw data (not necessarily accurate)
+        /* var data = google.visualization.arrayToDataTable([
+          ['일자', '방문자수', '가입자수'],
+          ['2004/05',  165,      938],
+          ['2005/06',  135,      1120],
+          ['2006/07',  157,      1167],
+          ['2007/08',  139,      1110],
+          ['2008/09',  136,      691]
+        ]); */
+        
+        var data = new google.visualization.DataTable();
+        data.addColumn('date', '날짜'); 
+        data.addColumn('number', '방문자수');
+        data.addColumn('number', '가입자수');
+        data.addRows(7);
+        $.ajax({
+        	type : 'POST',
+        	url : 'getTotalList',
+        	dataType : 'json',
+        	async : false,
+        	success : function(response){
+        		$.each(response.result, function(index,item){
+        			data.setCell(index,0,new Date(item.date));
+        			data.setCell(index,1,item.vCount);
+            		data.setCell(index,2,item.mCount);
+        		});
+        		var options = {
+        		 seriesType: 'bars',
+        		 chartArea:{left:10,top:20,width:"100%",height:"100%"},
+        		 series: {5: {type: 'line'}}
+        		 };
+
+        		 var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+        		 chart.draw(data, options);
+        	}
+        });
+
+        
+      }
+    </script>
 
 </body>
 

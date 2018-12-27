@@ -4,7 +4,7 @@ $(document).ready(function () {
     viewGroupMessage();
     setInterval(function () {
         viewGroupMessage();
-    }, 8000);
+    }, 5000);
 });
 
 // 그룹 메세지 버튼 클릭시
@@ -55,7 +55,7 @@ function viewGroupMessage() {
 function addGroupMessage(proFile, nick, content, gDate) {
     $('.messenger_body').append(
         '<div class="messenger_message">' +
-        '<img class="rounded-circle" src="/images/profile/kakao/' + proFile + '">' +
+        '<img class="rounded-circle" src="/local_upload/profile/' + proFile + '">' +
         '<div class="messeger_messagewarp">' +
         '<div class="messenger_messagetop">' +
         '<div>' + nick + '</div>' +
@@ -71,6 +71,16 @@ function addGroupMessage(proFile, nick, content, gDate) {
 
 //그룹 메세지 전송
 function sendGroupMessage(gNo, content) {
+	if ( content == '' ) {
+		Swal({
+            position: 'top-end',
+            type: 'error',
+            title: '메세지를 입력해 주세요.',
+            showConfirmButton: false,
+            timer: 1500
+        })
+        return false;
+	}
     var check = false;
     $('.groupMessageText').val('');
     $('.groupMessageBtn').html('전송중');

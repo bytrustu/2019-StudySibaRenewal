@@ -31,5 +31,9 @@ public interface MessengerDAO {
 	String refuseFriend(FriendVO friendVO);
 	// 친구 신청 수락
 	String acceptFriend(FriendVO friendVO);
+	// 메세지 읽은 설정
+	void setReadMessage(MessageVO messageVO);
+	// 메세지 카운터
+	int messageCounter(String id);
 
 }

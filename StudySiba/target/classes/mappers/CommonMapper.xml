@@ -4,6 +4,43 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.studysiba.mapper.CommonMapper">
+  	
+  	<select id="getLikeList" resultType="com.studysiba.domain.board.LikeVO">
+  		select board.no, board.title, likes.count, member.proFile  from 
+		( select fNo, count(*) as count from likes 
+		where type='freeboard' 
+		group by fNo 
+		order by count DESC, lDate DESC
+		limit 0,3 ) likes
+		left join ( select * from board where type='freeboard' ) board
+		on likes.fNo = board.no
+		left join member
+		on board.id = member.id
+  	</select>
+  	
+  	<select id="getStudyList" resultType="com.studysiba.domain.study.StudyVO">
+  		select studyboard.no, studyboard.gName, studyboard.title, upload.uuid as fileName, member.nick, member.proFile, 
+  		date_format(studyboard.rDate,'%m월') as rDate, date_format(studyboard.rDate,'%d일') as sDate  from 
+		(select * from studyboard order by rDate DESC limit 0,4) studyboard
+		left join ( select * from upload where type = 'study' ) upload
+		on studyboard.no = upload.uNo
+		left join member
+		on studyboard.id = member.id
+		order by studyboard.rDate ASC
+  	</select>
+  	
+  	<select id="getTotalList" resultType="com.studysiba.domain.common.TotalVO">
+  		select visit.vDate as date, coalesce(visit.count,0) as vCount, coalesce(member.count,0) as mCount from 
+		( select date_format(vDate,'%Y/%m/%d') as vDate, count(*) as count from visit
+		group by date_format(vDate,'%Y/%m/%d')
+		order by vDate desc limit 0,7 ) visit
+		left join 
+		( select date_format(cDate,'%Y/%m/%d') as cDate, count(*) as count from member 
+		group by date_format(cDate,'%Y/%m/%d') ) member
+		on visit.vDate = member.cDate
+		order by vDate ASC
+  	</select>
+  
   
   
   </mapper>

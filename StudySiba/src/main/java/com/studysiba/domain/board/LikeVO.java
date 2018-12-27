@@ -1,6 +1,6 @@
 package com.studysiba.domain.board;
 
-public class LikeVO {
+public class LikeVO extends FreeBoardVO {
 
 	private long no;
 	private long fNo;

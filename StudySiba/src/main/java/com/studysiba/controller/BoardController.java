@@ -100,6 +100,9 @@ public class BoardController {
 		freeboardVO.setAvailable(0);
 		String result = boardService.write(freeboardVO);
 		if ( result.equals("1") ) {
+			HashMap<String, String> userSession = (HashMap<String, String>) session.getAttribute("userSession");
+			int boardCount = boardService.getBoardCountById(id);
+			userSession.put("boardCount", Integer.toString(boardCount));
 			session.setAttribute("message", "게시글이 등록 되었습니다.");
 		}
 		JSONArray json = MakeJSON.change(result);
@@ -137,6 +140,9 @@ public class BoardController {
 		commentVO.setAvailable(0);
 		String result = boardService.writeComment(commentVO);
 		if ( result.equals("1") ) {
+			HashMap<String, String> userSession = (HashMap<String, String>) session.getAttribute("userSession");
+			int commentCount = boardService.getCommentCountById(id);
+			userSession.put("commentCount", Integer.toString(commentCount));
 			session.setAttribute("message", "댓글이 등록 되었습니다.");
 		}
 		JSONArray json = MakeJSON.change(result);
@@ -151,6 +157,9 @@ public class BoardController {
 		commentVO.setAvailable(0);
 		String result = boardService.reWriteComment(commentVO);
 		if ( result.equals("1") ) {
+			HashMap<String, String> userSession = (HashMap<String, String>) session.getAttribute("userSession");
+			int commentCount = boardService.getCommentCountById(id);
+			userSession.put("commentCount", Integer.toString(commentCount));
 			session.setAttribute("message", "댓글이 등록 되었습니다.");
 		}
 		JSONArray json = MakeJSON.change(result);

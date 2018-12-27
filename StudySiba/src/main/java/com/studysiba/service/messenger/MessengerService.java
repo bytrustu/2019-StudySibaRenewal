@@ -24,5 +24,7 @@ public interface MessengerService {
 	String refuseFriend(int no, String id, String nick);
 	// 친구 신청 수락
 	String acceptFriend(int no, String id, String nick);
+	// 메세지 카운터
+	String messageCounter(String id);
 
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.studysiba.domain.member.MemberVO;
 import com.studysiba.domain.member.SubInfoVO;
+import com.studysiba.domain.messenger.MessageVO;
 
 public interface MemberDAO {
 
@@ -44,6 +45,5 @@ public interface MemberDAO {
 	int addConnect(String id);
 	// 서브페이지 정보 뷰
 	SubInfoVO getSubInfo(String id);
-	
 	
 }

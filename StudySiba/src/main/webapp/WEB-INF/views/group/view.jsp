@@ -63,7 +63,7 @@
                                 ${list.content }
                             </div>
                             <div class="form-group col-sm-4">
-                                <a href="">${list.uFile }</a>
+                                <a href="/group/download?fileName=${list.uuid }">${list.uFile }</a>
                             </div>
                         </div>
                     </c:forEach>
@@ -101,7 +101,7 @@
                 <div class="messenger_body">
                     <c:forEach items="${message }" var="message">
                         <div class="messenger_message">
-                            <img class="rounded-circle" src="/images/profile/kakao/${message.proFile }">
+                            <img class="rounded-circle" src="/local_upload/profile/${message.proFile }">
                             <div class="messeger_messagewarp">
                                 <div class="messenger_messagetop">
                                     <div>

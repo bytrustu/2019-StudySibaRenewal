@@ -16,7 +16,7 @@
 		left join member
 		on groupmember.id = member.id
 		left join ( select gNo, count(*) as count from groupmember group by gNo ) groupCount
-		on groupcount.gNo = groupmember.gNo
+		on groupCount.gNo = groupmember.gNo
 		left join (select * from upload where type="study") upload
 		on upload.uNo = groupmember.gNo
 		where groupmember.id=#{id}

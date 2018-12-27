@@ -51,6 +51,10 @@ public interface BoardDAO {
 	int getSearchCount(SearchVO searchVO);
 	// 검색한 게시글 리스트
 	List<FreeBoardVO> getSearchList(PageDTO page);
+	// 아이디로 작성한 게시글 카운트
+	int getBoardCountById(String id);
+	// 아이디로 작성한 댓글 카운트
+	int getCommentCountById(String id);
 	
 
 

@@ -20,7 +20,7 @@
 	<resources mapping="/css/**" location="/resources/css/" />
 	<resources mapping="/js/**" location="/resources/js/" />
 	<resources mapping="/images/**" location="/resources/images/" />
-	<resources mapping="/local_upload/**" location="file:///C:/upload/" />
+	<resources mapping="/local_upload/**" location="http://xn--2z1bu6k7xfpg086d.com/uploads/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
@@ -62,7 +62,10 @@
 
 	<interceptors>
 		<interceptor>
-			<mapping path="/member/test"/>
+			<mapping path="/board/**"/>
+			<mapping path="/study/**"/>
+			<mapping path="/group/**"/>
+			<mapping path="/message/**"/>
 			<beans:bean class="com.studysiba.interceptor.AuthenticationInterceptor" />
 		</interceptor>
 	</interceptors>

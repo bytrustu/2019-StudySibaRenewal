@@ -6,9 +6,12 @@ import java.math.BigInteger;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.studysiba.common.MakeJSON;
+import com.studysiba.domain.board.LikeVO;
+import com.studysiba.domain.common.TotalVO;
+import com.studysiba.domain.member.MemberVO;
+import com.studysiba.domain.study.StudyVO;
 import com.studysiba.service.common.CommonService;
 
 @Controller
@@ -67,7 +74,40 @@ public class CommonController {
 		naver_url += "&state=" + state;
 		session.setAttribute("state", state);
 		model.addAttribute("naver_url", naver_url);
+		
+		// 메인 페이지 정보
+		// 접속자 현황
+		List<MemberVO> connectList = commonService.getConnectList();
+		model.addAttribute("connect",connectList);
+		// 실시간 인기 게시글
+		List<LikeVO> likeList = commonService.getLikeList();
+		model.addAttribute("like", likeList);
+		
+		// 사이트 현황
+		List<TotalVO> totalList = commonService.getTotalList();
+		model.addAttribute("total", totalList);
+		
+		//진행중인 스터디
+		List<StudyVO> studyList = commonService.getStudyList();
+		model.addAttribute("study", studyList);
 		return "/common/main";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "getTotalList", method = RequestMethod.POST)
+	public String totalList() {
+		List<TotalVO> totalList = commonService.getTotalList();
+		JSONObject obj = new JSONObject();
+		JSONArray array = new JSONArray();
+		for ( int i=0; i<totalList.size(); i++ ) {
+			JSONObject value = new JSONObject();
+			value.put("date", totalList.get(i).getDate());
+			value.put("vCount", totalList.get(i).getvCount());
+			value.put("mCount", totalList.get(i).getmCount());
+			array.add(value);
+		}
+		obj.put("result", array);
+		return obj.toString();
 	}
 
 	@RequestMapping(value = "/social", method = RequestMethod.GET)
@@ -87,13 +127,22 @@ public class CommonController {
 	@RequestMapping(value = "/upload", produces = "text/plain;charset=utf-8", method = RequestMethod.POST)
 	public String uploadFile(MultipartFile file, @RequestParam("type") String type, HttpSession session)
 			throws IOException, InterruptedException {
+		HashMap<String, String> userSession = (HashMap<String, String>) session.getAttribute("userSession");
+		String preFileName = userSession.get("proFile");
 		logger.info("name : " + file.getOriginalFilename());
 		logger.info("size : " + file.getSize());
 		logger.info("contentType : " + file.getContentType());
 		logger.info("type : " + type);
 		
+		
 		String id = ((HashMap<String, String>)session.getAttribute("userSession")).get("id");
 		String saveName = commonService.upload(type, id, file);
+		if ( !userSession.get("proFile").substring(0,5).equals("kakao") ) {
+			commonService.delete(preFileName);
+		}
+		
+		userSession.put("proFile", saveName);
+		session.setAttribute("userSession", userSession);
 
 		return saveName;
 	}

@@ -55,7 +55,7 @@
             </div>
             <div class="form-row mt-sm-3">
                 <div class="form-group col-sm-2 roomheader_img">
-                    <img class="rounded-circle" src="/images/profile/kakao/${view.proFile }">
+                    <img class="rounded-circle" src="/local_upload/profile/${view.proFile }">
                 </div>
                 <div class="form-group col-sm-8">
                     <div class="form-row mt-sm-2">
@@ -146,7 +146,7 @@
 
         <div class="col-sm-2 roomfooter_list">
             <div class="roomfooter_info modal_open" data="messageModal">
-                <img class="rounded-circle" src="/images/profile/kakao/${view.proFile }">
+                <img class="rounded-circle" src="/local_upload/profile/${view.proFile }">
                 <p>${view.nick }</p>
                 <span>스터디장</span>
             </div>
@@ -155,7 +155,7 @@
         <c:forEach items="${userList}" var="userList">
             <div class="col-sm-2 roomfooter_list">
                 <div class="roomfooter_info modal_open" data="messageModal">
-                    <img class="rounded-circle" src="/images/profile/kakao/${userList.proFile }">
+                    <img class="rounded-circle" src="/local_upload/profile/${userList.proFile }">
                     <p>${userList.nick }</p>
                     <span>회원</span>
                 </div>

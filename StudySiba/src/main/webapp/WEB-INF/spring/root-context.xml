@@ -45,7 +45,7 @@
 	<bean id="googleOAuth2Parameters"
 		class="org.springframework.social.oauth2.OAuth2Parameters">
 		<property name="scope" value="https://www.googleapis.com/auth/plus.login"></property>
-		<property name="redirectUri" 	value="http://localhost:8282/login/googleSignInCallback" />
+		<property name="redirectUri" 	value="http://xn--2z1bu6k7xfpg086d.com/login/googleSignInCallback" />
 	</bean>
 
 

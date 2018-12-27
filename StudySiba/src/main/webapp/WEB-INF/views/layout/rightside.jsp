@@ -7,7 +7,7 @@
 
         <div class="rightmenu_infowarp">
             <div class="rightmenu_info">
-                <img class="rightmenu_img" src="/images/profile/kakao/${sessionScope.userSession.proFile }">
+                <img class="rightmenu_img" src="/local_upload/profile/${sessionScope.userSession.proFile }">
                 <div class="rightmenu_user">
                     <p>${sessionScope.userSession.nick }</p>
                     <p>${sessionScope.userSession.id }</p>

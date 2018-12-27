@@ -16,8 +16,8 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		try {
-			if (request.getSession().getAttribute("userId") == null) {
-				request.getSession().setAttribute("message", "로그인 정보가 없습니다.");
+			if (request.getSession().getAttribute("userSession") == null) {
+				request.getSession().setAttribute("error", "로그인 정보가 없습니다.");
 				response.sendRedirect(request.getContextPath() + "/");
 				return false;
 			} else {
