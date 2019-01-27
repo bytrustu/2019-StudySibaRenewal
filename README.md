@@ -7,5 +7,5 @@ URL : http://스터디시바.com
 시연영상 : https://youtu.be/jFY85YQWXtI
 
 
-<img src="https://imgur.com/nPvjCL7">
-<img src="https://imgur.com/OpSVRUk">
+<img src="https://i.imgur.com/nPvjCL7.png">
+<img src="https://i.imgur.com/OpSVRUk.png">
